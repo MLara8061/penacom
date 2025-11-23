@@ -1,345 +1,229 @@
-# Proyecto Web con Panel Administrativo
+# 🖥️ Peñacom - Sistema de Gestión y Landing Page
 
-Stack tecnológico: **Laravel + Vue + MySQL**
+Sistema completo de gestión administrativa con landing page moderna para Peñacom, empresa líder en pantallas LED en Cancún, México.
 
-## Arquitectura del Proyecto
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat&logo=laravel&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-3-4FC08D?style=flat&logo=vue.js&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=flat&logo=php&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=white)
 
-### Patrón de Diseño: Repository Pattern + Service Layer
+## 📋 Descripción
 
-**Ventajas:**
-- ✅ Separación de responsabilidades
-- ✅ Código reutilizable y testeable
-- ✅ Fácil mantenimiento
-- ✅ API REST para frontend/backend desacoplados
-- ✅ Optimizado para hosting compartido
+Proyecto full-stack que combina:
+- **Landing Page Moderna**: Diseño mobile-first con identidad corporativa de Peñacom
+- **Panel Administrativo**: Gestión de servicios, horarios y contactos
+- **API RESTful**: Backend robusto con autenticación y patrones de diseño
 
----
+## 🏗️ Arquitectura
 
-## Estructura del Proyecto
+### Backend (Laravel 12)
+- **Patrón de Diseño**: Repository Pattern + Service Layer
+- **Autenticación**: Laravel Sanctum (API Tokens)
+- **Base de Datos**: SQLite (desarrollo) / MySQL (producción)
+- **API**: RESTful con validación de requests
+
+### Frontend (Vue 3)
+- **Composition API** con `<script setup>`
+- **Router**: Vue Router con guards de autenticación
+- **State Management**: Pinia
+- **HTTP Client**: Axios con interceptores
+- **Diseño**: Mobile First, responsive, CSS variables
+
+## 🚀 Características
+
+### Landing Page Pública
+✅ Hero section con gradientes y animaciones  
+✅ Sección "Nosotros" con misión, visión y valores  
+✅ Showcase de productos LED (interior, exterior, videowall, rental)  
+✅ Catálogo de 6 servicios principales  
+✅ Formulario de contacto con validación  
+✅ Footer completo con redes sociales  
+✅ Botón flotante de WhatsApp  
+✅ Diseño 100% responsive (móvil → tablet → desktop)
+
+### Panel Administrativo
+🔐 Login seguro con Sanctum  
+📊 Dashboard con estadísticas  
+🛠️ CRUD de servicios  
+📅 Gestión de horarios  
+📬 Administración de contactos  
+🔄 Actualización en tiempo real
+
+## 📁 Estructura del Proyecto
 
 ```
 peñacom/
-├── backend/           # Laravel API
+├── backend/                          # API Laravel
 │   ├── app/
-│   │   ├── Http/
-│   │   │   ├── Controllers/
-│   │   │   │   ├── API/          # Controladores de API
-│   │   │   │   └── Auth/         # Autenticación
-│   │   │   └── Requests/         # Validaciones
-│   │   ├── Services/             # Lógica de negocio
-│   │   ├── Repositories/         # Acceso a datos
-│   │   │   ├── Contracts/        # Interfaces
-│   │   │   └── Eloquent/         # Implementaciones
-│   │   ├── Models/               # Modelos Eloquent
-│   │   └── Providers/            # Service Providers
-│   ├── database/
-│   │   └── migrations/           # Migraciones
-│   └── routes/
-│       └── api.php               # Rutas API
+│   │   ├── Http/Controllers/         # Controladores API
+│   │   ├── Models/                   # Modelos Eloquent
+│   │   ├── Repositories/             # Repository Pattern
+│   │   │   ├── Contracts/            # Interfaces
+│   │   │   └── Eloquent/             # Implementaciones
+│   │   └── Services/                 # Lógica de negocio
+│   ├── database/migrations/          # Migraciones
+│   └── routes/api.php                # Rutas API
 │
-└── frontend/          # Vue SPA
-    └── src/
-        ├── components/
-        │   ├── admin/            # Componentes del panel admin
-        │   └── public/           # Componentes públicos
-        ├── views/
-        │   ├── admin/            # Vistas del panel
-        │   └── public/           # Vistas públicas
-        ├── router/               # Vue Router
-        ├── services/             # Servicios para API calls
-        └── store/                # State management (opcional)
+└── frontend/                         # SPA Vue 3
+    ├── src/
+    │   ├── assets/styles.css         # Sistema de diseño
+    │   ├── components/
+    │   │   ├── public/               # Componentes landing
+    │   │   │   ├── Header.vue
+    │   │   │   ├── HeroSection.vue
+    │   │   │   ├── AboutSection.vue
+    │   │   │   ├── ProductsSection.vue
+    │   │   │   ├── ServicesSection2.vue
+    │   │   │   ├── ContactSection.vue
+    │   │   │   └── Footer.vue
+    │   │   └── admin/                # Componentes admin
+    │   ├── layouts/                  # Layouts
+    │   ├── router/                   # Vue Router
+    │   ├── services/                 # API services
+    │   └── views/                    # Vistas/páginas
+    └── index.html
 ```
 
----
+## 🛠️ Instalación
 
-## Backend - Laravel
+### Requisitos Previos
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- SQLite (dev) / MySQL 8.0+ (prod)
 
-### 1. Capas de la Arquitectura
+### 1. Clonar el Repositorio
+```bash
+git clone https://github.com/MLara8061/penacom.git
+cd penacom
+```
 
-#### **Controllers (Controladores)**
-- Reciben requests HTTP
-- Validan datos usando Form Requests
-- Delegan lógica a Services
-- Retornan respuestas JSON
-
-#### **Services (Capa de Negocio)**
-- Contienen la lógica de negocio
-- Coordinan operaciones entre Repositories
-- Manejan transacciones
-- Independientes de HTTP
-
-#### **Repositories (Acceso a Datos)**
-- Abstraen el acceso a la base de datos
-- Implementan interfaces (Contracts)
-- Métodos CRUD y consultas específicas
-- Usan Eloquent internamente
-
-#### **Models (Modelos)**
-- Representan tablas de la base de datos
-- Define relaciones y casteos
-- Sin lógica de negocio
-
----
-
-### 2. Funcionalidades Implementadas
-
-#### **Módulo de Servicios**
-- CRUD completo de servicios
-- Activar/desactivar servicios
-- Vista pública solo servicios activos
-- Ordenamiento
-
-#### **Módulo de Horarios**
-- Gestión de horarios por día
-- Marcar días cerrados
-- Actualización masiva
-
-#### **Módulo de Contacto**
-- Información de contacto
-- Datos de dirección
-- Redes sociales
-- WhatsApp
-
-#### **Autenticación**
-- Laravel Sanctum
-- Tokens para SPA
-- Rutas protegidas
-
----
-
-### 3. Archivos Clave Creados
-
-#### Repositories (Interfaces)
-- `BaseRepositoryInterface.php`
-- `ServiceRepositoryInterface.php`
-- `ScheduleRepositoryInterface.php`
-- `ContactRepositoryInterface.php`
-
-#### Repositories (Implementaciones)
-- `BaseRepository.php`
-- `ServiceRepository.php`
-- `ScheduleRepository.php`
-- `ContactRepository.php`
-
-#### Services
-- `ServiceService.php`
-- `ScheduleService.php`
-- `ContactService.php`
-
-#### Controllers
-- `ServiceController.php`
-- `ScheduleController.php`
-- `ContactController.php`
-- `AuthController.php`
-
-#### Form Requests
-- `ServiceRequest.php`
-- `ScheduleRequest.php`
-- `ContactRequest.php`
-
-#### Models
-- `Service.php`
-- `Schedule.php`
-- `Contact.php`
-
-#### Migrations
-- `create_services_table.php`
-- `create_schedules_table.php`
-- `create_contacts_table.php`
-
----
-
-## Frontend - Vue
-
-### 1. Estructura
-
-#### **Services (API Calls)**
-- `api.js` - Cliente Axios con interceptors
-- `authService.js` - Autenticación
-- `serviceService.js` - Gestión de servicios
-- `scheduleService.js` - Gestión de horarios
-- `contactService.js` - Gestión de contacto
-
-#### **Router**
-- Rutas públicas
-- Rutas administrativas (protegidas)
-- Navigation guards
-- Layouts separados
-
----
-
-### 2. Características
-
-- **SPA (Single Page Application)** con Vue Router
-- **Axios** para consumir API REST
-- **Interceptors** para tokens de autenticación
-- **Guards** para proteger rutas admin
-- **Separación** de vistas públicas y administrativas
-
----
-
-## Configuración Inicial
-
-### Backend (Laravel)
-
-1. **Instalar Laravel:**
+### 2. Backend (Laravel)
 ```bash
 cd backend
+
+# Instalar dependencias
 composer install
-cp .env.example .env
+
+# Copiar archivo de entorno
+copy .env.example .env
+
+# Generar key
 php artisan key:generate
-```
 
-2. **Configurar base de datos en `.env`:**
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=tu_base_datos
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_contraseña
-```
-
-3. **Registrar Service Provider en `config/app.php`:**
-```php
-'providers' => [
-    // ...
-    App\Providers\RepositoryServiceProvider::class,
-],
-```
-
-4. **Ejecutar migraciones:**
-```bash
+# Ejecutar migraciones
 php artisan migrate
+
+# Crear usuario admin
+php artisan tinker
+>>> \App\Models\User::create(['name'=>'Admin','email'=>'admin@penacom.com','password'=>bcrypt('password123')]);
+
+# Iniciar servidor
+php artisan serve
 ```
 
-5. **Instalar Laravel Sanctum:**
-```bash
-composer require laravel/sanctum
-php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
-php artisan migrate
-```
-
-6. **Configurar CORS en `config/cors.php`**
-
----
-
-### Frontend (Vue)
-
-1. **Crear proyecto Vue:**
+### 3. Frontend (Vue)
 ```bash
 cd frontend
-npm create vue@latest .
-# Seleccionar: Vue Router, Pinia (opcional)
+
+# Instalar dependencias
 npm install
-```
 
-2. **Instalar Axios:**
-```bash
-npm install axios
-```
-
-3. **Configurar variables de entorno `.env`:**
-```env
-VITE_API_URL=http://localhost:8000/api
-```
-
-4. **Ejecutar desarrollo:**
-```bash
+# Iniciar servidor de desarrollo
 npm run dev
 ```
 
----
+### 4. Acceder a la Aplicación
 
-## Rutas API (Backend)
+**Frontend**: http://localhost:5173  
+**Backend API**: http://localhost:8000  
+**Admin Login**: admin@penacom.com / password123
 
-### Públicas
-- `GET /api/services/active` - Servicios activos
-- `GET /api/schedules` - Todos los horarios
-- `GET /api/contact` - Información de contacto
+## 🎨 Sistema de Diseño
+
+### Paleta de Colores
+- **Primary Blue**: `#0066CC`
+- **Secondary Blue**: `#4A90E2`
+- **Light Blue**: `#E8F4FF`
+- **Dark**: `#1A1A2E`
+- **White**: `#FFFFFF`
+
+### Breakpoints
+- Mobile: `< 768px`
+- Tablet: `768px - 1023px`
+- Desktop: `≥ 1024px`
+
+## 📡 API Endpoints
 
 ### Autenticación
-- `POST /api/auth/login` - Login
-- `POST /api/auth/logout` - Logout (protegida)
-- `GET /api/auth/me` - Usuario actual (protegida)
+```
+POST   /api/login              # Login
+POST   /api/logout             # Logout
+```
 
-### Admin (Protegidas con Sanctum)
+### Servicios (Protegido)
+```
+GET    /api/services           # Listar servicios
+POST   /api/services           # Crear servicio
+PUT    /api/services/{id}      # Actualizar servicio
+DELETE /api/services/{id}      # Eliminar servicio
+PATCH  /api/services/{id}/toggle # Toggle activo
+```
 
-#### Servicios
-- `GET /api/services` - Listar todos
-- `POST /api/services` - Crear
-- `GET /api/services/{id}` - Ver uno
-- `PUT /api/services/{id}` - Actualizar
-- `DELETE /api/services/{id}` - Eliminar
-- `PATCH /api/services/{id}/toggle-status` - Cambiar estado
+### Horarios (Protegido)
+```
+GET    /api/schedules          # Listar horarios
+POST   /api/schedules          # Crear horario
+PUT    /api/schedules/{id}     # Actualizar horario
+DELETE /api/schedules/{id}     # Eliminar horario
+```
 
-#### Horarios
-- `GET /api/schedules` - Listar todos
-- `GET /api/schedules/{day}` - Ver por día
-- `PUT /api/schedules/{day}` - Actualizar día
-- `PUT /api/schedules/bulk` - Actualización masiva
+### Contactos (Protegido)
+```
+GET    /api/contacts           # Listar contactos
+POST   /api/contacts           # Crear contacto
+DELETE /api/contacts/{id}      # Eliminar contacto
+```
 
-#### Contacto
-- `GET /api/contact` - Ver información
-- `PUT /api/contact` - Actualizar información
+## 🔐 Seguridad
 
----
+- Autenticación basada en tokens (Sanctum)
+- Validación de requests con Form Requests
+- Protección CSRF
+- CORS configurado
+- Sanitización de inputs
 
-## Despliegue en Hosting Compartido
+## 🚢 Deploy
 
-### Backend
-1. Subir archivos al servidor
-2. Configurar `.env` con datos del hosting
-3. Apuntar dominio a carpeta `public/`
-4. Ejecutar: `php artisan migrate --force`
+### Backend (Laravel)
+1. Configurar `.env` para producción
+2. Cambiar `DB_CONNECTION=mysql`
+3. Ejecutar `php artisan config:cache`
+4. Ejecutar `php artisan route:cache`
+5. Configurar servidor web (Apache/Nginx)
 
-### Frontend
-1. Compilar para producción: `npm run build`
-2. Subir carpeta `dist/` generada
-3. Configurar redirects para SPA
+### Frontend (Vue)
+```bash
+npm run build
+# Los archivos estáticos estarán en /dist
+```
 
-### Base de Datos
-- Crear base de datos MySQL desde cPanel
-- Importar migraciones o usar `php artisan migrate`
+## 👥 Información de la Empresa
 
----
+**Peñacom** - Soluciones LED de vanguardia desde 2013
+- 📍 Ubicación: Cancún, Quintana Roo, México
+- 📞 Teléfono: (998) 123-4567
+- 📧 Email: contacto@penacom.mx
+- 🌐 Web: https://github.com/MLara8061/penacom
 
-## Próximos Pasos
+## 📝 Licencia
 
-1. **Crear layouts** para Vue (PublicLayout, AdminLayout)
-2. **Desarrollar componentes** UI
-3. **Implementar seeders** para datos iniciales
-4. **Agregar validación de imágenes** (upload)
-5. **Configurar middleware** para roles
-6. **Agregar sistema de logs**
-7. **Implementar cache** en consultas frecuentes
-8. **Testing** (PHPUnit para backend, Vitest para frontend)
+Este proyecto es privado y pertenece a Peñacom.
 
----
+## 👨‍💻 Autor
 
-## Buenas Prácticas Implementadas
-
-✅ Separation of Concerns  
-✅ Dependency Injection  
-✅ Interface-based programming  
-✅ Form Request Validation  
-✅ API Resources (puedes agregarlos)  
-✅ Transaction management  
-✅ Token-based authentication  
-✅ CORS configuration  
-✅ Error handling  
-✅ RESTful API design  
+Desarrollado para Peñacom por MLara8061
 
 ---
 
-## Herramientas Recomendadas
-
-- **Postman/Insomnia** - Testing de API
-- **Laravel Telescope** - Debugging
-- **Vue DevTools** - Debugging Vue
-- **Prettier + ESLint** - Code formatting
-- **PHP CS Fixer** - PHP formatting
-
----
-
-**¡Proyecto listo para empezar a desarrollar!** 🚀
+⭐ Si te gusta este proyecto, dale una estrella en GitHub!
