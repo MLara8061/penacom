@@ -2,7 +2,9 @@
   <header class="header" :class="{ 'scrolled': isScrolled }">
     <div class="container">
       <div class="header-content">
-        <a href="#inicio" class="logo">Peñacom</a>
+        <a href="#inicio" class="logo">
+          <img src="/logo.svg" alt="Peñacom" class="logo-img">
+        </a>
         
         <nav class="nav" :class="{ 'active': menuOpen }">
           <a href="#productos" @click="closeMenu">Productos</a>
@@ -80,11 +82,14 @@ onUnmounted(() => {
 }
 
 .logo {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #fff;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  letter-spacing: -0.02em;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
 }
 
 .nav {

@@ -1,19 +1,88 @@
 <template>
   <section id="inicio" class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">Tecnología LED de<br>última generación</h1>
-      <p class="hero-subtitle">Pantallas LED profesionales para transformar tu negocio</p>
-      <div class="hero-cta">
-        <a href="#contacto" class="btn-primary">Solicitar cotización</a>
-        <a href="#productos" class="btn-link">Ver productos →</a>
+    <div class="hero-slider">
+      <div 
+        v-for="(slide, index) in slides" 
+        :key="index"
+        class="slide"
+        :class="{ active: currentSlide === index }"
+        :style="{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), ${slide.gradient}` }"
+      >
+        <div class="slide-content">
+          <h1 class="hero-title">{{ slide.title }}</h1>
+          <p class="hero-subtitle">{{ slide.subtitle }}</p>
+          <div class="hero-cta">
+            <a href="#contacto" class="btn-primary">Solicitar cotización</a>
+            <a href="#productos" class="btn-link">Ver productos →</a>
+          </div>
+        </div>
       </div>
+    </div>
+    
+    <div class="slider-indicators">
+      <button 
+        v-for="(slide, index) in slides" 
+        :key="index"
+        @click="goToSlide(index)"
+        class="indicator"
+        :class="{ active: currentSlide === index }"
+        :aria-label="`Ir a slide ${index + 1}`"
+      ></button>
     </div>
   </section>
 </template>
 
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const currentSlide = ref(0)
+let intervalId = null
+
+const slides = [
+  {
+    title: 'Tecnología LED de última generación',
+    subtitle: 'Pantallas profesionales para transformar tu negocio',
+    gradient: 'linear-gradient(135deg, #0066CC 0%, #003d7a 100%)'
+  },
+  {
+    title: 'Soluciones para espacios interiores',
+    subtitle: 'Alta resolución y calidad de imagen excepcional',
+    gradient: 'linear-gradient(135deg, #4A90E2 0%, #2563eb 100%)'
+  },
+  {
+    title: 'Pantallas LED para exteriores',
+    subtitle: 'Resistentes y visibles bajo cualquier condición',
+    gradient: 'linear-gradient(135deg, #1e40af 0%, #0066CC 100%)'
+  }
+]
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slides.length
+}
+
+const goToSlide = (index) => {
+  currentSlide.value = index
+  // Reiniciar el intervalo al cambiar manualmente
+  if (intervalId) {
+    clearInterval(intervalId)
+    intervalId = setInterval(nextSlide, 5000)
+  }
+}
+
+onMounted(() => {
+  intervalId = setInterval(nextSlide, 5000)
+})
+
+onUnmounted(() => {
+  if (intervalId) {
+    clearInterval(intervalId)
+  }
+})
+</script>
+
 <style scoped>
 .hero {
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +90,6 @@
   color: #fff;
   position: relative;
   overflow: hidden;
-  padding-top: 52px;
 }
 
 .hero::before {
