@@ -1,266 +1,146 @@
 <template>
-  <section id="productos" class="products-section section">
+  <section id="productos" class="products">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Tecnología LED</span>
-        <h2 class="section-title">Nuestros Productos</h2>
-        <p class="section-subtitle">
-          Pantallas LED para interiores y exteriores, adaptadas a diferentes sectores
-        </p>
+        <h2 class="section-title">Nuestros productos</h2>
+        <p class="section-subtitle">Soluciones LED para cada necesidad</p>
       </div>
-
+      
       <div class="products-grid">
-        <div class="product-card" v-for="(product, index) in products" :key="index">
-          <div class="product-icon">{{ product.icon }}</div>
-          <h3 class="product-title">{{ product.title }}</h3>
-          <p class="product-description">{{ product.description }}</p>
-          <ul class="product-features">
-            <li v-for="(feature, idx) in product.features" :key="idx">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-              </svg>
-              {{ feature }}
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="sectors-section">
-        <h3 class="sectors-title">Sectores que atendemos</h3>
-        <div class="sectors-grid">
-          <div class="sector-chip" v-for="(sector, index) in sectors" :key="index">
-            <span class="sector-icon">{{ sector.icon }}</span>
-            <span class="sector-name">{{ sector.name }}</span>
+        <div class="product-card">
+          <div class="product-image">
+            <div class="image-placeholder"></div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pantallas LED Interior</h3>
+            <p class="product-description">Alta resolución para espacios comerciales, corporativos y eventos indoor</p>
           </div>
         </div>
-      </div>
-
-      <div class="cta-box">
-        <h3>¿Necesitas una solución personalizada?</h3>
-        <p>Nuestros expertos te ayudarán a encontrar la pantalla LED perfecta para tu proyecto</p>
-        <a href="#contacto" class="btn btn-primary btn-lg">
-          Solicitar Asesoría
-        </a>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <div class="image-placeholder"></div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pantallas LED Exterior</h3>
+            <p class="product-description">Resistentes a condiciones climáticas extremas con máxima visibilidad</p>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <div class="image-placeholder"></div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Videowall LED</h3>
+            <p class="product-description">Soluciones modulares para crear pantallas de gran formato</p>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image">
+            <div class="image-placeholder"></div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pantallas Rental</h3>
+            <p class="product-description">Ligeras y rápidas de instalar, ideales para eventos temporales</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-
-const products = ref([
-  {
-    icon: '🏢',
-    title: 'Pantallas LED Interiores',
-    description: 'Perfectas para espacios corporativos, centros comerciales y eventos',
-    features: [
-      'Alta resolución',
-      'Brillo ajustable',
-      'Instalación modular',
-      'Bajo consumo energético'
-    ]
-  },
-  {
-    icon: '🌆',
-    title: 'Pantallas LED Exteriores',
-    description: 'Resistentes a condiciones climáticas extremas y alta visibilidad',
-    features: [
-      'Resistente al agua IP65',
-      'Alto brillo para luz solar',
-      'Estructura reforzada',
-      'Protección UV'
-    ]
-  },
-  {
-    icon: '📺',
-    title: 'Videowall LED',
-    description: 'Impresionantes muros de video para máximo impacto visual',
-    features: [
-      'Sin bordes visibles',
-      'Configuración flexible',
-      'Control centralizado',
-      'Contenido 4K/8K'
-    ]
-  },
-  {
-    icon: '🎪',
-    title: 'Pantallas LED Rental',
-    description: 'Soluciones temporales para eventos, conciertos y ferias',
-    features: [
-      'Montaje rápido',
-      'Transporte incluido',
-      'Soporte técnico en sitio',
-      'Paquetes personalizados'
-    ]
-  }
-])
-
-const sectors = ref([
-  { icon: '🏨', name: 'Hotelero' },
-  { icon: '🍽️', name: 'Restaurantero' },
-  { icon: '🎨', name: 'Salas de Exhibición' },
-  { icon: '🛍️', name: 'Tiendas Departamentales' },
-  { icon: '🏢', name: 'Corporativo' },
-  { icon: '🎬', name: 'Entretenimiento' }
-])
-</script>
-
 <style scoped>
-.products-section {
-  background: var(--white);
+.products {
+  padding: 120px 0;
+  background: #fff;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: #6e6e73;
+  font-weight: 400;
 }
 
 .products-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-3xl);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
 }
 
 .product-card {
-  background: var(--light-gray);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-xl);
-  transition: var(--transition);
-  border: 2px solid transparent;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .product-card:hover {
-  border-color: var(--primary-blue);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
 }
 
-.product-icon {
-  font-size: 4rem;
-  margin-bottom: var(--spacing-md);
+.product-image {
+  aspect-ratio: 4/3;
+  background: #f5f5f7;
+  position: relative;
+  overflow: hidden;
 }
 
-.product-title {
-  font-size: var(--font-size-2xl);
-  color: var(--dark);
-  margin-bottom: var(--spacing-sm);
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+}
+
+.product-info {
+  padding: 24px 0;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
 .product-description {
-  color: var(--gray);
-  margin-bottom: var(--spacing-lg);
+  font-size: 1rem;
+  color: #6e6e73;
   line-height: 1.6;
 }
 
-.product-features {
-  list-style: none;
-  padding: 0;
-}
-
-.product-features li {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-xs) 0;
-  color: var(--gray);
-}
-
-.product-features svg {
-  color: var(--primary-blue);
-  flex-shrink: 0;
-}
-
-.sectors-section {
-  margin-bottom: var(--spacing-3xl);
-  padding: var(--spacing-2xl);
-  background: var(--light-blue);
-  border-radius: var(--radius-xl);
-}
-
-.sectors-title {
-  text-align: center;
-  font-size: var(--font-size-2xl);
-  color: var(--dark);
-  margin-bottom: var(--spacing-xl);
-}
-
-.sectors-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-md);
-}
-
-.sector-chip {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-md);
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  transition: var(--transition);
-  text-align: center;
-}
-
-.sector-chip:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
-}
-
-.sector-icon {
-  font-size: 2rem;
-}
-
-.sector-name {
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--dark);
-}
-
-.cta-box {
-  text-align: center;
-  padding: var(--spacing-3xl) var(--spacing-xl);
-  background: var(--gradient-primary);
-  border-radius: var(--radius-xl);
-  color: var(--white);
-}
-
-.cta-box h3 {
-  font-size: var(--font-size-2xl);
-  color: var(--white);
-  margin-bottom: var(--spacing-md);
-}
-
-.cta-box p {
-  font-size: var(--font-size-lg);
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: var(--spacing-xl);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-box .btn {
-  background: var(--white);
-  color: var(--primary-blue);
-}
-
-.cta-box .btn:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-xl);
-}
-
-@media (min-width: 768px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 768px) {
+  .products {
+    padding: 80px 0;
   }
-}
-
-@media (min-width: 1024px) {
-  .products-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-xl);
+  
+  .section-header {
+    margin-bottom: 48px;
   }
-
-  .cta-box h3 {
-    font-size: var(--font-size-3xl);
+  
+  .products-grid {
+    gap: 32px;
   }
 }
 </style>

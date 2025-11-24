@@ -1,396 +1,215 @@
 <template>
-  <section id="contacto" class="contact-section section">
+  <section id="contacto" class="contact">
     <div class="container">
-      <div class="section-header">
-        <span class="section-badge">Hablemos</span>
-        <h2 class="section-title">Solicita tu Cotización</h2>
-        <p class="section-subtitle">
-          Descubre cómo nuestras soluciones LED pueden transformar tu negocio
-        </p>
-      </div>
-
       <div class="contact-content">
-        <div class="contact-form-wrapper">
-          <form @submit.prevent="handleSubmit" class="contact-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Nombre completo *</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  v-model="form.name" 
-                  required
-                  placeholder="Tu nombre"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="email">Correo electrónico *</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  v-model="form.email" 
-                  required
-                  placeholder="tu@email.com"
-                />
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="phone">Teléfono *</label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  v-model="form.phone" 
-                  required
-                  placeholder="(998) 123-4567"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="company">Empresa</label>
-                <input 
-                  type="text" 
-                  id="company" 
-                  v-model="form.company" 
-                  placeholder="Nombre de tu empresa"
-                />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="sector">Sector</label>
-              <select id="sector" v-model="form.sector">
-                <option value="">Selecciona un sector</option>
-                <option value="hotel">Hotelero</option>
-                <option value="restaurant">Restaurantero</option>
-                <option value="retail">Tiendas/Retail</option>
-                <option value="corporate">Corporativo</option>
-                <option value="entertainment">Entretenimiento</option>
-                <option value="other">Otro</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="message">Cuéntanos sobre tu proyecto *</label>
-              <textarea 
-                id="message" 
-                v-model="form.message" 
-                rows="5"
-                required
-                placeholder="Describe tu proyecto, necesidades y cualquier detalle relevante..."
-              ></textarea>
-            </div>
-
-            <div v-if="submitStatus.message" :class="['submit-message', submitStatus.type]">
-              {{ submitStatus.message }}
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-lg" :disabled="submitting">
-              <span v-if="!submitting">Enviar Solicitud</span>
-              <span v-else>Enviando...</span>
-              <svg v-if="!submitting" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-              </svg>
-            </button>
-          </form>
-        </div>
-
         <div class="contact-info">
-          <div class="info-card">
-            <h3>Información de Contacto</h3>
+          <h2 class="section-title">Conversemos<br>sobre tu proyecto</h2>
+          <p class="contact-description">
+            Nuestro equipo está listo para asesorarte y desarrollar la solución LED perfecta para tu negocio.
+          </p>
+          
+          <div class="contact-details">
+            <div class="detail-item">
+              <div class="detail-label">Ubicación</div>
+              <div class="detail-value">Cancún, Quintana Roo</div>
+            </div>
             
-            <div class="info-item">
-              <div class="info-icon">📍</div>
-              <div>
-                <h4>Ubicación</h4>
-                <p>Cancún, Quintana Roo, México</p>
-              </div>
+            <div class="detail-item">
+              <div class="detail-label">Teléfono</div>
+              <div class="detail-value">(998) 123-4567</div>
             </div>
-
-            <div class="info-item">
-              <div class="info-icon">📞</div>
-              <div>
-                <h4>Teléfono</h4>
-                <p>+52 (998) 123-4567</p>
-              </div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-icon">✉️</div>
-              <div>
-                <h4>Email</h4>
-                <p>contacto@penacom.mx</p>
-              </div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-icon">⏰</div>
-              <div>
-                <h4>Horario</h4>
-                <p>Lun - Vie: 9:00 AM - 6:00 PM</p>
-                <p>Sábado: 9:00 AM - 2:00 PM</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="trust-badges">
-            <div class="badge-item">
-              <div class="badge-icon">✓</div>
-              <p>+10 años de experiencia</p>
-            </div>
-            <div class="badge-item">
-              <div class="badge-icon">✓</div>
-              <p>+100 clientes satisfechos</p>
-            </div>
-            <div class="badge-item">
-              <div class="badge-icon">✓</div>
-              <p>Soporte técnico 24/7</p>
-            </div>
-            <div class="badge-item">
-              <div class="badge-icon">✓</div>
-              <p>Garantía en instalaciones</p>
+            
+            <div class="detail-item">
+              <div class="detail-label">Email</div>
+              <div class="detail-value">contacto@penacom.mx</div>
             </div>
           </div>
         </div>
+        
+        <form class="contact-form" @submit.prevent="handleSubmit">
+          <div class="form-group">
+            <input type="text" v-model="form.name" placeholder="Nombre" required />
+          </div>
+          
+          <div class="form-group">
+            <input type="email" v-model="form.email" placeholder="Email" required />
+          </div>
+          
+          <div class="form-group">
+            <input type="tel" v-model="form.phone" placeholder="Teléfono" required />
+          </div>
+          
+          <div class="form-group">
+            <textarea v-model="form.message" placeholder="Cuéntanos sobre tu proyecto" rows="6" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn-submit" :disabled="loading">
+            {{ loading ? 'Enviando...' : 'Enviar mensaje' }}
+          </button>
+        </form>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
-const form = ref({
+const form = reactive({
   name: '',
   email: '',
   phone: '',
-  company: '',
-  sector: '',
   message: ''
 })
 
-const submitting = ref(false)
-const submitStatus = ref({ type: '', message: '' })
+const loading = ref(false)
 
 const handleSubmit = async () => {
-  submitting.value = true
-  submitStatus.value = { type: '', message: '' }
-
-  try {
-    // Simular envío (aquí conectarías con tu backend)
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    submitStatus.value = {
-      type: 'success',
-      message: '¡Gracias! Hemos recibido tu solicitud. Te contactaremos pronto.'
-    }
-
-    // Limpiar formulario
-    form.value = {
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      sector: '',
-      message: ''
-    }
-  } catch (error) {
-    submitStatus.value = {
-      type: 'error',
-      message: 'Hubo un error al enviar tu mensaje. Por favor intenta nuevamente.'
-    }
-  } finally {
-    submitting.value = false
-  }
+  loading.value = true
+  
+  // Simular envío
+  await new Promise(resolve => setTimeout(resolve, 1500))
+  
+  alert('Gracias por tu mensaje. Te contactaremos pronto.')
+  
+  // Limpiar formulario
+  form.name = ''
+  form.email = ''
+  form.phone = ''
+  form.message = ''
+  
+  loading.value = false
 }
 </script>
 
 <style scoped>
-.contact-section {
-  background: var(--white);
+.contact {
+  padding: 120px 0;
+  background: #f5f5f7;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .contact-content {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-2xl);
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
 }
 
-.contact-form-wrapper {
-  background: var(--light-gray);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-xl);
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.contact-description {
+  font-size: 1.25rem;
+  color: #6e6e73;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: #6e6e73;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 1.125rem;
+  color: #1d1d1f;
+  font-weight: 500;
 }
 
 .contact-form {
-  max-width: 100%;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-md);
+  background: #fff;
+  padding: 48px;
+  border-radius: 16px;
 }
 
 .form-group {
-  margin-bottom: var(--spacing-md);
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: var(--spacing-xs);
-  font-weight: 600;
-  color: var(--dark);
-  font-size: var(--font-size-sm);
+  margin-bottom: 24px;
 }
 
 .form-group input,
-.form-group select,
 .form-group textarea {
   width: 100%;
-  padding: var(--spacing-md);
-  border: 2px solid #E5E7EB;
-  border-radius: var(--radius);
-  font-size: var(--font-size-base);
-  font-family: var(--font-primary);
-  transition: var(--transition);
-  background: var(--white);
+  padding: 16px;
+  font-size: 1rem;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: all 0.2s ease;
 }
 
 .form-group input:focus,
-.form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  border-color: #0066CC;
 }
 
 .form-group textarea {
   resize: vertical;
-  min-height: 120px;
 }
 
-.submit-message {
-  padding: var(--spacing-md);
-  border-radius: var(--radius);
-  margin-bottom: var(--spacing-md);
+.btn-submit {
+  width: 100%;
+  padding: 16px;
+  background: #0066CC;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.submit-message.success {
-  background: #D1FAE5;
-  color: #065F46;
-  border: 1px solid #A7F3D0;
+.btn-submit:hover:not(:disabled) {
+  background: #0052a3;
 }
 
-.submit-message.error {
-  background: #FEE2E2;
-  color: #991B1B;
-  border: 1px solid #FECACA;
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-.info-card {
-  background: var(--light-blue);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-xl);
-}
-
-.info-card h3 {
-  font-size: var(--font-size-2xl);
-  color: var(--dark);
-  margin-bottom: var(--spacing-lg);
-}
-
-.info-item {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
-
-.info-item:last-child {
-  margin-bottom: 0;
-}
-
-.info-icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.info-item h4 {
-  font-size: var(--font-size-base);
-  color: var(--primary-blue);
-  margin-bottom: var(--spacing-xs);
-  font-weight: 600;
-}
-
-.info-item p {
-  color: var(--gray);
-  font-size: var(--font-size-sm);
-  margin: 0;
-}
-
-.trust-badges {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-md);
-}
-
-.badge-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md);
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-.badge-icon {
-  width: 24px;
-  height: 24px;
-  background: var(--primary-blue);
-  color: var(--white);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  flex-shrink: 0;
-  font-size: var(--font-size-sm);
-}
-
-.badge-item p {
-  font-size: var(--font-size-xs);
-  color: var(--dark);
-  font-weight: 500;
-  margin: 0;
-}
-
-@media (min-width: 768px) {
+@media (max-width: 1024px) {
   .contact-content {
-    grid-template-columns: 1.5fr 1fr;
-  }
-
-  .form-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .trust-badges {
     grid-template-columns: 1fr;
+    gap: 48px;
   }
 }
 
-@media (min-width: 1024px) {
-  .contact-form-wrapper {
-    padding: var(--spacing-2xl);
+@media (max-width: 768px) {
+  .contact {
+    padding: 80px 0;
+  }
+  
+  .contact-form {
+    padding: 32px 24px;
   }
 }
 </style>

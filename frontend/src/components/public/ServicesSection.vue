@@ -1,100 +1,125 @@
-# Ejemplo de componente Vue - Vista pública de servicios
-
 <template>
-  <div class="services-section">
-    <h2>Nuestros Servicios</h2>
-    
-    <div v-if="loading" class="loading">
-      Cargando servicios...
-    </div>
-
-    <div v-else-if="error" class="error">
-      {{ error }}
-    </div>
-
-    <div v-else class="services-grid">
-      <div 
-        v-for="service in services" 
-        :key="service.id" 
-        class="service-card"
-      >
-        <div v-if="service.image" class="service-image">
-          <img :src="service.image" :alt="service.title">
+  <section id="servicios" class="services">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Servicios integrales</h2>
+        <p class="section-subtitle">Acompañamiento completo en tu proyecto LED</p>
+      </div>
+      
+      <div class="services-grid">
+        <div class="service-item">
+          <h3>Consultoría</h3>
+          <p>Asesoría especializada para seleccionar la solución perfecta</p>
         </div>
         
-        <div v-else-if="service.icon" class="service-icon">
-          <i :class="service.icon"></i>
+        <div class="service-item">
+          <h3>Diseño e ingeniería</h3>
+          <p>Desarrollo técnico adaptado a tu espacio y necesidades</p>
         </div>
-
-        <h3>{{ service.title }}</h3>
-        <p>{{ service.description }}</p>
+        
+        <div class="service-item">
+          <h3>Instalación profesional</h3>
+          <p>Montaje certificado por técnicos especializados</p>
+        </div>
+        
+        <div class="service-item">
+          <h3>Mantenimiento</h3>
+          <p>Soporte preventivo y correctivo para máxima disponibilidad</p>
+        </div>
+        
+        <div class="service-item">
+          <h3>Capacitación</h3>
+          <p>Entrenamiento completo en operación y gestión de contenido</p>
+        </div>
+        
+        <div class="service-item">
+          <h3>Soporte 24/7</h3>
+          <p>Asistencia técnica continua para garantizar operación sin interrupciones</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
-import serviceService from '../../services/serviceService';
-
-const services = ref([]);
-const loading = ref(true);
-const error = ref(null);
-
-const fetchServices = async () => {
-  try {
-    loading.value = true;
-    services.value = await serviceService.getActive();
-  } catch (err) {
-    error.value = 'Error al cargar los servicios';
-    console.error(err);
-  } finally {
-    loading.value = false;
-  }
-};
-
-onMounted(() => {
-  fetchServices();
-});
-</script>
-
 <style scoped>
-.services-section {
-  padding: 2rem;
+.services {
+  padding: 120px 0;
+  background: #f5f5f7;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: #6e6e73;
+  font-weight: 400;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
 }
 
-.service-card {
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  text-align: center;
+.service-item {
+  background: #fff;
+  padding: 40px 32px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
 }
 
-.service-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
+.service-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-.service-icon i {
-  font-size: 3rem;
-  color: #007bff;
+.service-item h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
 }
 
-.loading, .error {
-  text-align: center;
-  padding: 2rem;
+.service-item p {
+  font-size: 1rem;
+  color: #6e6e73;
+  line-height: 1.6;
 }
 
-.error {
-  color: red;
+@media (max-width: 768px) {
+  .services {
+    padding: 80px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 48px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .service-item {
+    padding: 32px 24px;
+  }
 }
 </style>
