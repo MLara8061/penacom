@@ -20,6 +20,8 @@ body {
   color: #1d1d1f;
   background: #fff;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* Typography */

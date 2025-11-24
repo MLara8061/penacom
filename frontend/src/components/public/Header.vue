@@ -85,10 +85,13 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   text-decoration: none;
+  background: #fff;
+  padding: 4px 12px;
+  border-radius: 6px;
 }
 
 .logo-img {
-  height: 32px;
+  height: 28px;
   width: auto;
 }
 

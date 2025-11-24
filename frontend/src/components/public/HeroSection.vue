@@ -1,22 +1,23 @@
 <template>
   <section id="inicio" class="hero">
     <div class="hero-slider">
-      <div 
-        v-for="(slide, index) in slides" 
-        :key="index"
-        class="slide"
-        :class="{ active: currentSlide === index }"
-        :style="{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), ${slide.gradient}` }"
-      >
-        <div class="slide-content">
-          <h1 class="hero-title">{{ slide.title }}</h1>
-          <p class="hero-subtitle">{{ slide.subtitle }}</p>
-          <div class="hero-cta">
-            <a href="#contacto" class="btn-primary">Solicitar cotización</a>
-            <a href="#productos" class="btn-link">Ver productos →</a>
+      <transition name="fade" mode="out-in">
+        <div 
+          :key="currentSlide"
+          class="slide"
+          :style="{ background: slides[currentSlide].gradient }"
+        >
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h1 class="hero-title">{{ slides[currentSlide].title }}</h1>
+            <p class="hero-subtitle">{{ slides[currentSlide].subtitle }}</p>
+            <div class="hero-cta">
+              <a href="#contacto" class="btn-primary">Solicitar cotización</a>
+              <a href="#productos" class="btn-link">Ver productos →</a>
+            </div>
           </div>
         </div>
-      </div>
+      </transition>
     </div>
     
     <div class="slider-indicators">
@@ -62,7 +63,6 @@ const nextSlide = () => {
 
 const goToSlide = (index) => {
   currentSlide.value = index
-  // Reiniciar el intervalo al cambiar manualmente
   if (intervalId) {
     clearInterval(intervalId)
     intervalId = setInterval(nextSlide, 5000)
@@ -82,33 +82,61 @@ onUnmounted(() => {
 
 <style scoped>
 .hero {
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(0, 102, 204, 0.15) 0%, transparent 70%);
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
   z-index: 0;
 }
 
-.hero-content {
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-content {
   position: relative;
   z-index: 1;
   text-align: center;
   max-width: 980px;
   padding: 0 24px;
+  color: #fff;
 }
 
 .hero-title {
@@ -122,7 +150,7 @@ onUnmounted(() => {
 .hero-subtitle {
   font-size: clamp(1.25rem, 2.5vw, 1.75rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 48px;
   line-height: 1.4;
 }
@@ -136,8 +164,8 @@ onUnmounted(() => {
 }
 
 .btn-primary {
-  background: #0066CC;
-  color: #fff;
+  background: #fff;
+  color: #0066CC;
   padding: 14px 28px;
   border-radius: 980px;
   font-size: 1.0625rem;
@@ -148,12 +176,12 @@ onUnmounted(() => {
 }
 
 .btn-primary:hover {
-  background: #0052a3;
+  background: rgba(255, 255, 255, 0.9);
   transform: scale(1.02);
 }
 
 .btn-link {
-  color: #0066CC;
+  color: #fff;
   font-size: 1.0625rem;
   font-weight: 500;
   text-decoration: none;
@@ -161,12 +189,43 @@ onUnmounted(() => {
 }
 
 .btn-link:hover {
-  color: #4A90E2;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.slider-indicators {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.indicator.active {
+  background: #fff;
+  width: 32px;
+  border-radius: 5px;
 }
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 70vh;
+    height: 70vh;
   }
   
   .hero-title {
@@ -175,6 +234,10 @@ onUnmounted(() => {
   
   .hero-subtitle {
     font-size: 1.125rem;
+  }
+  
+  .slider-indicators {
+    bottom: 24px;
   }
 }
 </style>
