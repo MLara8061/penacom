@@ -7,6 +7,7 @@ import PublicLayout from '../layouts/PublicLayout.vue';
 import AdminLayout from '../layouts/AdminLayout.vue';
 
 // Public Views
+import LandingPage from '../views/LandingPage.vue';
 import Home from '../views/public/Home.vue';
 import Services from '../views/public/Services.vue';
 import Contact from '../views/public/Contact.vue';
@@ -19,9 +20,16 @@ import AdminSchedules from '../views/admin/Schedules.vue';
 import AdminContact from '../views/admin/Contact.vue';
 
 const routes = [
-  // Public Routes
+  // Landing Page
   {
     path: '/',
+    name: 'Landing',
+    component: LandingPage
+  },
+  
+  // Public Routes
+  {
+    path: '/public',
     component: PublicLayout,
     children: [
       { path: '', name: 'Home', component: Home },
