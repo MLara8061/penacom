@@ -5,7 +5,7 @@
         <div 
           :key="currentSlide"
           class="slide"
-          :style="{ background: slides[currentSlide].gradient }"
+          :style="{ backgroundImage: `url(${slides[currentSlide].image})` }"
         >
           <div class="slide-overlay"></div>
           <div class="slide-content">
@@ -43,17 +43,17 @@ const slides = [
   {
     title: 'Tecnología LED de última generación',
     subtitle: 'Pantallas profesionales para transformar tu negocio',
-    gradient: 'linear-gradient(135deg, #0066CC 0%, #003d7a 100%)'
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
   },
   {
     title: 'Soluciones para espacios interiores',
     subtitle: 'Alta resolución y calidad de imagen excepcional',
-    gradient: 'linear-gradient(135deg, #4A90E2 0%, #2563eb 100%)'
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80'
   },
   {
     title: 'Pantallas LED para exteriores',
     subtitle: 'Resistentes y visibles bajo cualquier condición',
-    gradient: 'linear-gradient(135deg, #1e40af 0%, #0066CC 100%)'
+    image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80'
   }
 ]
 
@@ -105,6 +105,9 @@ onUnmounted(() => {
   position: absolute;
   top: 0;
   left: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .slide-overlay {
@@ -113,7 +116,7 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
 
