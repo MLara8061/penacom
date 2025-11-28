@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\HeroSection;
+use App\Models\AboutSection;
 use App\Models\PortfolioItem;
 use App\Models\Testimonial;
 use App\Models\SiteSetting;
@@ -12,15 +13,47 @@ class ContentSeeder extends Seeder
 {
     public function run(): void
     {
-        // Hero Section
+        // Hero Sections - 3 banners del slider
         HeroSection::create([
-            'title' => 'Soluciones Integrales en Comunicación Visual',
-            'subtitle' => 'Peña Comunicación Visual',
-            'description' => 'Más de 10 años transformando espacios con señalización profesional',
-            'button_text' => 'Solicitar Cotización',
+            'title' => 'Soluciones <span class="text-highlight">Digitales</span> Innovadoras',
+            'subtitle' => 'Transformamos tu visión en realidad con tecnología de vanguardia',
+            'description' => null,
+            'button_text' => 'Comenzar Ahora',
             'button_link' => '#contacto',
+            'background_image' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80',
             'is_active' => true,
             'order' => 1,
+        ]);
+
+        HeroSection::create([
+            'title' => 'Desarrollo Web <span class="text-highlight">Profesional</span>',
+            'subtitle' => 'Creamos experiencias digitales excepcionales que impulsan tu negocio',
+            'description' => null,
+            'button_text' => 'Ver Servicios',
+            'button_link' => '#servicios',
+            'background_image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80',
+            'is_active' => true,
+            'order' => 2,
+        ]);
+
+        HeroSection::create([
+            'title' => 'Consultoría <span class="text-highlight">Estratégica</span>',
+            'subtitle' => 'Optimiza tus procesos con nuestro equipo de expertos',
+            'description' => null,
+            'button_text' => 'Agendar Consulta',
+            'button_link' => '#contacto',
+            'background_image' => 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80',
+            'is_active' => true,
+            'order' => 3,
+        ]);
+
+        // About Section
+        AboutSection::create([
+            'current_image' => 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+            'title' => 'Líderes en Tecnología LED desde 2013',
+            'description' => 'Empresa establecida en Cancún, Quintana Roo, especializada en la venta y mantenimiento de pantallas LED de última generación. Durante más de una década, hemos llevado a nuestros clientes el avance y la vanguardia en tecnología LED.',
+            'years_experience' => 12,
+            'happy_clients' => 100,
         ]);
 
         // Portfolio Items

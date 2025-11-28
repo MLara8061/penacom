@@ -16,7 +16,7 @@ class Dashboard extends BaseDashboard
 
     public function getSubheading(): ?string
     {
-        return 'Bienvenido al panel de administración de Peña Com Visual';
+        return 'Bienvenido al panel de administración de Peñacom';
     }
 
     protected function getGreeting(): string
