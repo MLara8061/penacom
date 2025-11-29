@@ -59,11 +59,18 @@
 }
 
 .theme-dark .section-title {
-  color: var(--text-primary) !important;
+  color: var(--primary-blue) !important;
 }
 
 .theme-dark .section-subtitle {
   color: var(--text-secondary) !important;
+}
+
+/* Títulos específicos en azul fuerte para tema oscuro */
+.theme-dark .products-title,
+.theme-dark .services-title,
+.theme-dark .hero-title {
+  color: var(--primary-blue) !important;
 }
 
 /* ===== CARDS ===== */
@@ -93,6 +100,30 @@
 .theme-dark .portfolio-card p,
 .theme-dark .testimonial-card p,
 .theme-dark .feature-card p {
+  color: var(--text-secondary) !important;
+}
+
+/* Mejorar legibilidad de testimonios */
+.theme-dark .testimonial-card {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.theme-dark .testimonial-text,
+.theme-dark .testimonial-content,
+.theme-dark .client-testimonial {
+  color: var(--text-primary) !important;
+  opacity: 1 !important;
+}
+
+.theme-dark .client-name,
+.theme-dark .testimonial-author {
+  color: var(--primary-blue) !important;
+  font-weight: 600 !important;
+}
+
+.theme-dark .client-company,
+.theme-dark .client-position {
   color: var(--text-secondary) !important;
 }
 
@@ -262,23 +293,32 @@
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* ===== SCROLLBAR GENERAL ===== */
+/* ===== SCROLLBAR MODERNA ===== */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-blue);
-  border-radius: 5px;
+  background: rgba(0, 102, 204, 0.3);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--dark-blue);
+  background: rgba(0, 102, 204, 0.6);
+  background-clip: padding-box;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 102, 204, 0.3) transparent;
 }
 
 /* ===== SELECCIÓN DE TEXTO ===== */

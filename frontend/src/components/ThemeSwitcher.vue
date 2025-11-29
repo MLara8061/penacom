@@ -152,8 +152,10 @@ watch(() => showDropdown.value, (isOpen) => {
 }
 
 .theme-button svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5;
+  opacity: 1;
 }
 
 .theme-dropdown {
