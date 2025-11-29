@@ -58,33 +58,33 @@ class ContentSeeder extends Seeder
 
         // Portfolio Items
         PortfolioItem::create([
-            'title' => 'Señalización Centro Comercial Plaza Mayor',
-            'description' => 'Proyecto integral de señalización para centro comercial',
-            'category' => 'Señalización Digital LED',
+            'title' => 'Señalización Digital para Retail',
+            'description' => 'Pantallas LED de alta resolución para comunicación dinámica en punto de venta. Contenido personalizable en tiempo real.',
+            'category' => 'Señalización Digital',
             'client' => 'Plaza Mayor',
-            'image' => '/images/portfolio/plaza-mayor.jpg',
+            'image' => 'https://images.unsplash.com/photo-1556742212-5b321f3c261b?w=1920&q=80',
             'completed_date' => '2024-06-15',
             'featured' => true,
             'order' => 1,
         ]);
 
         PortfolioItem::create([
-            'title' => 'Rótulos Hotel Paraíso',
-            'description' => 'Diseño y fabricación de rótulos iluminados',
-            'category' => 'Rótulos',
-            'client' => 'Hotel Paraíso',
-            'image' => '/images/portfolio/hotel.jpg',
+            'title' => 'Pantallas LED Corporativas',
+            'description' => 'Soluciones de video wall para oficinas corporativas. Integración con sistemas de comunicación interna.',
+            'category' => 'Video Wall',
+            'client' => 'Tech Corp',
+            'image' => 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80',
             'completed_date' => '2024-05-20',
             'featured' => true,
             'order' => 2,
         ]);
 
         PortfolioItem::create([
-            'title' => 'Viniles Decorativos Oficina Corporativa',
-            'description' => 'Viniles decorativos para oficinas',
-            'category' => 'Viniles',
-            'client' => 'Tech Corp',
-            'image' => '/images/portfolio/viniles.jpg',
+            'title' => 'Cartelería Digital Interactiva',
+            'description' => 'Pantallas touch para interacción con clientes. Menús digitales y wayfinding inteligente.',
+            'category' => 'Interactivo',
+            'client' => 'Hotel Paraíso',
+            'image' => 'https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=1920&q=80',
             'completed_date' => '2024-04-10',
             'featured' => false,
             'order' => 3,
