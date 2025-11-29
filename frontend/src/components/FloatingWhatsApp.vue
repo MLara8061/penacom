@@ -4,9 +4,12 @@
     target="_blank"
     rel="noopener noreferrer"
     class="whatsapp-float"
-    :class="{ 'pulse': showPulse }"
+    :class="{ 'pulse': showPulse, 'christmas': isChristmas }"
     @mouseenter="showPulse = false"
   >
+    <!-- Gorro de Santa (solo en tema navideño) -->
+    <div v-if="isChristmas" class="santa-hat">🎅</div>
+    
     <svg viewBox="0 0 32 32" class="whatsapp-icon">
       <path fill="currentColor" d="M16 0C7.164 0 0 7.164 0 16c0 2.828.736 5.484 2.016 7.796L.68 30.32l6.72-1.76A15.914 15.914 0 0 0 16 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.333c-2.444 0-4.76-.656-6.76-1.796l-.484-.292-5.016 1.316 1.336-4.888-.32-.504A13.252 13.252 0 0 1 2.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333z"/>
       <path fill="currentColor" d="M22.928 19.204c-.348-.176-2.06-1.02-2.384-1.136-.32-.116-.556-.176-.788.176-.232.352-.896 1.136-1.096 1.368-.2.232-.404.26-.752.084-.348-.176-1.472-.544-2.804-1.732-1.036-.928-1.736-2.072-1.936-2.42-.2-.348-.02-.536.152-.712.156-.156.348-.408.52-.612.172-.204.232-.348.348-.58.116-.232.06-.436-.028-.612-.088-.176-.788-1.904-1.08-2.604-.288-.68-.58-.588-.788-.6-.204-.012-.44-.012-.672-.012s-.612.084-.932.42c-.32.336-1.22 1.196-1.22 2.916s1.248 3.38 1.42 3.612c.172.232 2.444 3.732 5.924 5.236.828.356 1.476.568 1.98.728.832.264 1.588.228 2.188.14.668-.1 2.06-.844 2.352-1.66.292-.816.292-1.516.204-1.66-.088-.144-.32-.232-.668-.408z"/>
@@ -16,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 interface Props {
   phoneNumber?: string
@@ -29,17 +32,33 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const showPulse = ref(true)
+const isChristmas = ref(false)
 
 const encodedMessage = encodeURIComponent(props.message)
 
+// Detectar tema navideño
+const checkChristmasTheme = () => {
+  isChristmas.value = document.documentElement.classList.contains('theme-christmas')
+}
+
 // Mostrar pulso cada 10 segundos
 onMounted(() => {
+  // Check initial theme
+  checkChristmasTheme()
+  
+  // Listen for theme changes
+  window.addEventListener('theme-changed', checkChristmasTheme)
+  
   setInterval(() => {
     showPulse.value = true
     setTimeout(() => {
       showPulse.value = false
     }, 3000)
   }, 10000)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('theme-changed', checkChristmasTheme)
 })
 </script>
 
@@ -69,6 +88,27 @@ onMounted(() => {
 
 .whatsapp-float:active {
   transform: scale(1.05);
+}
+
+/* Gorro de Santa */
+.santa-hat {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  font-size: 28px;
+  transform: rotate(15deg);
+  animation: swing 2s ease-in-out infinite;
+  z-index: 1;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes swing {
+  0%, 100% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(25deg);
+  }
 }
 
 .whatsapp-icon {

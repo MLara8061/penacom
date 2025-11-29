@@ -86,6 +86,20 @@ const selectTheme = (theme: 'light' | 'dark' | 'christmas') => {
   showDropdown.value = false
   applyTheme(theme)
   localStorage.setItem('theme', theme)
+  
+  // Reproducir sonido navideño si se selecciona tema Christmas
+  // Nota: Necesitas agregar un archivo jingle-bells.mp3 en la carpeta public/
+  if (theme === 'christmas') {
+    try {
+      const audio = new Audio('/jingle-bells.mp3')
+      audio.volume = 0.3
+      audio.play().catch(() => {
+        // Audio not available or autoplay blocked
+      })
+    } catch (e) {
+      // Audio file not found - skip silently
+    }
+  }
 }
 
 const applyTheme = (theme: string) => {
@@ -127,7 +141,7 @@ watch(() => showDropdown.value, (isOpen) => {
 <style scoped>
 .theme-switcher {
   position: relative;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .theme-button {

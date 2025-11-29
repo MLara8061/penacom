@@ -187,9 +187,10 @@
   background-color: var(--bg-primary);
 }
 
+/* Navbar rojo navideño */
 .theme-christmas .navbar {
-  background: var(--navbar-bg) !important;
-  box-shadow: var(--navbar-shadow) !important;
+  background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%) !important;
+  box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4) !important;
   position: relative;
 }
 
@@ -209,6 +210,98 @@
     var(--christmas-gold) 40px,
     var(--christmas-gold) 60px
   );
+  z-index: 1;
+}
+
+.theme-christmas .navbar .nav-link {
+  color: white !important;
+}
+
+.theme-christmas .navbar .nav-link:hover {
+  color: var(--christmas-gold) !important;
+}
+
+/* Botón Contáctanos rojo navideño */
+.theme-christmas .btn-nav,
+.theme-christmas .btn-primary {
+  background: linear-gradient(135deg, var(--christmas-red) 0%, #8B0000 100%) !important;
+  color: white !important;
+  border: 2px solid var(--christmas-gold) !important;
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3) !important;
+}
+
+.theme-christmas .btn-nav:hover,
+.theme-christmas .btn-primary:hover {
+  background: linear-gradient(135deg, #A01729 0%, #660000 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(196, 30, 58, 0.5) !important;
+}
+
+/* Todos los botones de Solicitar Cotización */
+.theme-christmas .cta-button,
+.theme-christmas .btn-cta,
+.theme-christmas .quote-button,
+.theme-christmas button[class*="cta"],
+.theme-christmas button[class*="cotiz"] {
+  background: linear-gradient(135deg, var(--christmas-red) 0%, #8B0000 100%) !important;
+  color: white !important;
+  border: 2px solid var(--christmas-gold) !important;
+}
+
+/* Footer verde navideño con cintilla */
+.theme-christmas .footer {
+  background: linear-gradient(135deg, var(--christmas-green) 0%, #0F4227 100%) !important;
+  color: white !important;
+  border-top: none !important;
+  position: relative;
+  padding-top: 24px !important;
+}
+
+.theme-christmas .footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--christmas-red) 0px,
+    var(--christmas-red) 20px,
+    var(--christmas-green) 20px,
+    var(--christmas-green) 40px,
+    var(--christmas-gold) 40px,
+    var(--christmas-gold) 60px
+  );
+}
+
+.theme-christmas .footer h3,
+.theme-christmas .footer h4,
+.theme-christmas .footer-heading {
+  color: var(--christmas-gold) !important;
+}
+
+.theme-christmas .footer p,
+.theme-christmas .footer-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-christmas .footer-link:hover {
+  color: var(--christmas-gold) !important;
+}
+
+/* Scrollbar rojo navideño */
+.theme-christmas ::-webkit-scrollbar-thumb {
+  background: var(--christmas-red);
+  border-radius: 10px;
+}
+
+.theme-christmas ::-webkit-scrollbar-thumb:hover {
+  background: #A01729;
+}
+
+.theme-christmas * {
+  scrollbar-color: var(--christmas-red) transparent;
 }
 
 .theme-christmas .service-card,
