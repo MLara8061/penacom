@@ -1,0 +1,276 @@
+/* ========================================
+   THEME SYSTEM - Sistema de Temas
+   ======================================== */
+
+/* ===== TEMA CLARO (Por defecto) ===== */
+:root,
+.theme-light {
+  /* Colores primarios */
+  --primary-blue: #0066CC;
+  --light-blue: #4A90E2;
+  --dark-blue: #003D82;
+  --secondary-bg: #E6F0FA;
+  
+  /* Colores base */
+  --white: #FFFFFF;
+  --black: #000000;
+  --light-gray: #F5F7FA;
+  --gray: #8B95A5;
+  --dark-gray: #2C3E50;
+  
+  /* Fondos */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F7FA;
+  --bg-tertiary: #E6F0FA;
+  
+  /* Textos */
+  --text-primary: #2C3E50;
+  --text-secondary: #8B95A5;
+  --text-inverse: #FFFFFF;
+  
+  /* Bordes */
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-light: rgba(0, 0, 0, 0.05);
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  
+  /* Componentes específicos */
+  --navbar-bg: rgba(255, 255, 255, 0.95);
+  --navbar-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  --card-bg: #FFFFFF;
+  --card-shadow: var(--shadow-md);
+  
+  /* Theme Switcher */
+  --theme-switcher-bg: rgba(0, 0, 0, 0.05);
+  --theme-switcher-border: rgba(0, 0, 0, 0.1);
+  --theme-switcher-color: #2C3E50;
+  --theme-switcher-bg-hover: rgba(0, 0, 0, 0.1);
+  --theme-switcher-border-hover: rgba(0, 0, 0, 0.2);
+  --theme-dropdown-bg: #FFFFFF;
+  --theme-dropdown-border: rgba(0, 0, 0, 0.08);
+  --theme-option-color: #2C3E50;
+  --theme-option-hover-bg: rgba(0, 102, 204, 0.08);
+  --theme-option-selected-bg: rgba(0, 102, 204, 0.12);
+  --theme-option-selected-color: #0066CC;
+}
+
+/* ===== TEMA OSCURO ===== */
+.theme-dark {
+  /* Colores primarios (más brillantes en oscuro) */
+  --primary-blue: #4A90E2;
+  --light-blue: #66A3E8;
+  --dark-blue: #0066CC;
+  --secondary-bg: #1E2A3A;
+  
+  /* Colores base */
+  --white: #1A1F2E;
+  --black: #FFFFFF;
+  --light-gray: #2C3749;
+  --gray: #A0AEC0;
+  --dark-gray: #E2E8F0;
+  
+  /* Fondos */
+  --bg-primary: #0F1419;
+  --bg-secondary: #1A1F2E;
+  --bg-tertiary: #2C3749;
+  
+  /* Textos */
+  --text-primary: #E2E8F0;
+  --text-secondary: #A0AEC0;
+  --text-inverse: #1A1F2E;
+  
+  /* Bordes */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.05);
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  
+  /* Componentes específicos */
+  --navbar-bg: rgba(26, 31, 46, 0.95);
+  --navbar-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  --card-bg: #1A1F2E;
+  --card-shadow: var(--shadow-md);
+  
+  /* Theme Switcher */
+  --theme-switcher-bg: rgba(255, 255, 255, 0.05);
+  --theme-switcher-border: rgba(255, 255, 255, 0.1);
+  --theme-switcher-color: #E2E8F0;
+  --theme-switcher-bg-hover: rgba(255, 255, 255, 0.1);
+  --theme-switcher-border-hover: rgba(255, 255, 255, 0.2);
+  --theme-dropdown-bg: #1A1F2E;
+  --theme-dropdown-border: rgba(255, 255, 255, 0.1);
+  --theme-option-color: #E2E8F0;
+  --theme-option-hover-bg: rgba(74, 144, 226, 0.15);
+  --theme-option-selected-bg: rgba(74, 144, 226, 0.25);
+  --theme-option-selected-color: #66A3E8;
+}
+
+.theme-dark body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ===== TEMA NAVIDAD ===== */
+.theme-christmas {
+  /* Colores navideños */
+  --christmas-red: #C41E3A;
+  --christmas-green: #165B33;
+  --christmas-gold: #FFD700;
+  --christmas-white: #F8F8F8;
+  
+  /* Colores primarios (tema navideño) */
+  --primary-blue: #C41E3A;
+  --light-blue: #E74C3C;
+  --dark-blue: #8B0000;
+  --secondary-bg: #FFF5F5;
+  
+  /* Colores base */
+  --white: #FFFFFF;
+  --black: #000000;
+  --light-gray: #FFF5F5;
+  --gray: #8B95A5;
+  --dark-gray: #2C3E50;
+  
+  /* Fondos */
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #FFF5F5;
+  --bg-tertiary: #FFE4E1;
+  
+  /* Textos */
+  --text-primary: #2C3E50;
+  --text-secondary: #8B95A5;
+  --text-inverse: #FFFFFF;
+  
+  /* Bordes */
+  --border-color: rgba(196, 30, 58, 0.15);
+  --border-light: rgba(196, 30, 58, 0.08);
+  
+  /* Sombras con tono rojizo */
+  --shadow-sm: 0 2px 8px rgba(196, 30, 58, 0.1);
+  --shadow-md: 0 4px 16px rgba(196, 30, 58, 0.15);
+  --shadow-lg: 0 8px 32px rgba(196, 30, 58, 0.2);
+  
+  /* Componentes específicos */
+  --navbar-bg: rgba(255, 255, 255, 0.98);
+  --navbar-shadow: 0 2px 20px rgba(196, 30, 58, 0.15);
+  --card-bg: #FFFFFF;
+  --card-shadow: var(--shadow-md);
+  
+  /* Theme Switcher */
+  --theme-switcher-bg: rgba(196, 30, 58, 0.1);
+  --theme-switcher-border: rgba(196, 30, 58, 0.2);
+  --theme-switcher-color: #C41E3A;
+  --theme-switcher-bg-hover: rgba(196, 30, 58, 0.15);
+  --theme-switcher-border-hover: rgba(196, 30, 58, 0.3);
+  --theme-dropdown-bg: #FFFFFF;
+  --theme-dropdown-border: rgba(196, 30, 58, 0.12);
+  --theme-option-color: #2C3E50;
+  --theme-option-hover-bg: rgba(196, 30, 58, 0.08);
+  --theme-option-selected-bg: rgba(196, 30, 58, 0.12);
+  --theme-option-selected-color: #C41E3A;
+}
+
+/* Efectos navideños adicionales */
+.theme-christmas .btn-primary {
+  background: linear-gradient(135deg, var(--christmas-red) 0%, var(--christmas-green) 100%);
+}
+
+.theme-christmas .btn-primary:hover {
+  background: linear-gradient(135deg, #A01729 0%, #0F4227 100%);
+}
+
+.theme-christmas .text-highlight {
+  background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Decoración navideña en el navbar */
+.theme-christmas .navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--christmas-red) 0px,
+    var(--christmas-red) 20px,
+    var(--christmas-green) 20px,
+    var(--christmas-green) 40px,
+    var(--christmas-gold) 40px,
+    var(--christmas-gold) 60px
+  );
+}
+
+/* Efecto de brillo en cards */
+.theme-christmas .service-card,
+.theme-christmas .portfolio-card {
+  border: 1px solid rgba(196, 30, 58, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-christmas .service-card::before,
+.theme-christmas .portfolio-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 215, 0, 0.1) 50%,
+    transparent 70%
+  );
+  animation: christmas-shimmer 3s infinite;
+}
+
+@keyframes christmas-shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* ===== TRANSICIONES SUAVES ===== */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ===== MODO REDUCIDO (RESPETA PREFERENCIAS DE ACCESIBILIDAD) ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .snowflake {
+    display: none;
+  }
+}
+
+/* ===== DARK MODE AUTOMÁTICO (Si el usuario prefiere dark mode) ===== */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light):not(.theme-christmas) {
+    /* Aplicar tema oscuro automáticamente si no hay tema seleccionado */
+    --primary-blue: #4A90E2;
+    --bg-primary: #0F1419;
+    --bg-secondary: #1A1F2E;
+    --text-primary: #E2E8F0;
+    --navbar-bg: rgba(26, 31, 46, 0.95);
+  }
+}

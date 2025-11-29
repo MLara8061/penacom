@@ -16,7 +16,10 @@
           <li><a href="#portafolio" @click="closeMobileMenu">Portafolio</a></li>
           <li><a href="#testimonios" @click="closeMobileMenu">Testimonios</a></li>
         </ul>
-        <button class="btn-nav" @click="scrollToContact">Contáctanos</button>
+        <div class="nav-actions">
+          <ThemeSwitcher />
+          <button class="btn-nav" @click="scrollToContact">Contáctanos</button>
+        </div>
         <div class="hamburger" @click="toggleMobileMenu" :class="{ 'active': isMobileMenuOpen }">
           <span></span>
           <span></span>
@@ -591,6 +594,32 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+// @ts-ignore - API service is JavaScript
+import api from '@/services/api'
+import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
+
+// Interfaces
+interface HeroSlide {
+  title: string
+  subtitle: string
+  cta: string
+  image: string
+}
+
+interface Service {
+  id: number
+  icon: string
+  title: string
+  description: string
+  color: string
+}
+
+interface PortfolioSlide {
+  label: string
+  title: string
+  description: string
+  image: string
+}
 
 // Navbar scroll state
 const isScrolled = ref(false)
@@ -598,26 +627,34 @@ const isMobileMenuOpen = ref(false)
 
 // Hero Slider
 const currentSlide = ref(0)
-const slides = ref([
-  {
-    title: 'Soluciones <span class="text-highlight">Digitales</span> Innovadoras',
-    subtitle: 'Transformamos tu visión en realidad con tecnología de vanguardia',
-    cta: 'Comenzar Ahora',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
-  },
-  {
-    title: 'Desarrollo Web <span class="text-highlight">Profesional</span>',
-    subtitle: 'Creamos experiencias digitales excepcionales que impulsan tu negocio',
-    cta: 'Ver Servicios',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=80'
-  },
-  {
-    title: 'Consultoría <span class="text-highlight">Estratégica</span>',
-    subtitle: 'Optimiza tus procesos con nuestro equipo de expertos',
-    cta: 'Agendar Consulta',
-    image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80'
+const slides = ref<HeroSlide[]>([])
+const isLoadingHero = ref(true)
+
+// Cargar hero sections del API
+const loadHeroSections = async () => {
+  try {
+    const response = await api.get('/hero-sections')
+    slides.value = response.data.map((section: any) => ({
+      title: section.title,
+      subtitle: section.subtitle,
+      cta: section.cta_text,
+      image: section.image_url
+    }))
+  } catch (error) {
+    console.error('Error loading hero sections:', error)
+    // Fallback a datos estáticos si falla
+    slides.value = [
+      {
+        title: 'Soluciones <span class="text-highlight">Digitales</span> Innovadoras',
+        subtitle: 'Transformamos tu visión en realidad con tecnología de vanguardia',
+        cta: 'Comenzar Ahora',
+        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
+      }
+    ]
+  } finally {
+    isLoadingHero.value = false
   }
-])
+}
 
 // Contact Form
 const formData = ref({
@@ -680,73 +717,67 @@ const handleSubmit = async () => {
 }
 
 // Services
-const services = ref([
-  {
-    id: 1,
-    icon: '💻',
-    title: 'Desarrollo Web',
-    description: 'Sitios web modernos, responsivos y optimizados para SEO que convierten visitantes en clientes.',
-    color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-  },
-  {
-    id: 2,
-    icon: '📱',
-    title: 'Apps Móviles',
-    description: 'Aplicaciones nativas y multiplataforma de alto rendimiento para iOS y Android.',
-    color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
-  },
-  {
-    id: 3,
-    icon: '🎨',
-    title: 'Diseño UI/UX',
-    description: 'Interfaces intuitivas y atractivas centradas en la experiencia del usuario.',
-    color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
-  },
-  {
-    id: 4,
-    icon: '🚀',
-    title: 'Marketing Digital',
-    description: 'Estrategias de marketing digital que aumentan tu presencia online y ventas.',
-    color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
-  },
-  {
-    id: 5,
-    icon: '🔒',
-    title: 'Ciberseguridad',
-    description: 'Protección integral de tus datos y sistemas contra amenazas digitales.',
-    color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
-  },
-  {
-    id: 6,
-    icon: '☁️',
-    title: 'Cloud Solutions',
-    description: 'Migración y gestión de infraestructura en la nube para escalabilidad.',
-    color: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'
+const services = ref<Service[]>([])
+const isLoadingServices = ref(true)
+
+// Cargar servicios del API
+const loadServices = async () => {
+  try {
+    const response = await api.get('/services')
+    services.value = response.data.map((service: any) => ({
+      id: service.id,
+      icon: service.icon || '💻',
+      title: service.title,
+      description: service.description,
+      color: service.color || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    }))
+  } catch (error) {
+    console.error('Error loading services:', error)
+    // Fallback a datos estáticos
+    services.value = [
+      {
+        id: 1,
+        icon: '💻',
+        title: 'Desarrollo Web',
+        description: 'Sitios web modernos, responsivos y optimizados para SEO que convierten visitantes en clientes.',
+        color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      }
+    ]
+  } finally {
+    isLoadingServices.value = false
   }
-])
+}
 
 // Portfolio Slides
 const currentPortfolioSlide = ref(0)
-const portfolioSlides = ref([
-  {
-    label: '¿Para qué sirve?',
-    title: 'Señalización Digital Versátil',
-    description: 'Contenido informativo, direccional y publicitario. Comunicación interna, alertas de emergencia, entretenimiento en tienda y menús digitales.',
-    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80'
-  },
-  {
-    label: 'Facilidades',
-    title: 'Gestión Simple y Eficiente',
-    description: 'Actualización instantánea de ofertas, precios y promociones desde cualquier dispositivo. Control total mediante laptop, tablet o smartphone.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&q=80'
-  },
-  {
-    label: 'Ventajas',
-    title: 'Mayor Impacto Visual',
-    description: 'Contenido dinámico que capta más atención que medios estáticos. Refuerza el reconocimiento de marca mediante mayor interactividad con clientes.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80'
+const portfolioSlides = ref<PortfolioSlide[]>([])
+const isLoadingPortfolio = ref(true)
+
+// Cargar portfolio del API
+const loadPortfolio = async () => {
+  try {
+    const response = await api.get('/portfolio')
+    portfolioSlides.value = response.data.map((item: any) => ({
+      label: item.category,
+      title: item.title,
+      description: item.description,
+      image: item.image_url
+    }))
+  } catch (error) {
+    console.error('Error loading portfolio:', error)
+    // Fallback a datos estáticos
+    portfolioSlides.value = [
+      {
+        label: '¿Para qué sirve?',
+        title: 'Señalización Digital Versátil',
+        description: 'Contenido informativo, direccional y publicitario. Comunicación interna, alertas de emergencia, entretenimiento en tienda y menús digitales.',
+        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80'
+      }
+    ]
+  } finally {
+    isLoadingPortfolio.value = false
   }
-])
+}
 
 const nextPortfolioSlide = () => {
   currentPortfolioSlide.value = (currentPortfolioSlide.value + 1) % portfolioSlides.value.length
@@ -901,6 +932,11 @@ const scrollToContact = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   startSlider()
+  
+  // Cargar datos del API
+  loadHeroSections()
+  loadServices()
+  loadPortfolio()
 })
 
 onUnmounted(() => {
@@ -1047,6 +1083,12 @@ onUnmounted(() => {
 
 .nav-menu.active li a {
   color: #FFFFFF !important;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .btn-nav {
