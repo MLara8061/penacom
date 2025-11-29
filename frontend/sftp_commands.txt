@@ -1,6 +1,0 @@
-cd domains/casagery.com/public_html
-put frontend/dist/index.html
-cd assets
-put frontend/dist/assets/index-BmMmYKDc.js
-put frontend/dist/assets/index-BW86-fUK.css
-bye
