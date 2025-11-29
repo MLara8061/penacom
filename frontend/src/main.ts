@@ -1,5 +1,6 @@
 import './assets/styles.css'
 import './assets/themes.css'
+import './assets/theme-overrides.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

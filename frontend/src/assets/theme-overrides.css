@@ -1,0 +1,407 @@
+/* ========================================
+   THEME OVERRIDES - Sobrescribe estilos hardcodeados
+   Mayor especificidad para aplicar temas correctamente
+   ======================================== */
+
+/* ===== APLICAR TEMAS A BODY Y CONTENEDORES ===== */
+html,
+html body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.landing-page {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: var(--navbar-bg) !important;
+  box-shadow: var(--navbar-shadow) !important;
+}
+
+.navbar .logo {
+  color: var(--text-primary) !important;
+}
+
+.navbar .nav-link {
+  color: var(--text-primary) !important;
+}
+
+.navbar .nav-link:hover {
+  color: var(--primary-blue) !important;
+}
+
+.navbar .btn-primary {
+  background: var(--primary-blue) !important;
+  color: var(--text-inverse) !important;
+}
+
+/* ===== SECCIONES ===== */
+section {
+  background-color: var(--bg-primary) !important;
+}
+
+.section-alt {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* ===== TÍTULOS Y TEXTOS ===== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+}
+
+p {
+  color: var(--text-secondary) !important;
+}
+
+.section-title {
+  color: var(--text-primary) !important;
+}
+
+.section-subtitle {
+  color: var(--text-secondary) !important;
+}
+
+/* ===== CARDS ===== */
+.service-card,
+.portfolio-card,
+.testimonial-card,
+.feature-card {
+  background: var(--card-bg) !important;
+  box-shadow: var(--card-shadow) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.service-card h3,
+.portfolio-card h3,
+.testimonial-card h3,
+.feature-card h3 {
+  color: var(--text-primary) !important;
+}
+
+.service-card p,
+.portfolio-card p,
+.testimonial-card p,
+.feature-card p {
+  color: var(--text-secondary) !important;
+}
+
+/* ===== BOTONES ===== */
+.btn-primary {
+  background: var(--primary-blue) !important;
+  color: var(--text-inverse) !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background: var(--dark-blue) !important;
+  color: var(--text-inverse) !important;
+}
+
+.btn-secondary {
+  background: transparent !important;
+  color: var(--primary-blue) !important;
+  border: 2px solid var(--primary-blue) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--primary-blue) !important;
+  color: var(--text-inverse) !important;
+}
+
+/* ===== FORMS ===== */
+.form-control,
+.form-input,
+input,
+textarea,
+select {
+  background: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.form-control::placeholder,
+.form-input::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.6 !important;
+}
+
+.form-control:focus,
+.form-input:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1) !important;
+}
+
+/* ===== STATS / FEATURES ===== */
+.stat-item,
+.feature-item {
+  background: var(--card-bg) !important;
+}
+
+.stat-number,
+.stat-value {
+  color: var(--primary-blue) !important;
+}
+
+.stat-label {
+  color: var(--text-secondary) !important;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--bg-secondary) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.footer-heading {
+  color: var(--text-primary) !important;
+}
+
+.footer-link {
+  color: var(--text-secondary) !important;
+}
+
+.footer-link:hover {
+  color: var(--primary-blue) !important;
+}
+
+/* ===== TEMA NAVIDAD - EFECTOS ESPECIALES ===== */
+.theme-christmas .hero {
+  position: relative;
+}
+
+.theme-christmas .hero::before {
+  content: '🎄';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 3rem;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.theme-christmas .hero::after {
+  content: '🎅';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 3rem;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+/* ===== TEMA OSCURO - MEJORAS VISUALES ===== */
+.theme-dark .hero {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%) !important;
+}
+
+.theme-dark img {
+  opacity: 0.9;
+  filter: brightness(0.9);
+}
+
+.theme-dark .service-card:hover,
+.theme-dark .portfolio-card:hover {
+  box-shadow: 0 8px 24px rgba(74, 144, 226, 0.2) !important;
+  border-color: var(--primary-blue) !important;
+}
+
+/* ===== TRANSICIONES ===== */
+.navbar,
+.service-card,
+.portfolio-card,
+.btn-primary,
+.btn-secondary,
+.form-control,
+section {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* ===== SCROLLBAR THEMING ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-blue);
+}
+
+.theme-dark ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+  background: var(--light-blue);
+}
+
+/* ===== LOADING STATES ===== */
+.skeleton,
+.loading {
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 0%,
+    var(--bg-tertiary) 50%,
+    var(--bg-secondary) 100%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: skeleton-loading 1.5s ease-in-out infinite !important;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ===== SELECCIÓN DE TEXTO ===== */
+::selection {
+  background: var(--primary-blue);
+  color: var(--text-inverse);
+}
+
+::-moz-selection {
+  background: var(--primary-blue);
+  color: var(--text-inverse);
+}
+
+/* ===== BADGES Y TAGS ===== */
+.badge,
+.tag {
+  background: var(--secondary-bg) !important;
+  color: var(--primary-blue) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* ===== MODALS Y OVERLAYS ===== */
+.modal,
+.overlay {
+  background: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* ===== DROPDOWNS ===== */
+.dropdown-menu {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-secondary) !important;
+  color: var(--primary-blue) !important;
+}
+
+/* ===== ALERTS ===== */
+.alert {
+  background: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* ===== BREADCRUMBS Y NAVEGACIÓN ===== */
+.breadcrumb {
+  background: var(--bg-secondary) !important;
+}
+
+.breadcrumb-item {
+  color: var(--text-secondary) !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--primary-blue) !important;
+}
+
+/* ===== TABS ===== */
+.tab {
+  background: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.tab.active {
+  background: var(--card-bg) !important;
+  color: var(--primary-blue) !important;
+  border-bottom-color: transparent !important;
+}
+
+/* ===== PROGRESS BARS ===== */
+.progress {
+  background: var(--bg-secondary) !important;
+}
+
+.progress-bar {
+  background: var(--primary-blue) !important;
+}
+
+/* ===== TOOLTIPS ===== */
+.tooltip {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* ===== ESPECÍFICOS PARA WHATSAPP BUTTON ===== */
+.whatsapp-float {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4) !important;
+}
+
+.theme-dark .whatsapp-float {
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6) !important;
+}
+
+.theme-christmas .whatsapp-float {
+  background: linear-gradient(135deg, var(--christmas-green) 0%, var(--christmas-red) 100%) !important;
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4) !important;
+}
+
+/* ===== FIX PARA ICONOS SVG ===== */
+svg,
+svg path {
+  transition: fill 0.3s ease, stroke 0.3s ease !important;
+}
+
+/* ===== MEJORAS DE CONTRASTE PARA ACCESIBILIDAD ===== */
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px !important;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    border: 2px solid currentColor !important;
+  }
+}
