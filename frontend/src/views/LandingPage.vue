@@ -100,13 +100,13 @@
       <div class="container">
         <div class="section-header">
           <span class="section-label">Conoce más sobre nosotros</span>
-          <h2>Nuestros Productos y Servicios</h2>
+          <h2 class="products-title">Nuestros Productos y Servicios</h2>
           <p>Ofrecemos instalación de pantallas LED para diferentes sectores y servicios profesionales</p>
         </div>
         
         <!-- Productos -->
         <div class="services-section">
-          <h3 class="services-subtitle">Nuestros Productos</h3>
+          <h3 class="services-subtitle products-title">Nuestros Productos</h3>
           <div class="services-grid">
             <div class="service-card glass-card">
               <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80');">
@@ -181,7 +181,7 @@
         
         <!-- Servicios -->
         <div class="services-section" style="margin-top: 80px;">
-          <h3 class="services-subtitle">Nuestros Servicios</h3>
+          <h3 class="services-subtitle products-title">Nuestros Servicios</h3>
           <div class="services-grid">
             <div class="service-card glass-card">
               <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80');">
@@ -360,7 +360,7 @@
         <div class="cta-grid">
           <div class="cta-content">
             <div class="cta-badge">💡 Cotización Gratuita en 24h</div>
-            <h2>Transforma Tu Negocio Con Tecnología LED de Última Generación</h2>
+            <h2 class="hero-title">Transforma Tu Negocio Con Tecnología LED de Última Generación</h2>
             <p class="cta-subtitle">Únete a más de 100+ empresas que ya potenciaron su marca con nuestras soluciones</p>
             
             <div class="cta-benefits">
