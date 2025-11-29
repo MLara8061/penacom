@@ -1,4 +1,4 @@
-# API Routes - Laravel
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ServiceController;
