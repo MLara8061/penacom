@@ -221,9 +221,19 @@
   color: var(--christmas-gold) !important;
 }
 
-/* Botón Contáctanos rojo navideño */
+/* TODOS los botones rojos navideños - CTA, Submit, Cotización */
 .theme-christmas .btn-nav,
-.theme-christmas .btn-primary {
+.theme-christmas .btn-primary,
+.theme-christmas .btn-about,
+.theme-christmas .cta-button,
+.theme-christmas .btn-cta,
+.theme-christmas .quote-button,
+.theme-christmas .btn-submit,
+.theme-christmas button[type="submit"],
+.theme-christmas .contact-form button,
+.theme-christmas .hero-section button,
+.theme-christmas button[class*="cta"],
+.theme-christmas button[class*="cotiz"] {
   background: linear-gradient(135deg, var(--christmas-red) 0%, #8B0000 100%) !important;
   color: white !important;
   border: 2px solid var(--christmas-gold) !important;
@@ -231,30 +241,39 @@
 }
 
 .theme-christmas .btn-nav:hover,
-.theme-christmas .btn-primary:hover {
+.theme-christmas .btn-primary:hover,
+.theme-christmas .btn-about:hover,
+.theme-christmas .cta-button:hover,
+.theme-christmas .btn-cta:hover,
+.theme-christmas .quote-button:hover,
+.theme-christmas .btn-submit:hover,
+.theme-christmas button[type="submit"]:hover,
+.theme-christmas .contact-form button:hover,
+.theme-christmas .hero-section button:hover,
+.theme-christmas button[class*="cta"]:hover,
+.theme-christmas button[class*="cotiz"]:hover {
   background: linear-gradient(135deg, #A01729 0%, #660000 100%) !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(196, 30, 58, 0.5) !important;
 }
 
-/* Todos los botones de Solicitar Cotización */
-.theme-christmas .cta-button,
-.theme-christmas .btn-cta,
-.theme-christmas .quote-button,
-.theme-christmas button[class*="cta"],
-.theme-christmas button[class*="cotiz"] {
-  background: linear-gradient(135deg, var(--christmas-red) 0%, #8B0000 100%) !important;
-  color: white !important;
-  border: 2px solid var(--christmas-gold) !important;
+/* WhatsApp mantiene su verde original */
+.theme-christmas .whatsapp-float {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
 }
 
-/* Footer verde navideño con cintilla */
+.theme-christmas .whatsapp-float:hover {
+  background: linear-gradient(135deg, #128C7E 0%, #075E54 100%) !important;
+  transform: translateY(-5px) !important;
+}
+
+/* Footer verde navideño con cintilla festiva en el borde superior */
 .theme-christmas .footer {
   background: linear-gradient(135deg, var(--christmas-green) 0%, #0F4227 100%) !important;
   color: white !important;
   border-top: none !important;
   position: relative;
-  padding-top: 24px !important;
+  padding-top: 32px !important;
 }
 
 .theme-christmas .footer::before {
@@ -263,16 +282,19 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 8px;
   background: repeating-linear-gradient(
     90deg,
-    var(--christmas-red) 0px,
+    #FFFFFF 0px,
+    #FFFFFF 20px,
     var(--christmas-red) 20px,
-    var(--christmas-green) 20px,
-    var(--christmas-green) 40px,
-    var(--christmas-gold) 40px,
-    var(--christmas-gold) 60px
+    var(--christmas-red) 40px,
+    #FFFFFF 40px,
+    #FFFFFF 60px,
+    var(--christmas-green) 60px,
+    var(--christmas-green) 80px
   );
+  z-index: 2;
 }
 
 .theme-christmas .footer h3,
@@ -346,6 +368,21 @@
   background: linear-gradient(135deg, #A01729 0%, #0F4227 100%) !important;
 }
 
+/* Botón de enviar formulario navideño */
+.theme-christmas .btn-submit,
+.theme-christmas form button[type="submit"] {
+  background: linear-gradient(135deg, var(--christmas-red) 0%, #8B0000 100%) !important;
+  border: 2px solid var(--christmas-gold) !important;
+  color: white !important;
+}
+
+.theme-christmas .btn-submit:hover,
+.theme-christmas form button[type="submit"]:hover {
+  background: linear-gradient(135deg, #A01729 0%, #6B0000 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4) !important;
+}
+
 .theme-christmas .text-highlight {
   background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
   -webkit-background-clip: text;
@@ -353,9 +390,10 @@
   background-clip: text;
 }
 
+/* WhatsApp mantiene su color verde original en tema navideño */
 .theme-christmas .whatsapp-float {
-  background: linear-gradient(135deg, var(--christmas-green) 0%, var(--christmas-red) 100%) !important;
-  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4) !important;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4) !important;
 }
 
 .theme-christmas .hero::before {

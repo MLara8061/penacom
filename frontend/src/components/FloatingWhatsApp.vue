@@ -7,8 +7,25 @@
     :class="{ 'pulse': showPulse, 'christmas': isChristmas }"
     @mouseenter="showPulse = false"
   >
-    <!-- Gorro de Santa (solo en tema navideño) -->
-    <div v-if="isChristmas" class="santa-hat">🎅</div>
+    <!-- Gorro de Santa SVG (solo en tema navideño) -->
+    <svg v-if="isChristmas" class="santa-hat" viewBox="0 0 64 64" fill="none">
+      <!-- Gorro base rojo -->
+      <path d="M32 8 C20 8, 12 16, 12 28 L52 28 C52 16, 44 8, 32 8" fill="#C41E3A" />
+      <!-- Sombra del gorro -->
+      <path d="M32 8 C20 8, 12 16, 12 28 L52 28 C52 16, 44 8, 32 8" fill="url(#shadowGradient)" opacity="0.3" />
+      <!-- Borde blanco inferior -->
+      <ellipse cx="32" cy="28" rx="22" ry="4" fill="#FFFFFF" />
+      <!-- Pompón -->
+      <circle cx="32" cy="6" r="5" fill="#FFFFFF" />
+      <circle cx="32" cy="6" r="4" fill="#F0F0F0" />
+      <!-- Gradiente para sombra -->
+      <defs>
+        <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#000;stop-opacity:0" />
+          <stop offset="100%" style="stop-color:#000;stop-opacity:0.4" />
+        </linearGradient>
+      </defs>
+    </svg>
     
     <svg viewBox="0 0 32 32" class="whatsapp-icon">
       <path fill="currentColor" d="M16 0C7.164 0 0 7.164 0 16c0 2.828.736 5.484 2.016 7.796L.68 30.32l6.72-1.76A15.914 15.914 0 0 0 16 32c8.836 0 16-7.164 16-16S24.836 0 16 0zm0 29.333c-2.444 0-4.76-.656-6.76-1.796l-.484-.292-5.016 1.316 1.336-4.888-.32-.504A13.252 13.252 0 0 1 2.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333z"/>
@@ -90,24 +107,25 @@ onUnmounted(() => {
   transform: scale(1.05);
 }
 
-/* Gorro de Santa */
+/* Gorro de Santa SVG */
 .santa-hat {
   position: absolute;
-  top: -15px;
-  right: -10px;
-  font-size: 28px;
-  transform: rotate(15deg);
-  animation: swing 2s ease-in-out infinite;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
   z-index: 1;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  animation: swing 2s ease-in-out infinite;
 }
 
 @keyframes swing {
   0%, 100% {
-    transform: rotate(15deg);
+    transform: translateX(-50%) rotate(-5deg);
   }
   50% {
-    transform: rotate(25deg);
+    transform: translateX(-50%) rotate(5deg);
   }
 }
 

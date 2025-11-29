@@ -138,50 +138,74 @@ watch(() => showDropdown.value, (isOpen) => {
 })
 </script>
 
-<style scoped>
+<style>
 .theme-switcher {
-  position: relative;
-  z-index: 1001;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .theme-button {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--theme-switcher-bg, rgba(255, 255, 255, 0.1));
-  border: 2px solid var(--theme-switcher-border, rgba(255, 255, 255, 0.2));
-  display: flex;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid rgba(0, 102, 204, 0.3);
+  display: flex !important;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: var(--theme-switcher-color, #333);
+  color: #0066CC;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para navbar en tema navideño */
+.theme-christmas .theme-button {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
 }
 
 .theme-button:hover,
 .theme-button.active {
-  background: var(--theme-switcher-bg-hover, rgba(255, 255, 255, 0.2));
-  border-color: var(--theme-switcher-border-hover, rgba(255, 255, 255, 0.4));
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
   transform: scale(1.05);
+}
+
+.theme-christmas .theme-button:hover,
+.theme-christmas .theme-button.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .theme-button svg {
   width: 24px;
   height: 24px;
   stroke-width: 2.5;
-  opacity: 1;
+  stroke: currentColor;
+  fill: none;
 }
 
 .theme-dropdown {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-  background: var(--theme-dropdown-bg, #fff);
+  background: #FFFFFF;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   padding: 8px;
-  min-width: 150px;
-  border: 1px solid var(--theme-dropdown-border, rgba(0, 0, 0, 0.08));
+  min-width: 160px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.theme-christmas .theme-dropdown {
+  background: #2C1810;
+  border-color: rgba(196, 30, 58, 0.3);
 }
 
 .theme-option {
@@ -195,18 +219,31 @@ watch(() => showDropdown.value, (isOpen) => {
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.2s ease;
-  color: var(--theme-option-color, #333);
+  color: #333;
   font-size: 14px;
   font-weight: 500;
 }
 
 .theme-option:hover {
-  background: var(--theme-option-hover-bg, rgba(0, 102, 204, 0.08));
+  background: rgba(0, 102, 204, 0.08);
 }
 
 .theme-option.selected {
-  background: var(--theme-option-selected-bg, rgba(0, 102, 204, 0.12));
-  color: var(--theme-option-selected-color, #0066CC);
+  background: rgba(0, 102, 204, 0.15);
+  color: #0066CC;
+}
+
+.theme-christmas .theme-option {
+  color: #E8E8E8;
+}
+
+.theme-christmas .theme-option:hover {
+  background: rgba(196, 30, 58, 0.15);
+}
+
+.theme-christmas .theme-option.selected {
+  background: rgba(196, 30, 58, 0.25);
+  color: #FF6B6B;
 }
 
 .theme-option svg {
