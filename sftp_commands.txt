@@ -1,0 +1,8 @@
+cd domains/casagery.com/public_html
+lcd frontend/dist
+put index.html
+cd assets
+lcd assets
+put index-BmMmYKDc.js
+put index-BW86-fUK.css
+bye

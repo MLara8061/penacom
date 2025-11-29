@@ -637,8 +637,8 @@ const loadHeroSections = async () => {
     slides.value = response.data.map((section: any) => ({
       title: section.title,
       subtitle: section.subtitle,
-      cta: section.cta_text,
-      image: section.image_url
+      cta: section.button_text || 'Ver más',
+      image: section.background_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
     }))
   } catch (error) {
     console.error('Error loading hero sections:', error)
@@ -758,10 +758,10 @@ const loadPortfolio = async () => {
   try {
     const response = await api.get('/portfolio')
     portfolioSlides.value = response.data.map((item: any) => ({
-      label: item.category,
+      label: item.category || 'Portfolio',
       title: item.title,
       description: item.description,
-      image: item.image_url
+      image: item.image || 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80'
     }))
   } catch (error) {
     console.error('Error loading portfolio:', error)

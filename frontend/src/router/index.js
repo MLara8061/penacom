@@ -69,6 +69,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = authService.isAuthenticated();
 
+  // Solo aplicar guard a rutas que explícitamente lo requieren
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/admin/login');
   } else if (to.meta.requiresGuest && isAuthenticated) {

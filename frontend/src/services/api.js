@@ -30,9 +30,12 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Limpiar token y redirigir al login
-      localStorage.removeItem('auth_token');
-      window.location.href = '/admin/login';
+      // Solo redirigir si estamos en una ruta de admin
+      const currentPath = window.location.pathname;
+      if (currentPath.startsWith('/admin') && currentPath !== '/admin/login') {
+        localStorage.removeItem('auth_token');
+        window.location.href = '/admin/login';
+      }
     }
     return Promise.reject(error);
   }
