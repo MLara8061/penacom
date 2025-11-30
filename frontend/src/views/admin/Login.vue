@@ -33,8 +33,8 @@
             </svg>
             <input
               v-model="credentials.email"
-              type="email"
-              placeholder="correo@ejemplo.com"
+              type="text"
+              placeholder="usuario o correo@ejemplo.com"
               required
             />
           </div>
