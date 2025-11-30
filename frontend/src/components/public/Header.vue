@@ -160,5 +160,23 @@ onUnmounted(() => {
   .nav a {
     font-size: 1.125rem;
   }
+  
+  /* Modo claro - texto azul en responsive */
+  :global(.theme-light) .nav a {
+    color: #0066CC;
+  }
+  
+  :global(.theme-light) .nav a:hover {
+    color: #0052A3;
+  }
+  
+  /* Modo navideño - texto rojo en responsive */
+  :global(.theme-christmas) .nav a {
+    color: #DC2626;
+  }
+  
+  :global(.theme-christmas) .nav a:hover {
+    color: #B91C1C;
+  }
 }
 </style>
