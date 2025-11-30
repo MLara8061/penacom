@@ -24,6 +24,17 @@ class ContactController extends Controller {
     }
 
     /**
+     * Store a new contact message (lead from landing page)
+     */
+    public function store(ContactRequest $request): JsonResponse {
+        $contact = Contact::create($request->validated());
+        return response()->json([
+            'message' => 'Mensaje enviado exitosamente',
+            'data' => $contact
+        ], 201);
+    }
+
+    /**
      * Get contact information
      */
     public function show(): JsonResponse {

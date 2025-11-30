@@ -8,6 +8,7 @@ use App\Http\Controllers\API\AboutSectionController;
 use App\Http\Controllers\API\HeroSectionController;
 use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\PortfolioItemController;
+use App\Http\Controllers\API\LeadController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,9 @@ Route::get('/services/active', [ServiceController::class, 'active']);
 Route::get('/schedules', [ScheduleController::class, 'index']);
 Route::get('/contact', [ContactController::class, 'show']);
 Route::get('/about', [AboutSectionController::class, 'show']);
+
+// Formulario de contacto - lead público (sin autenticación)
+Route::post('/leads', [LeadController::class, 'store']);
 
 // Contenido de la página
 Route::get('/hero-sections', [HeroSectionController::class, 'index']);
@@ -90,7 +94,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/products/{product}', [ProductController::class, 'show']);
     Route::post('/products', [ProductController::class, 'store']);
     Route::put('/products/{product}', [ProductController::class, 'update']);
-    Route::delete('/products/{product}', [ProductController::class, 'destroy']);    // Contacts (Admin)
+    Route::delete('/products/{product}', [ProductController::class, 'destroy']);
+
+    // Leads (Admin) - Gestión de leads del formulario
+    Route::get('/leads', [LeadController::class, 'index']);
+    Route::get('/leads/{lead}', [LeadController::class, 'show']);
+    Route::put('/leads/{lead}', [LeadController::class, 'update']);
+    Route::delete('/leads/{lead}', [LeadController::class, 'destroy']);
+
+    // Contacts (Admin)
     Route::apiResource('contacts', ContactController::class);
 
     // Users (Solo Admin)

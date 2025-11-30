@@ -759,22 +759,37 @@ const handleSubmit = async () => {
 
   isSubmitting.value = true
 
-  // Simulación de envío (aquí integrarías tu API)
-  setTimeout(() => {
-    alert('¡Gracias! Tu solicitud ha sido enviada. Te contactaremos pronto.')
-    // Resetear formulario
-    formData.value = {
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      service: '',
-      message: '',
-      honeypot: '',
+  try {
+    // Enviar a la API
+    const response = await api.post('/leads', {
+      name: formData.value.name,
+      email: formData.value.email,
+      phone: formData.value.phone,
+      company: formData.value.company || null,
+      service: formData.value.service,
+      message: formData.value.message,
+    })
+
+    if (response.data.success) {
+      alert(response.data.message)
+      // Resetear formulario
+      formData.value = {
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        service: '',
+        message: '',
+        honeypot: '',
+      }
+      formStartTime.value = Date.now()
     }
-    formStartTime.value = Date.now() // Resetear tiempo
+  } catch (error) {
+    console.error('Error al enviar formulario:', error)
+    alert('Hubo un error al enviar tu solicitud. Por favor, intenta nuevamente.')
+  } finally {
     isSubmitting.value = false
-  }, 1500)
+  }
 }
 
 // Services
