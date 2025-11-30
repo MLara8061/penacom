@@ -4,6 +4,11 @@
       <h2>Panel Admin</h2>
       <nav>
         <router-link to="/admin">Dashboard</router-link>
+        <div class="menu-section">
+          <h3>Contenido del Sitio</h3>
+          <router-link to="/admin/seccion-heroe">Sección Héroe</router-link>
+          <router-link to="/admin/acerca-de">Acerca de la Empresa</router-link>
+        </div>
         <router-link to="/admin/servicios">Servicios</router-link>
         <router-link to="/admin/horarios">Horarios</router-link>
         <router-link to="/admin/contacto">Contacto</router-link>
@@ -54,6 +59,24 @@ const logout = async () => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.sidebar nav .menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar nav .menu-section h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  margin: 0.5rem 0 0.25rem 0;
+}
+
+.sidebar nav .menu-section a {
+  padding-left: 1rem;
 }
 
 .sidebar nav a,

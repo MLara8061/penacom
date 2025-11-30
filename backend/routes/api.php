@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\ScheduleController;
 use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\AboutSectionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\HeroSection;
 use App\Models\PortfolioItem;
@@ -20,6 +21,7 @@ use App\Models\SiteSetting;
 Route::get('/services/active', [ServiceController::class, 'active']);
 Route::get('/schedules', [ScheduleController::class, 'index']);
 Route::get('/contact', [ContactController::class, 'show']);
+Route::get('/about', [AboutSectionController::class, 'show']);
 
 // Contenido de la página
 Route::get('/hero-sections', function () {
@@ -76,4 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Contact (Admin)
     Route::put('/contact', [ContactController::class, 'update']);
+    
+    // About Section (Admin)
+    Route::put('/about', [AboutSectionController::class, 'update']);
 });

@@ -18,6 +18,7 @@ import AdminDashboard from '../views/admin/Dashboard.vue';
 import AdminServices from '../views/admin/Services.vue';
 import AdminSchedules from '../views/admin/Schedules.vue';
 import AdminContact from '../views/admin/Contact.vue';
+import AdminAbout from '../views/admin/About.vue';
 
 const routes = [
   // Landing Page
@@ -53,6 +54,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'AdminDashboard', component: AdminDashboard },
+      { path: 'acerca-de', name: 'AdminAbout', component: AdminAbout },
       { path: 'servicios', name: 'AdminServices', component: AdminServices },
       { path: 'horarios', name: 'AdminSchedules', component: AdminSchedules },
       { path: 'contacto', name: 'AdminContact', component: AdminContact }

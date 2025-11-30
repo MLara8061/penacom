@@ -66,26 +66,26 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-image">
-            <div class="image-placeholder" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80'); background-size: cover; background-position: center;">
+            <div class="image-placeholder" :style="{ backgroundImage: `url(${aboutSection.current_image})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
               <div class="about-badge">
-                <div class="badge-number">12+</div>
+                <div class="badge-number">{{ aboutSection.years_experience }}+</div>
                 <div class="badge-text">Años de<br>Experiencia</div>
               </div>
             </div>
           </div>
           <div class="about-content">
             <span class="section-label">¿Quiénes Somos?</span>
-            <h2>Líderes en Tecnología LED desde 2013</h2>
-            <p>Empresa establecida en Cancún, Quintana Roo, especializada en la venta y mantenimiento de pantallas LED de última generación. Durante más de una década, hemos llevado a nuestros clientes el avance y la vanguardia en tecnología LED.</p>
+            <h2>{{ aboutSection.title }}</h2>
+            <p>{{ aboutSection.description }}</p>
             <p>Ofrecemos instalación profesional de pantallas LED para exteriores e interiores, atendiendo el sector hotelero, restaurantero, salas de exhibición y tiendas departamentales que buscan destacar sus productos en vitrinas digitales.</p>
-            <p class="about-highlight">Al adquirir nuestros productos, obtiene la más alta tecnología en pantallas LED de nuestros socios internacionales y fabricantes de componentes, ensambladas con la calidad y precisión de técnicos mexicanos.</p>
+            <p class="about-highlight">{{ aboutSection.highlighted_text }}</p>
             <div class="about-features">
               <div class="about-feature">
-                <div class="feature-number">100+</div>
+                <div class="feature-number">{{ aboutSection.happy_clients }}+</div>
                 <div class="feature-label">Clientes Satisfechos</div>
               </div>
               <div class="about-feature">
-                <div class="feature-number">12+</div>
+                <div class="feature-number">{{ aboutSection.years_experience }}+</div>
                 <div class="feature-label">Años de Experiencia</div>
               </div>
             </div>
@@ -720,6 +720,27 @@ const handleSubmit = async () => {
 const services = ref<Service[]>([])
 const isLoadingServices = ref(true)
 
+// About Section
+const aboutSection = ref({
+  current_image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+  title: 'Líderes en Tecnología LED desde 2013',
+  description: 'Empresa establecida en Cancún, Quintana Roo, especializada en la venta y mantenimiento de pantallas LED de última generación.',
+  highlighted_text: 'Al adquirir nuestros productos, obtiene la más alta tecnología en pantallas LED de nuestros socios internacionales y fabricantes de componentes, ensambladas con la calidad y precisión de técnicos mexicanos.',
+  years_experience: 12,
+  happy_clients: 100
+})
+
+// Cargar About Section del API
+const loadAboutSection = async () => {
+  try {
+    const response = await api.get('/about')
+    aboutSection.value = response.data
+  } catch (error) {
+    console.error('Error loading about section:', error)
+    // Mantiene los valores por defecto
+  }
+}
+
 // Cargar servicios del API
 const loadServices = async () => {
   try {
@@ -935,6 +956,7 @@ onMounted(() => {
   
   // Cargar datos del API
   loadHeroSections()
+  loadAboutSection()
   loadServices()
   loadPortfolio()
 })
