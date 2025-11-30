@@ -7,17 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller {
     /**
      * Login
      */
-    public function login(Request $request): JsonResponse
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
+    public function login(Request $request): JsonResponse {
+        $request->validate([
+            'email' => 'required|string',
             'password' => 'required'
         ]);
+
+        // Intentar login con email o username
+        $loginField = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        $credentials = [
+            $loginField => $request->email,
+            'password' => $request->password
+        ];
 
         if (!Auth::attempt($credentials)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
@@ -36,18 +41,16 @@ class AuthController extends Controller
     /**
      * Logout
      */
-    public function logout(Request $request): JsonResponse
-    {
+    public function logout(Request $request): JsonResponse {
         $request->user()->currentAccessToken()->delete();
-        
+
         return response()->json(['message' => 'Logged out successfully']);
     }
 
     /**
      * Get authenticated user
      */
-    public function me(Request $request): JsonResponse
-    {
+    public function me(Request $request): JsonResponse {
         return response()->json($request->user());
     }
 }

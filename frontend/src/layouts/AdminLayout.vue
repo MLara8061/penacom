@@ -3,7 +3,13 @@
     <!-- Mobile Header -->
     <header class="mobile-header">
       <button class="mobile-menu-btn" @click="toggleSidebar" aria-label="Menú">
-        <svg v-if="!sidebarOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          v-if="!sidebarOpen"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -13,9 +19,15 @@
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
-      
+
       <div class="mobile-logo">
-        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          class="logo-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <rect x="3" y="3" width="7" height="7"></rect>
           <rect x="14" y="3" width="7" height="7"></rect>
           <rect x="14" y="14" width="7" height="7"></rect>
@@ -36,7 +48,13 @@
     <aside class="sidebar" :class="{ 'sidebar-open': sidebarOpen }">
       <div class="sidebar-header">
         <div class="sidebar-logo">
-          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            class="logo-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <rect x="3" y="3" width="7" height="7"></rect>
             <rect x="14" y="3" width="7" height="7"></rect>
             <rect x="14" y="14" width="7" height="7"></rect>
@@ -49,7 +67,13 @@
       <nav class="sidebar-nav">
         <!-- 1. Dashboard -->
         <router-link to="/admin" class="nav-item" exact-active-class="active" @click="closeSidebar">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <rect x="3" y="3" width="7" height="7"></rect>
             <rect x="14" y="3" width="7" height="7"></rect>
             <rect x="14" y="14" width="7" height="7"></rect>
@@ -61,7 +85,13 @@
         <!-- 2. Leads -->
         <div class="nav-section">
           <div class="nav-section-title">
-            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              class="section-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -70,8 +100,19 @@
             <span>Leads</span>
           </div>
 
-          <router-link to="/admin/leads/formulario" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/leads/formulario"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -81,15 +122,37 @@
             <span>Formulario de Contacto</span>
           </router-link>
 
-          <router-link to="/admin/leads/redes-sociales" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/leads/redes-sociales"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
             </svg>
             <span>Redes Sociales</span>
           </router-link>
 
-          <router-link to="/admin/leads/google" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/leads/google"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
             </svg>
@@ -100,15 +163,32 @@
         <!-- 3. Contenido del Sitio -->
         <div class="nav-section">
           <div class="nav-section-title">
-            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              class="section-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
               <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
             <span>Contenido del Sitio</span>
           </div>
 
-          <router-link to="/admin/seccion-heroe" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/seccion-heroe"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
               <polyline points="2 17 12 22 22 17"></polyline>
               <polyline points="2 12 12 17 22 12"></polyline>
@@ -116,8 +196,19 @@
             <span>Sección Héroe</span>
           </router-link>
 
-          <router-link to="/admin/informacion-empresa" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/informacion-empresa"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="12" y1="16" x2="12" y2="12"></line>
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -125,42 +216,101 @@
             <span>Información de la Empresa</span>
           </router-link>
 
-          <router-link to="/admin/productos" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <router-link
+            to="/admin/productos"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+              ></path>
               <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
               <line x1="12" y1="22.08" x2="12" y2="12"></line>
             </svg>
             <span>Nuestros Productos</span>
           </router-link>
 
-          <router-link to="/admin/servicios" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/servicios"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
             <span>Nuestros Servicios</span>
           </router-link>
 
-          <router-link to="/admin/portafolio" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/portafolio"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
               <polyline points="17 2 12 7 7 2"></polyline>
             </svg>
             <span>Portafolio</span>
           </router-link>
 
-          <router-link to="/admin/resenas" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          <router-link
+            to="/admin/resenas"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+              ></polygon>
             </svg>
             <span>Reseñas</span>
           </router-link>
         </div>
 
         <!-- 4. Formulario de Contacto -->
-        <router-link to="/admin/formulario-contacto" class="nav-item" active-class="active" @click="closeSidebar">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <router-link
+          to="/admin/formulario-contacto"
+          class="nav-item"
+          active-class="active"
+          @click="closeSidebar"
+        >
+          <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
             <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -171,8 +321,19 @@
         </router-link>
 
         <!-- 5. Footer -->
-        <router-link to="/admin/footer" class="nav-item" active-class="active" @click="closeSidebar">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <router-link
+          to="/admin/footer"
+          class="nav-item"
+          active-class="active"
+          @click="closeSidebar"
+        >
+          <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="18" x2="21" y2="18"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -180,18 +341,37 @@
           <span>Footer</span>
         </router-link>
 
-        <!-- 6. Configuración -->
-        <div class="nav-section">
+        <!-- 6. Configuración (solo admin) -->
+        <div v-if="isAdmin" class="nav-section">
           <div class="nav-section-title">
-            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              class="section-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M12 1v6m0 6v6m8.66-15L15.5 8.34M8.5 15.66 3.34 20.66m17.32 0L15.5 15.66M8.5 8.34 3.34 3.34"></path>
+              <path
+                d="M12 1v6m0 6v6m8.66-15L15.5 8.34M8.5 15.66 3.34 20.66m17.32 0L15.5 15.66M8.5 8.34 3.34 3.34"
+              ></path>
             </svg>
             <span>Configuración</span>
           </div>
 
-          <router-link to="/admin/usuarios" class="nav-subitem" active-class="active" @click="closeSidebar">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <router-link
+            to="/admin/usuarios"
+            class="nav-subitem"
+            active-class="active"
+            @click="closeSidebar"
+          >
+            <svg
+              class="nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -204,7 +384,13 @@
 
       <div class="sidebar-footer">
         <button @click="logout" class="logout-btn">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            class="nav-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
             <polyline points="16 17 21 12 16 7"></polyline>
             <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -241,27 +427,41 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import authService from '../services/authService'
 
 const route = useRoute()
 const router = useRouter()
 const sidebarOpen = ref(false)
+const currentUser = ref(null)
+
+// Obtener usuario actual
+onMounted(async () => {
+  try {
+    currentUser.value = await authService.me()
+  } catch (error) {
+    console.error('Error al obtener usuario:', error)
+  }
+})
+
+// Verificar si el usuario es admin
+const isAdmin = computed(() => currentUser.value?.role === 'admin')
 
 const pageTitle = computed(() => {
   const titles = {
-    'AdminDashboard': 'Dashboard',
-    'AdminLeadsFormulario': 'Leads - Formulario',
-    'AdminLeadsRedes': 'Leads - Redes Sociales',
-    'AdminLeadsGoogle': 'Leads - Google',
-    'AdminHeroSection': 'Sección Héroe',
-    'AdminInformacionEmpresa': 'Información de la Empresa',
-    'AdminProductos': 'Nuestros Productos',
-    'AdminServices': 'Nuestros Servicios',
-    'AdminPortafolio': 'Portafolio',
-    'AdminResenas': 'Reseñas',
-    'AdminFormularioContacto': 'Formulario de Contacto',
-    'AdminFooter': 'Footer'
+    AdminDashboard: 'Dashboard',
+    AdminLeadsFormulario: 'Leads - Formulario',
+    AdminLeadsRedes: 'Leads - Redes Sociales',
+    AdminLeadsGoogle: 'Leads - Google',
+    AdminHeroSection: 'Sección Héroe',
+    AdminInformacionEmpresa: 'Información de la Empresa',
+    AdminProductos: 'Nuestros Productos',
+    AdminServices: 'Nuestros Servicios',
+    AdminPortafolio: 'Portafolio',
+    AdminResenas: 'Reseñas',
+    AdminFormularioContacto: 'Formulario de Contacto',
+    AdminFooter: 'Footer',
   }
   return titles[route.name] || 'Panel Admin'
 })
@@ -274,9 +474,15 @@ const closeSidebar = () => {
   sidebarOpen.value = false
 }
 
-const logout = () => {
-  localStorage.removeItem('token')
-  router.push('/admin/login')
+const logout = async () => {
+  try {
+    await authService.logout()
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error)
+  } finally {
+    localStorage.removeItem('auth_token')
+    router.push('/admin/login')
+  }
 }
 </script>
 
@@ -340,7 +546,7 @@ const logout = () => {
 .mobile-logo .logo-icon {
   width: 24px;
   height: 24px;
-  color: #0066CC;
+  color: #0066cc;
 }
 
 .mobile-home-btn {
@@ -350,7 +556,7 @@ const logout = () => {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
   transition: transform 0.2s ease;
 }
 
@@ -634,7 +840,7 @@ const logout = () => {
     align-items: center;
     gap: 0.5rem;
     padding: 0.625rem 1.25rem;
-    background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
     color: white;
     text-decoration: none;
     border-radius: 8px;

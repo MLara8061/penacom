@@ -20,10 +20,13 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://localhost:5173', 
+        'http://localhost:5173',
         'http://localhost:5174',
         'https://casagery.com',
-        'http://casagery.com'
+        'http://casagery.com',
+        'https://www.casagery.com',
+        'http://www.casagery.com',
+        'https://api.casagery.com'
     ],
 
     'allowed_origins_patterns' => [],

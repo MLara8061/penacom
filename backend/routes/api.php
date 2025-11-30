@@ -48,40 +48,51 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 
 // Rutas protegidas (requieren autenticación con Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
-    
+
     // Auth
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/auth/me', [AuthController::class, 'me']);
-    
+
     // Services (Admin)
     Route::apiResource('services', ServiceController::class);
     Route::patch('/services/{id}/toggle-status', [ServiceController::class, 'toggleStatus']);
-    
+
     // Schedules (Admin)
     Route::put('/schedules/bulk', [ScheduleController::class, 'bulkUpdate']);
     Route::apiResource('schedules', ScheduleController::class)->except(['store', 'destroy']);
-    
+
     // Contact (Admin)
     Route::put('/contact', [ContactController::class, 'update']);
-    
+
     // About Section (Admin)
     Route::put('/about', [AboutSectionController::class, 'update']);
-    
-    // Hero Sections (Admin)
-    Route::apiResource('hero-sections', HeroSectionController::class);
-    
-    // Testimonials (Admin)
-    Route::apiResource('testimonials', TestimonialController::class);
-    
-    // Portfolio Items (Admin)
-    Route::apiResource('portfolio', PortfolioItemController::class);
-    
-    // Products (Admin)
-    Route::apiResource('products', ProductController::class);
-    
-    // Contacts (Admin)
+
+    // Hero Sections (Admin) - Solo rutas de escritura
+    Route::get('/hero-sections/{hero_section}', [HeroSectionController::class, 'show']);
+    Route::post('/hero-sections', [HeroSectionController::class, 'store']);
+    Route::put('/hero-sections/{hero_section}', [HeroSectionController::class, 'update']);
+    Route::delete('/hero-sections/{hero_section}', [HeroSectionController::class, 'destroy']);
+
+    // Testimonials (Admin) - Solo rutas de escritura
+    Route::get('/testimonials/{testimonial}', [TestimonialController::class, 'show']);
+    Route::post('/testimonials', [TestimonialController::class, 'store']);
+    Route::put('/testimonials/{testimonial}', [TestimonialController::class, 'update']);
+    Route::delete('/testimonials/{testimonial}', [TestimonialController::class, 'destroy']);
+
+    // Portfolio Items (Admin) - Solo rutas de escritura
+    Route::get('/portfolio/{portfolio}', [PortfolioItemController::class, 'show']);
+    Route::post('/portfolio', [PortfolioItemController::class, 'store']);
+    Route::put('/portfolio/{portfolio}', [PortfolioItemController::class, 'update']);
+    Route::delete('/portfolio/{portfolio}', [PortfolioItemController::class, 'destroy']);
+
+    // Products (Admin) - Todas las rutas para admin
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/{product}', [ProductController::class, 'show']);
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::put('/products/{product}', [ProductController::class, 'update']);
+    Route::delete('/products/{product}', [ProductController::class, 'destroy']);    // Contacts (Admin)
     Route::apiResource('contacts', ContactController::class);
-    
+
     // Users (Solo Admin)
     Route::middleware('role:admin')->group(function () {
         Route::apiResource('users', UserController::class);
