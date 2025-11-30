@@ -97,14 +97,8 @@ const getIconComponent = (title) => {
 }
 
 const getGradient = (id) => {
-  const gradients = [
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
-  ]
-  return gradients[(id - 1) % gradients.length]
+  // Esquema de colores azul claro de fondo
+  return '#E3F2FD'
 }
 
 const fetchServices = async () => {
@@ -216,8 +210,8 @@ onMounted(() => {
 .service-icon {
   width: 40px;
   height: 40px;
-  color: #fff;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  color: #1565C0;
+  filter: drop-shadow(0 2px 4px rgba(21, 101, 192, 0.2));
 }
 
 .service-info {

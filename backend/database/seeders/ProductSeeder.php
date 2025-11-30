@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Sector Hotelero',
                 'description' => 'Soluciones LED especializadas para hoteles y resorts. Iluminación de áreas comunes, habitaciones y exteriores con tecnología de bajo consumo y alta durabilidad.',
                 'category' => 'Hospitalidad',
+                'image' => 'https://images.unsplash.com/photo-1566073771259-6a8506099945',
                 'icon' => '🏨',
                 'is_active' => true,
                 'order' => 1
@@ -25,6 +26,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Sector Restaurantero',
                 'description' => 'Iluminación LED profesional para restaurantes y bares. Crea ambientes únicos con control de temperatura de color y sistemas de dimeo inteligente.',
                 'category' => 'Alimentos y Bebidas',
+                'image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',
                 'icon' => '🍽️',
                 'is_active' => true,
                 'order' => 2
@@ -33,6 +35,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Sector Residencial',
                 'description' => 'Soluciones LED para hogares modernos. Iluminación inteligente, eficiente y con diseños elegantes para cada espacio de tu casa.',
                 'category' => 'Residencial',
+                'image' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
                 'icon' => '🏠',
                 'is_active' => true,
                 'order' => 3
@@ -41,6 +44,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Sector Comercial',
                 'description' => 'Iluminación LED para oficinas, tiendas y espacios comerciales. Mejora la productividad y reduce costos energéticos con nuestras soluciones inteligentes.',
                 'category' => 'Comercial',
+                'image' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab',
                 'icon' => '🏢',
                 'is_active' => true,
                 'order' => 4
@@ -49,6 +53,7 @@ class ProductSeeder extends Seeder
                 'name' => 'Sector Industrial',
                 'description' => 'Iluminación LED de alta potencia para fábricas y almacenes. Resistente, eficiente y diseñada para operar en condiciones extremas.',
                 'category' => 'Industrial',
+                'image' => 'https://images.unsplash.com/photo-1581094794329-c8112a89af12',
                 'icon' => '🏭',
                 'is_active' => true,
                 'order' => 5

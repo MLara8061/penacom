@@ -1,16 +1,16 @@
 <template>
-  <div class="admin-services">
+  <div class="admin-testimonials">
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">Nuestros Servicios</h1>
-        <p class="page-description">Administra los servicios que ofreces</p>
+        <h1 class="page-title">Reseñas y Testimonios</h1>
+        <p class="page-description">Gestiona las opiniones de clientes mostradas en la landing</p>
       </div>
       <button @click="openModal()" class="btn-new">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        Nuevo Servicio
+        Nueva Reseña
       </button>
     </div>
 
@@ -20,53 +20,59 @@
         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
         <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
       </svg>
-      <p>Cargando servicios...</p>
+      <p>Cargando reseñas...</p>
     </div>
 
-    <!-- Services Grid -->
-    <div v-else-if="services.length > 0" class="services-grid">
+    <!-- Testimonials Grid -->
+    <div v-else-if="testimonials.length > 0" class="testimonials-grid">
       <div 
-        v-for="service in services" 
-        :key="service.id" 
-        class="service-card"
-        :class="{ inactive: !service.is_active }"
+        v-for="testimonial in testimonials" 
+        :key="testimonial.id" 
+        class="testimonial-card"
       >
-        <!-- Imagen del servicio -->
-        <div v-if="service.image" class="card-image" :style="{ backgroundImage: `url(${service.image})` }">
-          <div class="card-overlay">
-            <div class="badges">
-              <span class="badge badge-order">#{service.order}</span>
-              <span class="badge" :class="service.is_active ? 'badge-active' : 'badge-inactive'">
-                {{ service.is_active ? 'Activo' : 'Inactivo' }}
-              </span>
+        <div class="card-header">
+          <div class="client-info">
+            <div class="avatar" :style="{ backgroundImage: `url(${testimonial.client_photo || 'https://i.pravatar.cc/150?img=' + testimonial.id})` }"></div>
+            <div class="client-details">
+              <h3 class="client-name">{{ testimonial.client_name }}</h3>
+              <p v-if="testimonial.client_position || testimonial.client_company" class="client-meta">
+                <span v-if="testimonial.client_position">{{ testimonial.client_position }}</span>
+                <span v-if="testimonial.client_position && testimonial.client_company"> • </span>
+                <span v-if="testimonial.client_company">{{ testimonial.client_company }}</span>
+              </p>
             </div>
           </div>
-        </div>
-
-        <!-- Fallback si no hay imagen -->
-        <div v-else class="card-header">
-          <div class="icon-badge">{{ service.icon || '⚙️' }}</div>
-          <div class="badges">
-            <span class="badge badge-order">#{service.order}</span>
-            <span class="badge" :class="service.is_active ? 'badge-active' : 'badge-inactive'">
-              {{ service.is_active ? 'Activo' : 'Inactivo' }}
+          <div class="card-badges">
+            <span v-if="testimonial.is_featured" class="badge badge-featured">Destacado</span>
+            <span :class="['badge', testimonial.is_active ? 'badge-active' : 'badge-inactive']">
+              {{ testimonial.is_active ? 'Activo' : 'Inactivo' }}
             </span>
           </div>
         </div>
-        
+
         <div class="card-body">
-          <h3 class="service-name">{{ service.title }}</h3>
-          <p class="service-description">{{ truncateText(service.description, 100) }}</p>
+          <div class="rating">
+            <svg 
+              v-for="star in 5" 
+              :key="star"
+              :class="['star', { filled: star <= testimonial.rating }]"
+              viewBox="0 0 24 24" 
+              fill="currentColor"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">{{ truncateText(testimonial.testimonial, 150) }}</p>
         </div>
 
         <div class="card-footer">
-          <button @click="openModal(service)" class="btn-icon btn-edit" title="Editar">
+          <button @click="openModal(testimonial)" class="btn-icon btn-edit" title="Editar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
           </button>
-          <button @click="confirmDelete(service)" class="btn-icon btn-delete" title="Eliminar">
+          <button @click="confirmDelete(testimonial)" class="btn-icon btn-delete" title="Eliminar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 6 5 6 21 6"/>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -79,19 +85,18 @@
     <!-- Empty State -->
     <div v-else class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
-      <h3>No hay servicios</h3>
-      <p>Crea tu primer servicio para comenzar</p>
-      <button @click="openModal()" class="btn-empty">Crear Servicio</button>
+      <h3>No hay reseñas registradas</h3>
+      <p>Crea tu primera reseña para comenzar</p>
+      <button @click="openModal()" class="btn-empty">Crear Reseña</button>
     </div>
 
     <!-- Modal -->
     <div v-if="showModal" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
         <div class="modal-header">
-          <h2>{{ isEditing ? 'Editar Servicio' : 'Nuevo Servicio' }}</h2>
+          <h2>{{ isEditing ? 'Editar Reseña' : 'Nueva Reseña' }}</h2>
           <button @click="closeModal" class="btn-close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
@@ -100,127 +105,117 @@
           </button>
         </div>
 
-        <form @submit.prevent="saveService" class="modal-body">
+        <form @submit.prevent="saveTestimonial" class="modal-body">
           <div class="form-row">
             <div class="form-group">
-              <label for="title" class="form-label">
-                Título del Servicio
+              <label for="client_name" class="form-label">
+                Nombre del Cliente
                 <span class="required">*</span>
               </label>
               <input
-                id="title"
-                v-model="form.title"
+                id="client_name"
+                v-model="form.client_name"
                 type="text"
                 required
                 class="form-control"
-                placeholder="Ej: Diseño de Rótulos Personalizados"
+                placeholder="Ej: Juan Pérez"
               />
             </div>
 
             <div class="form-group">
-              <label for="order" class="form-label">
-                Orden de visualización
+              <label for="rating" class="form-label">
+                Calificación
                 <span class="required">*</span>
               </label>
-              <input
-                id="order"
-                v-model.number="form.order"
-                type="number"
+              <select
+                id="rating"
+                v-model.number="form.rating"
                 required
-                min="0"
                 class="form-control"
-                placeholder="1"
+              >
+                <option :value="5">⭐⭐⭐⭐⭐ (5)</option>
+                <option :value="4">⭐⭐⭐⭐ (4)</option>
+                <option :value="3">⭐⭐⭐ (3)</option>
+                <option :value="2">⭐⭐ (2)</option>
+                <option :value="1">⭐ (1)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="client_position" class="form-label">Cargo/Puesto</label>
+              <input
+                id="client_position"
+                v-model="form.client_position"
+                type="text"
+                class="form-control"
+                placeholder="Ej: Gerente de Operaciones"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="client_company" class="form-label">Empresa</label>
+              <input
+                id="client_company"
+                v-model="form.client_company"
+                type="text"
+                class="form-control"
+                placeholder="Ej: Hotel Riviera"
               />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="description" class="form-label">
-              Descripción
+            <label for="testimonial" class="form-label">
+              Testimonial
               <span class="required">*</span>
             </label>
             <textarea
-              id="description"
-              v-model="form.description"
-              rows="4"
+              id="testimonial"
+              v-model="form.testimonial"
+              rows="5"
               required
               class="form-control"
-              placeholder="Descripción detallada del servicio..."
+              placeholder="Escribe aquí la opinión del cliente..."
             ></textarea>
-            <div class="form-hint">{{ form.description.length }} caracteres</div>
+            <div class="form-hint">{{ form.testimonial.length }} caracteres</div>
           </div>
 
           <div class="form-group">
-            <label for="image" class="form-label">
-              URL de la Imagen
-              <span class="required">*</span>
-            </label>
-            <input
-              id="image"
-              v-model="form.image"
-              type="url"
-              required
-              class="form-control"
-              placeholder="https://images.unsplash.com/photo-..."
+            <ImageUploader
+              v-model="form.client_photo"
+              label="Foto del Cliente"
+              :required="false"
+              :show-history="true"
+              :history="imageHistory"
+              @upload="onImageUpload"
             />
-            <div class="form-hint">URL completa de la imagen del servicio</div>
-            
-            <!-- Vista previa de la imagen -->
-            <div v-if="form.image" class="image-preview">
-              <img :src="form.image" :alt="form.title" @error="imageError = true" />
-              <div v-if="imageError" class="image-error">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="12" y1="8" x2="12" y2="12"/>
-                  <line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-                <span>Error al cargar la imagen</span>
-              </div>
-            </div>
+            <div class="form-hint">Si no se proporciona, se usará un avatar genérico</div>
           </div>
 
           <div class="form-row">
-            <div class="form-group">
-              <label for="icon" class="form-label">
-                Icono (emoji)
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input
+                  v-model="form.is_featured"
+                  type="checkbox"
+                  class="form-checkbox"
+                />
+                <span>Reseña destacada</span>
               </label>
-              <input
-                id="icon"
-                v-model="form.icon"
-                type="text"
-                class="form-control"
-                placeholder="🏨"
-                maxlength="2"
-              />
-              <div class="form-hint">Un emoji representativo del servicio</div>
             </div>
 
-            <div class="form-group">
-              <label for="order" class="form-label">
-                Orden de visualización
-                <span class="required">*</span>
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input
+                  v-model="form.is_active"
+                  type="checkbox"
+                  class="form-checkbox"
+                />
+                <span>Visible en la página</span>
               </label>
-              <input
-                id="order"
-                v-model.number="form.order"
-                type="number"
-                required
-                min="0"
-                class="form-control"
-                placeholder="1"
-              />
             </div>
-          </div>
-
-          <div class="form-group">
-            <label class="checkbox-label">
-              <input
-                v-model="form.is_active"
-                type="checkbox"
-                class="form-checkbox"
-              />
-              <span>Servicio activo (visible en la página)</span>
-            </label>
           </div>
 
           <div class="form-actions">
@@ -237,7 +232,7 @@
                 <polyline points="17 21 17 13 7 13 7 21"/>
                 <polyline points="7 3 7 8 15 8"/>
               </svg>
-              {{ saving ? 'Guardando...' : 'Guardar Servicio' }}
+              {{ saving ? 'Guardando...' : 'Guardar Reseña' }}
             </button>
           </div>
         </form>
@@ -251,14 +246,14 @@
           <h2>Confirmar Eliminación</h2>
         </div>
         <div class="modal-body">
-          <p>¿Estás seguro de que deseas eliminar el servicio <strong>{{ serviceToDelete?.title }}</strong>?</p>
+          <p>¿Estás seguro de que deseas eliminar la reseña de <strong>{{ itemToDelete?.client_name }}</strong>?</p>
           <p class="text-warning">Esta acción no se puede deshacer.</p>
         </div>
         <div class="form-actions">
           <button @click="showDeleteModal = false" class="btn-secondary">
             Cancelar
           </button>
-          <button @click="deleteProduct" class="btn-danger" :disabled="saving">
+          <button @click="deleteTestimonial" class="btn-danger" :disabled="saving">
             {{ saving ? 'Eliminando...' : 'Eliminar' }}
           </button>
         </div>
@@ -270,50 +265,55 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api.js'
+import ImageUploader from '@/components/admin/ImageUploader.vue'
 
 const loading = ref(true)
 const saving = ref(false)
-const services = ref([])
+const testimonials = ref([])
 const showModal = ref(false)
 const showDeleteModal = ref(false)
 const isEditing = ref(false)
-const serviceToDelete = ref(null)
-const imageError = ref(false)
+const itemToDelete = ref(null)
+const imageHistory = ref([])
 
 const form = ref({
-  title: '',
-  description: '',
-  icon: '',
-  image: '',
-  is_active: true,
-  order: 1
+  client_name: '',
+  client_position: '',
+  client_company: '',
+  client_photo: '',
+  testimonial: '',
+  rating: 5,
+  is_featured: false,
+  is_active: true
 })
 
-const fetchServices = async () => {
+const fetchTestimonials = async () => {
   loading.value = true
   try {
-    const response = await api.get('/services')
-    services.value = response.data.sort((a, b) => a.order - b.order)
+    const response = await api.get('/testimonials')
+    testimonials.value = response.data
   } catch (error) {
-    console.error('Error al cargar productos:', error)
+    console.error('Error al cargar testimonios:', error)
   } finally {
     loading.value = false
   }
 }
 
-const openModal = (service = null) => {
-  if (service) {
+const openModal = (item = null) => {
+  if (item) {
     isEditing.value = true
-    form.value = { ...service }
+    form.value = { ...item }
   } else {
     isEditing.value = false
     form.value = {
-      title: '',
-      description: '',
-      icon: '',
-      image: '',
-      is_active: true,
-      order: services.value.length + 1
+      client_name: '',
+      client_position: '',
+      client_company: '',
+      client_photo: '',
+      testimonial: '',
+      rating: 5,
+      is_featured: false,
+      is_active: true
     }
   }
   showModal.value = true
@@ -322,58 +322,61 @@ const openModal = (service = null) => {
 const closeModal = () => {
   showModal.value = false
   isEditing.value = false
-  imageError.value = false
 }
 
-const saveService = async () => {
+const saveTestimonial = async () => {
   saving.value = true
   try {
     if (isEditing.value) {
-      await api.put(`/services/${form.value.id}`, form.value)
+      await api.put(`/testimonials/${form.value.id}`, form.value)
     } else {
-      await api.post('/services', form.value)
+      await api.post('/testimonials', form.value)
     }
-    await fetchServices()
+    await fetchTestimonials()
     closeModal()
   } catch (error) {
-    console.error('Error al guardar servicio:', error)
-    alert('Error al guardar el servicio. Por favor intenta de nuevo.')
+    console.error('Error al guardar reseña:', error)
+    alert('Error al guardar la reseña. Por favor intenta de nuevo.')
   } finally {
     saving.value = false
   }
 }
 
-const confirmDelete = (service) => {
-  serviceToDelete.value = service
+const confirmDelete = (item) => {
+  itemToDelete.value = item
   showDeleteModal.value = true
 }
 
-const deleteService = async () => {
+const deleteTestimonial = async () => {
   saving.value = true
   try {
-    await api.delete(`/services/${serviceToDelete.value.id}`)
-    await fetchServices()
+    await api.delete(`/testimonials/${itemToDelete.value.id}`)
+    await fetchTestimonials()
     showDeleteModal.value = false
-    serviceToDelete.value = null
+    itemToDelete.value = null
   } catch (error) {
-    console.error('Error al eliminar servicio:', error)
-    alert('Error al eliminar el servicio. Por favor intenta de nuevo.')
+    console.error('Error al eliminar reseña:', error)
+    alert('Error al eliminar la reseña. Por favor intenta de nuevo.')
   } finally {
     saving.value = false
   }
 }
 
 const truncateText = (text, maxLength) => {
-  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+  return text && text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+}
+
+const onImageUpload = (url) => {
+  console.log('Imagen subida:', url)
 }
 
 onMounted(() => {
-  fetchServices()
+  fetchTestimonials()
 })
 </script>
 
 <style scoped>
-.admin-services {
+.admin-testimonials {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -427,82 +430,71 @@ onMounted(() => {
   height: 18px;
 }
 
-/* Services Grid */
-.services-grid {
+/* Testimonials Grid */
+.testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.5rem;
 }
 
-.service-card {
+.testimonial-card {
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
+  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: all 0.2s;
   display: flex;
   flex-direction: column;
 }
 
-.service-card:hover {
+.testimonial-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
-.service-card.inactive {
-  opacity: 0.6;
-}
-
 .card-header {
+  padding: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  border-bottom: 1px solid #f8f9fa;
 }
 
-.icon-badge {
-  font-size: 2.5rem;
-  width: 64px;
-  height: 64px;
+.client-info {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border-radius: 12px;
+  gap: 1rem;
+  flex: 1;
 }
 
-/* Imagen de la tarjeta */
-.card-image {
-  width: calc(100% + 3rem);
-  height: 200px;
-  margin: -1.5rem -1.5rem 1rem -1.5rem;
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 12px 12px 0 0;
-  position: relative;
+  flex-shrink: 0;
 }
 
-.card-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1rem;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
-  border-radius: 12px 12px 0 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+.client-details {
+  flex: 1;
+  min-width: 0;
 }
 
-.card-overlay .badges {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-end;
+.client-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.25rem 0;
 }
 
-.badges {
+.client-meta {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.card-badges {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -518,9 +510,9 @@ onMounted(() => {
   text-transform: uppercase;
 }
 
-.badge-order {
-  background: #e9ecef;
-  color: #495057;
+.badge-featured {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
 }
 
 .badge-active {
@@ -534,36 +526,40 @@ onMounted(() => {
 }
 
 .card-body {
+  padding: 1.5rem;
   flex: 1;
+}
+
+.rating {
+  display: flex;
+  gap: 0.25rem;
   margin-bottom: 1rem;
 }
 
-.product-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0 0 0.5rem 0;
+.star {
+  width: 20px;
+  height: 20px;
+  color: #e5e7eb;
+  transition: color 0.2s;
 }
 
-.product-category {
-  color: #667eea;
-  font-weight: 600;
-  font-size: 0.875rem;
-  margin: 0 0 0.75rem 0;
+.star.filled {
+  color: #fbbf24;
 }
 
-.product-description {
-  color: #6c757d;
+.testimonial-text {
+  color: #495057;
   font-size: 0.875rem;
   line-height: 1.6;
+  font-style: italic;
   margin: 0;
 }
 
 .card-footer {
   display: flex;
   gap: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #f8f9fa;
 }
 
 .btn-icon {
@@ -667,7 +663,7 @@ onMounted(() => {
 .modal-content {
   background: white;
   border-radius: 16px;
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
   max-height: 90vh;
   overflow: hidden;
@@ -762,37 +758,10 @@ onMounted(() => {
   margin-top: 0.25rem;
 }
 
-/* Vista previa de imagen */
-.image-preview {
-  margin-top: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #dee2e6;
-  position: relative;
-  max-width: 400px;
-}
-
-.image-preview img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.image-error {
+.checkbox-group {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 2rem;
-  background: #f8f9fa;
-  color: #dc3545;
-  font-size: 0.875rem;
-}
-
-.image-error svg {
-  width: 24px;
-  height: 24px;
-  stroke: #dc3545;
+  height: 100%;
 }
 
 .checkbox-label {
@@ -882,7 +851,7 @@ onMounted(() => {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .admin-products {
+  .admin-testimonials {
     padding: 1rem;
   }
 
@@ -895,12 +864,21 @@ onMounted(() => {
     justify-content: center;
   }
 
-  .services-grid {
+  .testimonials-grid {
     grid-template-columns: 1fr;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .card-header {
+    flex-direction: column;
+  }
+
+  .card-badges {
+    flex-direction: row;
+    width: 100%;
   }
 }
 </style>

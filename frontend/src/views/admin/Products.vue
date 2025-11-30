@@ -31,7 +31,20 @@
         class="product-card"
         :class="{ inactive: !product.is_active }"
       >
-        <div class="card-header">
+        <!-- Imagen del producto -->
+        <div v-if="product.image" class="card-image" :style="{ backgroundImage: `url(${product.image})` }">
+          <div class="card-overlay">
+            <div class="badges">
+              <span class="badge badge-order">#{product.order}</span>
+              <span class="badge" :class="product.is_active ? 'badge-active' : 'badge-inactive'">
+                {{ product.is_active ? 'Activo' : 'Inactivo' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fallback si no hay imagen -->
+        <div v-else class="card-header">
           <div class="icon-badge">{{ product.icon || '📦' }}</div>
           <div class="badges">
             <span class="badge badge-order">#{product.order}</span>
@@ -137,6 +150,35 @@
             <div class="form-hint">{{ form.description.length }} caracteres</div>
           </div>
 
+          <div class="form-group">
+            <label for="image" class="form-label">
+              URL de la Imagen
+              <span class="required">*</span>
+            </label>
+            <input
+              id="image"
+              v-model="form.image"
+              type="url"
+              required
+              class="form-control"
+              placeholder="https://images.unsplash.com/photo-..."
+            />
+            <div class="form-hint">URL completa de la imagen del producto</div>
+            
+            <!-- Vista previa de la imagen -->
+            <div v-if="form.image" class="image-preview">
+              <img :src="form.image" :alt="form.name" @error="imageError = true" />
+              <div v-if="imageError" class="image-error">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>Error al cargar la imagen</span>
+              </div>
+            </div>
+          </div>
+
           <div class="form-row">
             <div class="form-group">
               <label for="icon" class="form-label">
@@ -236,6 +278,7 @@ const showModal = ref(false)
 const showDeleteModal = ref(false)
 const isEditing = ref(false)
 const productToDelete = ref(null)
+const imageError = ref(false)
 
 const form = ref({
   name: '',
@@ -427,6 +470,37 @@ onMounted(() => {
   justify-content: center;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   border-radius: 12px;
+}
+
+/* Imagen de la tarjeta */
+.card-image {
+  width: calc(100% + 3rem);
+  height: 200px;
+  margin: -1.5rem -1.5rem 1rem -1.5rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  border-radius: 12px 12px 0 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-overlay .badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
 
 .badges {
@@ -687,6 +761,39 @@ onMounted(() => {
   font-size: 0.75rem;
   color: #6c757d;
   margin-top: 0.25rem;
+}
+
+/* Vista previa de imagen */
+.image-preview {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  position: relative;
+  max-width: 400px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  color: #dc3545;
+  font-size: 0.875rem;
+}
+
+.image-error svg {
+  width: 24px;
+  height: 24px;
+  stroke: #dc3545;
 }
 
 .checkbox-label {

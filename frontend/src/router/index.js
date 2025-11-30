@@ -25,6 +25,8 @@ import AdminLeadsRedes from '../views/admin/Leads/RedesSociales.vue';
 import AdminLeadsGoogle from '../views/admin/Leads/Google.vue';
 import AdminFormularioContacto from '../views/admin/FormularioContacto.vue';
 import AdminFooter from '../views/admin/Footer.vue';
+import AdminPortfolio from '../views/admin/Portfolio.vue';
+import AdminTestimonials from '../views/admin/Testimonials.vue';
 
 const routes = [
   // Landing Page
@@ -68,6 +70,8 @@ const routes = [
       { path: 'leads/formulario', name: 'AdminLeadsFormulario', component: AdminContact },
       { path: 'leads/redes-sociales', name: 'AdminLeadsRedes', component: AdminLeadsRedes },
       { path: 'leads/google', name: 'AdminLeadsGoogle', component: AdminLeadsGoogle },
+      { path: 'portafolio', name: 'AdminPortafolio', component: AdminPortfolio },
+      { path: 'resenas', name: 'AdminResenas', component: AdminTestimonials },
       { path: 'formulario-contacto', name: 'AdminFormularioContacto', component: AdminFormularioContacto },
       { path: 'footer', name: 'AdminFooter', component: AdminFooter }
     ]

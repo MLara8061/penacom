@@ -132,67 +132,21 @@
         <!-- Servicios -->
         <div class="services-section" style="margin-top: 80px;">
           <h3 class="services-subtitle products-title">Nuestros Servicios</h3>
-          <div class="services-grid">
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80');">
+          <div v-if="isLoadingServices" class="loading-state">
+            <p>Cargando servicios...</p>
+          </div>
+          <div v-else-if="services.length === 0" class="empty-state">
+            <p>No hay servicios disponibles</p>
+          </div>
+          <div v-else class="services-grid">
+            <div v-for="service in services" :key="service.id" class="service-card glass-card">
+              <div class="service-image" :style="{ backgroundImage: service.image ? `url(${service.image})` : 'url(\'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80\')' }">
                 <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                  </svg>
+                  <div class="service-icon-emoji">{{ service.icon || '⚙️' }}</div>
                 </div>
               </div>
-              <h3>Ingeniería Técnica</h3>
-              <p>Diseño e implementación de soluciones técnicas especializadas para cada proyecto LED.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                  </svg>
-                </div>
-              </div>
-              <h3>Asesoría en Proyectos</h3>
-              <p>Consultoría experta para nuevos proyectos, desde la concepción hasta la implementación final.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                    <line x1="1" y1="10" x2="23" y2="10"></line>
-                  </svg>
-                </div>
-              </div>
-              <h3>Venta de Equipos</h3>
-              <p>Comercialización de pantallas LED y equipos de última generación con garantía y soporte.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </div>
-              </div>
-              <h3>Instalación y Puesta en Marcha</h3>
-              <p>Instalación profesional y configuración completa de todos nuestros sistemas LED.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                  </svg>
-                </div>
-              </div>
-              <h3>Mantenimiento</h3>
-              <p>Servicio de mantenimiento preventivo y correctivo para garantizar el óptimo funcionamiento.</p>
+              <h3>{{ service.title }}</h3>
+              <p>{{ service.description }}</p>
             </div>
           </div>
           <div class="section-cta">
@@ -562,6 +516,7 @@ interface Service {
   title: string
   description: string
   color: string
+  image?: string
 }
 
 interface Product {
@@ -580,6 +535,15 @@ interface PortfolioSlide {
   title: string
   description: string
   image: string
+}
+
+interface Testimonial {
+  name: string
+  text: string
+  avatar: string
+  company?: string
+  position?: string
+  rating?: number
 }
 
 // Navbar scroll state
@@ -829,33 +793,42 @@ const stats = ref([
 
 // Testimonials
 const currentTestimonial = ref(0)
-const testimonials = ref([
-  {
-    name: 'María González',
-    text: 'Excelente servicio y productos de alta calidad. La instalación de nuestras pantallas LED en el hotel fue impecable y el equipo muy profesional. Totalmente recomendados.',
-    avatar: 'https://i.pravatar.cc/150?img=1'
-  },
-  {
-    name: 'Carlos Ramírez',
-    text: 'Llevamos años trabajando con Peñacom y siempre superan nuestras expectativas. Sus pantallas LED han transformado nuestro restaurante. Muy satisfechos con el servicio.',
-    avatar: 'https://i.pravatar.cc/150?img=12'
-  },
-  {
-    name: 'Ana Martínez',
-    text: 'La mejor inversión que hemos hecho para nuestra tienda. Las pantallas son increíbles y el soporte técnico es excepcional. 100% recomendados.',
-    avatar: 'https://i.pravatar.cc/150?img=5'
-  },
-  {
-    name: 'Roberto Sánchez',
-    text: 'Profesionales en todo momento. Desde la asesoría hasta la instalación, todo fue perfecto. Las pantallas LED mejoraron significativamente nuestra comunicación interna.',
-    avatar: 'https://i.pravatar.cc/150?img=33'
-  },
-  {
-    name: 'Laura Fernández',
-    text: 'Increíble calidad y atención al cliente. Nuestro proyecto especial quedó espectacular gracias a su experiencia y dedicación. Sin duda los mejores en tecnología LED.',
-    avatar: 'https://i.pravatar.cc/150?img=9'
+const testimonials = ref<Testimonial[]>([])
+const isLoadingTestimonials = ref(true)
+
+// Cargar testimonials del API
+const loadTestimonials = async () => {
+  try {
+    const response = await api.get('/testimonials')
+    testimonials.value = response.data
+      .filter((t: any) => t.is_active)
+      .map((t: any) => ({
+        name: t.client_name,
+        text: t.testimonial,
+        avatar: t.client_photo || `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`,
+        company: t.client_company,
+        position: t.client_position,
+        rating: t.rating
+      }))
+  } catch (error) {
+    console.error('Error loading testimonials:', error)
+    // Fallback a datos estáticos
+    testimonials.value = [
+      {
+        name: 'María González',
+        text: 'Excelente servicio y productos de alta calidad. La instalación de nuestras pantallas LED en el hotel fue impecable y el equipo muy profesional. Totalmente recomendados.',
+        avatar: 'https://i.pravatar.cc/150?img=1'
+      },
+      {
+        name: 'Carlos Ramírez',
+        text: 'Llevamos años trabajando con Peñacom y siempre superan nuestras expectativas. Sus pantallas LED han transformado nuestro restaurante. Muy satisfechos con el servicio.',
+        avatar: 'https://i.pravatar.cc/150?img=12'
+      }
+    ]
+  } finally {
+    isLoadingTestimonials.value = false
   }
-])
+}
 
 const nextTestimonial = () => {
   currentTestimonial.value = (currentTestimonial.value + 1) % testimonials.value.length
@@ -939,6 +912,7 @@ onMounted(() => {
   loadProducts()
   loadServices()
   loadPortfolio()
+  loadTestimonials()
 })
 
 onUnmounted(() => {

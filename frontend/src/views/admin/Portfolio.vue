@@ -1,16 +1,16 @@
 <template>
-  <div class="admin-services">
+  <div class="admin-portfolio">
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">Nuestros Servicios</h1>
-        <p class="page-description">Administra los servicios que ofreces</p>
+        <h1 class="page-title">Portafolio</h1>
+        <p class="page-description">Gestiona los proyectos y casos de éxito mostrados en el slider</p>
       </div>
       <button @click="openModal()" class="btn-new">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        Nuevo Servicio
+        Nuevo Proyecto
       </button>
     </div>
 
@@ -20,53 +20,53 @@
         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
         <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
       </svg>
-      <p>Cargando servicios...</p>
+      <p>Cargando proyectos...</p>
     </div>
 
-    <!-- Services Grid -->
-    <div v-else-if="services.length > 0" class="services-grid">
+    <!-- Portfolio Grid -->
+    <div v-else-if="portfolioItems.length > 0" class="portfolio-grid">
       <div 
-        v-for="service in services" 
-        :key="service.id" 
-        class="service-card"
-        :class="{ inactive: !service.is_active }"
+        v-for="item in portfolioItems" 
+        :key="item.id" 
+        class="portfolio-card"
       >
-        <!-- Imagen del servicio -->
-        <div v-if="service.image" class="card-image" :style="{ backgroundImage: `url(${service.image})` }">
+        <div class="card-image" :style="{ backgroundImage: `url(${item.image})` }">
           <div class="card-overlay">
-            <div class="badges">
-              <span class="badge badge-order">#{service.order}</span>
-              <span class="badge" :class="service.is_active ? 'badge-active' : 'badge-inactive'">
-                {{ service.is_active ? 'Activo' : 'Inactivo' }}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fallback si no hay imagen -->
-        <div v-else class="card-header">
-          <div class="icon-badge">{{ service.icon || '⚙️' }}</div>
-          <div class="badges">
-            <span class="badge badge-order">#{service.order}</span>
-            <span class="badge" :class="service.is_active ? 'badge-active' : 'badge-inactive'">
-              {{ service.is_active ? 'Activo' : 'Inactivo' }}
-            </span>
+            <span v-if="item.featured" class="badge badge-featured">Destacado</span>
+            <span class="badge badge-order">#{item.order}</span>
           </div>
         </div>
         
         <div class="card-body">
-          <h3 class="service-name">{{ service.title }}</h3>
-          <p class="service-description">{{ truncateText(service.description, 100) }}</p>
+          <span v-if="item.category" class="category-badge">{{ item.category }}</span>
+          <h3 class="project-title">{{ item.title }}</h3>
+          <p v-if="item.description" class="project-description">{{ truncateText(item.description, 120) }}</p>
+          <div v-if="item.client" class="project-meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>{{ item.client }}</span>
+          </div>
+          <div v-if="item.completed_date" class="project-meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>{{ formatDate(item.completed_date) }}</span>
+          </div>
         </div>
 
         <div class="card-footer">
-          <button @click="openModal(service)" class="btn-icon btn-edit" title="Editar">
+          <button @click="openModal(item)" class="btn-icon btn-edit" title="Editar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
           </button>
-          <button @click="confirmDelete(service)" class="btn-icon btn-delete" title="Eliminar">
+          <button @click="confirmDelete(item)" class="btn-icon btn-delete" title="Eliminar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="3 6 5 6 21 6"/>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
@@ -79,19 +79,20 @@
     <!-- Empty State -->
     <div v-else class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
       </svg>
-      <h3>No hay servicios</h3>
-      <p>Crea tu primer servicio para comenzar</p>
-      <button @click="openModal()" class="btn-empty">Crear Servicio</button>
+      <h3>No hay proyectos en el portafolio</h3>
+      <p>Crea tu primer proyecto para comenzar</p>
+      <button @click="openModal()" class="btn-empty">Crear Proyecto</button>
     </div>
 
     <!-- Modal -->
     <div v-if="showModal" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
         <div class="modal-header">
-          <h2>{{ isEditing ? 'Editar Servicio' : 'Nuevo Servicio' }}</h2>
+          <h2>{{ isEditing ? 'Editar Proyecto' : 'Nuevo Proyecto' }}</h2>
           <button @click="closeModal" class="btn-close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
@@ -100,36 +101,42 @@
           </button>
         </div>
 
-        <form @submit.prevent="saveService" class="modal-body">
+        <form @submit.prevent="savePortfolio" class="modal-body">
+          <div class="form-group">
+            <label for="title" class="form-label">
+              Título del Proyecto
+              <span class="required">*</span>
+            </label>
+            <input
+              id="title"
+              v-model="form.title"
+              type="text"
+              required
+              class="form-control"
+              placeholder="Ej: Señalización Digital Hotel Riviera"
+            />
+          </div>
+
           <div class="form-row">
             <div class="form-group">
-              <label for="title" class="form-label">
-                Título del Servicio
-                <span class="required">*</span>
-              </label>
+              <label for="category" class="form-label">Categoría</label>
               <input
-                id="title"
-                v-model="form.title"
+                id="category"
+                v-model="form.category"
                 type="text"
-                required
                 class="form-control"
-                placeholder="Ej: Diseño de Rótulos Personalizados"
+                placeholder="Ej: Señalización Digital"
               />
             </div>
 
             <div class="form-group">
-              <label for="order" class="form-label">
-                Orden de visualización
-                <span class="required">*</span>
-              </label>
+              <label for="client" class="form-label">Cliente</label>
               <input
-                id="order"
-                v-model.number="form.order"
-                type="number"
-                required
-                min="0"
+                id="client"
+                v-model="form.client"
+                type="text"
                 class="form-control"
-                placeholder="1"
+                placeholder="Nombre del cliente"
               />
             </div>
           </div>
@@ -145,56 +152,46 @@
               rows="4"
               required
               class="form-control"
-              placeholder="Descripción detallada del servicio..."
+              placeholder="Descripción detallada del proyecto..."
             ></textarea>
             <div class="form-hint">{{ form.description.length }} caracteres</div>
           </div>
 
           <div class="form-group">
-            <label for="image" class="form-label">
-              URL de la Imagen
-              <span class="required">*</span>
-            </label>
-            <input
-              id="image"
+            <ImageUploader
               v-model="form.image"
-              type="url"
-              required
-              class="form-control"
-              placeholder="https://images.unsplash.com/photo-..."
+              label="Imagen del Proyecto"
+              :required="true"
+              :show-history="true"
+              :history="imageHistory"
+              @upload="onImageUpload"
             />
-            <div class="form-hint">URL completa de la imagen del servicio</div>
-            
-            <!-- Vista previa de la imagen -->
-            <div v-if="form.image" class="image-preview">
-              <img :src="form.image" :alt="form.title" @error="imageError = true" />
-              <div v-if="imageError" class="image-error">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="12" y1="8" x2="12" y2="12"/>
-                  <line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-                <span>Error al cargar la imagen</span>
-              </div>
-            </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="icon" class="form-label">
-                Icono (emoji)
-              </label>
+              <label for="link" class="form-label">Enlace (opcional)</label>
               <input
-                id="icon"
-                v-model="form.icon"
-                type="text"
+                id="link"
+                v-model="form.link"
+                type="url"
                 class="form-control"
-                placeholder="🏨"
-                maxlength="2"
+                placeholder="https://..."
               />
-              <div class="form-hint">Un emoji representativo del servicio</div>
             </div>
 
+            <div class="form-group">
+              <label for="completed_date" class="form-label">Fecha de finalización</label>
+              <input
+                id="completed_date"
+                v-model="form.completed_date"
+                type="date"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
             <div class="form-group">
               <label for="order" class="form-label">
                 Orden de visualización
@@ -210,17 +207,17 @@
                 placeholder="1"
               />
             </div>
-          </div>
 
-          <div class="form-group">
-            <label class="checkbox-label">
-              <input
-                v-model="form.is_active"
-                type="checkbox"
-                class="form-checkbox"
-              />
-              <span>Servicio activo (visible en la página)</span>
-            </label>
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input
+                  v-model="form.featured"
+                  type="checkbox"
+                  class="form-checkbox"
+                />
+                <span>Proyecto destacado</span>
+              </label>
+            </div>
           </div>
 
           <div class="form-actions">
@@ -237,7 +234,7 @@
                 <polyline points="17 21 17 13 7 13 7 21"/>
                 <polyline points="7 3 7 8 15 8"/>
               </svg>
-              {{ saving ? 'Guardando...' : 'Guardar Servicio' }}
+              {{ saving ? 'Guardando...' : 'Guardar Proyecto' }}
             </button>
           </div>
         </form>
@@ -251,14 +248,14 @@
           <h2>Confirmar Eliminación</h2>
         </div>
         <div class="modal-body">
-          <p>¿Estás seguro de que deseas eliminar el servicio <strong>{{ serviceToDelete?.title }}</strong>?</p>
+          <p>¿Estás seguro de que deseas eliminar el proyecto <strong>{{ itemToDelete?.title }}</strong>?</p>
           <p class="text-warning">Esta acción no se puede deshacer.</p>
         </div>
         <div class="form-actions">
           <button @click="showDeleteModal = false" class="btn-secondary">
             Cancelar
           </button>
-          <button @click="deleteProduct" class="btn-danger" :disabled="saving">
+          <button @click="deletePortfolio" class="btn-danger" :disabled="saving">
             {{ saving ? 'Eliminando...' : 'Eliminar' }}
           </button>
         </div>
@@ -270,50 +267,57 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api.js'
+import ImageUploader from '@/components/admin/ImageUploader.vue'
 
 const loading = ref(true)
 const saving = ref(false)
-const services = ref([])
+const portfolioItems = ref([])
 const showModal = ref(false)
 const showDeleteModal = ref(false)
 const isEditing = ref(false)
-const serviceToDelete = ref(null)
-const imageError = ref(false)
+const itemToDelete = ref(null)
+const imageHistory = ref([])
 
 const form = ref({
   title: '',
   description: '',
-  icon: '',
+  category: '',
+  client: '',
   image: '',
-  is_active: true,
+  link: '',
+  completed_date: '',
+  featured: false,
   order: 1
 })
 
-const fetchServices = async () => {
+const fetchPortfolio = async () => {
   loading.value = true
   try {
-    const response = await api.get('/services')
-    services.value = response.data.sort((a, b) => a.order - b.order)
+    const response = await api.get('/portfolio')
+    portfolioItems.value = response.data.sort((a, b) => a.order - b.order)
   } catch (error) {
-    console.error('Error al cargar productos:', error)
+    console.error('Error al cargar portafolio:', error)
   } finally {
     loading.value = false
   }
 }
 
-const openModal = (service = null) => {
-  if (service) {
+const openModal = (item = null) => {
+  if (item) {
     isEditing.value = true
-    form.value = { ...service }
+    form.value = { ...item }
   } else {
     isEditing.value = false
     form.value = {
       title: '',
       description: '',
-      icon: '',
+      category: '',
+      client: '',
       image: '',
-      is_active: true,
-      order: services.value.length + 1
+      link: '',
+      completed_date: '',
+      featured: false,
+      order: portfolioItems.value.length + 1
     }
   }
   showModal.value = true
@@ -322,58 +326,68 @@ const openModal = (service = null) => {
 const closeModal = () => {
   showModal.value = false
   isEditing.value = false
-  imageError.value = false
 }
 
-const saveService = async () => {
+const savePortfolio = async () => {
   saving.value = true
   try {
     if (isEditing.value) {
-      await api.put(`/services/${form.value.id}`, form.value)
+      await api.put(`/portfolio/${form.value.id}`, form.value)
     } else {
-      await api.post('/services', form.value)
+      await api.post('/portfolio', form.value)
     }
-    await fetchServices()
+    await fetchPortfolio()
     closeModal()
   } catch (error) {
-    console.error('Error al guardar servicio:', error)
-    alert('Error al guardar el servicio. Por favor intenta de nuevo.')
+    console.error('Error al guardar proyecto:', error)
+    alert('Error al guardar el proyecto. Por favor intenta de nuevo.')
   } finally {
     saving.value = false
   }
 }
 
-const confirmDelete = (service) => {
-  serviceToDelete.value = service
+const confirmDelete = (item) => {
+  itemToDelete.value = item
   showDeleteModal.value = true
 }
 
-const deleteService = async () => {
+const deletePortfolio = async () => {
   saving.value = true
   try {
-    await api.delete(`/services/${serviceToDelete.value.id}`)
-    await fetchServices()
+    await api.delete(`/portfolio/${itemToDelete.value.id}`)
+    await fetchPortfolio()
     showDeleteModal.value = false
-    serviceToDelete.value = null
+    itemToDelete.value = null
   } catch (error) {
-    console.error('Error al eliminar servicio:', error)
-    alert('Error al eliminar el servicio. Por favor intenta de nuevo.')
+    console.error('Error al eliminar proyecto:', error)
+    alert('Error al eliminar el proyecto. Por favor intenta de nuevo.')
   } finally {
     saving.value = false
   }
 }
 
 const truncateText = (text, maxLength) => {
-  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+  return text && text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+}
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('es-MX', {
+    year: 'numeric',
+    month: 'long'
+  })
+}
+
+const onImageUpload = (url) => {
+  console.log('Imagen subida:', url)
 }
 
 onMounted(() => {
-  fetchServices()
+  fetchPortfolio()
 })
 </script>
 
 <style scoped>
-.admin-services {
+.admin-portfolio {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -427,59 +441,33 @@ onMounted(() => {
   height: 18px;
 }
 
-/* Services Grid */
-.services-grid {
+/* Portfolio Grid */
+.portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
-.service-card {
+.portfolio-card {
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
+  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   transition: all 0.2s;
   display: flex;
   flex-direction: column;
 }
 
-.service-card:hover {
+.portfolio-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
-.service-card.inactive {
-  opacity: 0.6;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
-.icon-badge {
-  font-size: 2.5rem;
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border-radius: 12px;
-}
-
-/* Imagen de la tarjeta */
 .card-image {
-  width: calc(100% + 3rem);
+  width: 100%;
   height: 200px;
-  margin: -1.5rem -1.5rem 1rem -1.5rem;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 12px 12px 0 0;
   position: relative;
 }
 
@@ -488,24 +476,9 @@ onMounted(() => {
   top: 0;
   right: 0;
   padding: 1rem;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
-  border-radius: 12px 12px 0 0;
-  width: 100%;
   display: flex;
-  justify-content: flex-end;
-}
-
-.card-overlay .badges {
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
-  align-items: flex-end;
-}
-
-.badges {
-  display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   align-items: flex-end;
 }
 
@@ -518,51 +491,64 @@ onMounted(() => {
   text-transform: uppercase;
 }
 
+.badge-featured {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
 .badge-order {
-  background: #e9ecef;
+  background: rgba(255, 255, 255, 0.9);
   color: #495057;
 }
 
-.badge-active {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.badge-inactive {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
 .card-body {
+  padding: 1.5rem;
   flex: 1;
-  margin-bottom: 1rem;
 }
 
-.product-name {
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #e9ecef;
+  color: #667eea;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.project-title {
   font-size: 1.25rem;
   font-weight: 700;
   color: #1a1a2e;
-  margin: 0 0 0.5rem 0;
-}
-
-.product-category {
-  color: #667eea;
-  font-weight: 600;
-  font-size: 0.875rem;
   margin: 0 0 0.75rem 0;
 }
 
-.product-description {
+.project-description {
   color: #6c757d;
   font-size: 0.875rem;
   line-height: 1.6;
-  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-meta svg {
+  width: 16px;
+  height: 16px;
 }
 
 .card-footer {
   display: flex;
   gap: 0.5rem;
-  padding-top: 1rem;
+  padding: 1rem 1.5rem;
   border-top: 1px solid #e9ecef;
 }
 
@@ -667,7 +653,7 @@ onMounted(() => {
 .modal-content {
   background: white;
   border-radius: 16px;
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
   max-height: 90vh;
   overflow: hidden;
@@ -762,37 +748,10 @@ onMounted(() => {
   margin-top: 0.25rem;
 }
 
-/* Vista previa de imagen */
-.image-preview {
-  margin-top: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #dee2e6;
-  position: relative;
-  max-width: 400px;
-}
-
-.image-preview img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.image-error {
+.checkbox-group {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 2rem;
-  background: #f8f9fa;
-  color: #dc3545;
-  font-size: 0.875rem;
-}
-
-.image-error svg {
-  width: 24px;
-  height: 24px;
-  stroke: #dc3545;
+  height: 100%;
 }
 
 .checkbox-label {
@@ -882,7 +841,7 @@ onMounted(() => {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .admin-products {
+  .admin-portfolio {
     padding: 1rem;
   }
 
@@ -895,7 +854,7 @@ onMounted(() => {
     justify-content: center;
   }
 
-  .services-grid {
+  .portfolio-grid {
     grid-template-columns: 1fr;
   }
 
