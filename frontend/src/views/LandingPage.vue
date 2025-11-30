@@ -723,7 +723,7 @@ const isLoadingServices = ref(true)
 // Cargar servicios del API
 const loadServices = async () => {
   try {
-    const response = await api.get('/services')
+    const response = await api.get('/services/active')
     services.value = response.data.map((service: any) => ({
       id: service.id,
       icon: service.icon || '💻',

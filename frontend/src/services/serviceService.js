@@ -1,9 +1,9 @@
-// services/serviceService.js
+// services/serviceService.js v2
 import api from './api';
 
 export default {
   /**
-   * Get all services (Admin)
+   * Get all active services
    */
   async getAll() {
     const response = await api.get('/services/active');
