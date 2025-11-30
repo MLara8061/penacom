@@ -2393,6 +2393,10 @@ onUnmounted(() => {
     display: none;
   }
   
+  .nav-actions {
+    gap: 8px;
+  }
+  
   /* Hero */
   .slider-controls {
     left: 5px;
