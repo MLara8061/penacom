@@ -2365,6 +2365,15 @@ onUnmounted(() => {
     z-index: 999;
   }
   
+  /* Background del menú según tema */
+  .theme-light .nav-menu {
+    background: rgba(255, 255, 255, 0.98);
+  }
+  
+  .theme-christmas .nav-menu {
+    background: rgba(44, 24, 16, 0.98);
+  }
+  
   .nav-menu.active {
     right: 0;
   }
@@ -2389,12 +2398,31 @@ onUnmounted(() => {
     color: #FFFFFF !important;
   }
   
+  /* Colores de texto según tema */
+  .theme-light .nav-menu li a {
+    color: #0066CC !important;
+  }
+  
+  .theme-light .nav-menu li a:hover {
+    background: rgba(0, 102, 204, 0.1);
+    color: #0052A3 !important;
+  }
+  
+  .theme-christmas .nav-menu li a {
+    color: #DC2626 !important;
+  }
+  
+  .theme-christmas .nav-menu li a:hover {
+    background: rgba(220, 38, 38, 0.1);
+    color: #B91C1C !important;
+  }
+  
   .btn-nav {
     display: none;
   }
   
   .nav-actions {
-    gap: 8px;
+    gap: 4px;
   }
   
   /* Hero */
