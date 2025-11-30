@@ -5,10 +5,10 @@ use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\ScheduleController;
 use App\Http\Controllers\API\ContactController;
 use App\Http\Controllers\API\AboutSectionController;
+use App\Http\Controllers\API\HeroSectionController;
+use App\Http\Controllers\API\TestimonialController;
+use App\Http\Controllers\API\PortfolioItemController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Models\HeroSection;
-use App\Models\PortfolioItem;
-use App\Models\Testimonial;
 use App\Models\SiteSetting;
 
 /*
@@ -24,27 +24,9 @@ Route::get('/contact', [ContactController::class, 'show']);
 Route::get('/about', [AboutSectionController::class, 'show']);
 
 // Contenido de la página
-Route::get('/hero-sections', function () {
-    return HeroSection::where('is_active', true)->orderBy('order')->get();
-});
-
-Route::get('/portfolio', function () {
-    return PortfolioItem::orderBy('order')->orderBy('completed_date', 'desc')->get();
-});
-
-Route::get('/portfolio/featured', function () {
-    return PortfolioItem::where('featured', true)->orderBy('order')->get();
-});
-
-Route::get('/testimonials', function () {
-    return Testimonial::where('is_active', true)->get();
-});
-
-Route::get('/testimonials/featured', function () {
-    return Testimonial::where('is_active', true)
-        ->where('is_featured', true)
-        ->get();
-});
+Route::get('/hero-sections', [HeroSectionController::class, 'index']);
+Route::get('/portfolio', [PortfolioItemController::class, 'index']);
+Route::get('/testimonials', [TestimonialController::class, 'index']);
 
 Route::get('/settings', function () {
     return SiteSetting::all()->mapWithKeys(function ($setting) {
@@ -81,4 +63,13 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // About Section (Admin)
     Route::put('/about', [AboutSectionController::class, 'update']);
+    
+    // Hero Sections (Admin)
+    Route::apiResource('hero-sections', HeroSectionController::class);
+    
+    // Testimonials (Admin)
+    Route::apiResource('testimonials', TestimonialController::class);
+    
+    // Portfolio Items (Admin)
+    Route::apiResource('portfolio', PortfolioItemController::class);
 });
