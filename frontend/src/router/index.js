@@ -20,6 +20,7 @@ import AdminServices from '../views/admin/Services.vue';
 import AdminSchedules from '../views/admin/Schedules.vue';
 import AdminContact from '../views/admin/Contact.vue';
 import AdminAbout from '../views/admin/About.vue';
+import AdminProducts from '../views/admin/Products.vue';
 
 const routes = [
   // Landing Page
@@ -56,10 +57,11 @@ const routes = [
     children: [
       { path: '', name: 'AdminDashboard', component: AdminDashboard },
       { path: 'seccion-heroe', name: 'AdminHeroSection', component: AdminHeroSection },
-      { path: 'acerca-de', name: 'AdminAbout', component: AdminAbout },
+      { path: 'informacion-empresa', name: 'AdminInformacionEmpresa', component: AdminAbout },
+      { path: 'productos', name: 'AdminProductos', component: AdminProducts },
       { path: 'servicios', name: 'AdminServices', component: AdminServices },
       { path: 'horarios', name: 'AdminSchedules', component: AdminSchedules },
-      { path: 'contacto', name: 'AdminContact', component: AdminContact }
+      { path: 'leads/formulario', name: 'AdminLeadsFormulario', component: AdminContact }
     ]
   }
 ];

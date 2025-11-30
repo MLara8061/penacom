@@ -8,6 +8,7 @@ use App\Http\Controllers\API\AboutSectionController;
 use App\Http\Controllers\API\HeroSectionController;
 use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\PortfolioItemController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\SiteSetting;
 
@@ -27,6 +28,7 @@ Route::get('/about', [AboutSectionController::class, 'show']);
 Route::get('/hero-sections', [HeroSectionController::class, 'index']);
 Route::get('/portfolio', [PortfolioItemController::class, 'index']);
 Route::get('/testimonials', [TestimonialController::class, 'index']);
+Route::get('/products/active', [ProductController::class, 'active']);
 
 Route::get('/settings', function () {
     return SiteSetting::all()->mapWithKeys(function ($setting) {
@@ -72,4 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Portfolio Items (Admin)
     Route::apiResource('portfolio', PortfolioItemController::class);
+    
+    // Products (Admin)
+    Route::apiResource('products', ProductController::class);
 });
