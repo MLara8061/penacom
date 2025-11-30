@@ -1,15 +1,19 @@
 <template>
   <div class="landing-page">
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-overlay" :class="{ 'active': isMobileMenuOpen }" @click="closeMobileMenu"></div>
+    <div
+      class="mobile-overlay"
+      :class="{ active: isMobileMenuOpen }"
+      @click="closeMobileMenu"
+    ></div>
 
     <!-- Navbar -->
-    <nav class="navbar" :class="{ 'scrolled': isScrolled }">
+    <nav class="navbar" :class="{ scrolled: isScrolled }">
       <div class="nav-container">
         <div class="nav-logo">
           <img src="/logo.png" alt="PenaCom Logo" class="logo-image" />
         </div>
-        <ul class="nav-menu" :class="{ 'active': isMobileMenuOpen }">
+        <ul class="nav-menu" :class="{ active: isMobileMenuOpen }">
           <li><a href="#inicio" @click="closeMobileMenu">Inicio</a></li>
           <li><a href="#servicios" @click="closeMobileMenu">Servicios</a></li>
           <li><a href="#nosotros" @click="closeMobileMenu">Nosotros</a></li>
@@ -20,7 +24,7 @@
           <ThemeSwitcher />
           <button class="btn-nav" @click="scrollToContact">Contáctanos</button>
         </div>
-        <div class="hamburger" @click="toggleMobileMenu" :class="{ 'active': isMobileMenuOpen }">
+        <div class="hamburger" @click="toggleMobileMenu" :class="{ active: isMobileMenuOpen }">
           <span></span>
           <span></span>
           <span></span>
@@ -31,9 +35,13 @@
     <!-- Hero Slider Section -->
     <section class="hero-slider" id="inicio">
       <div class="slider-container">
-        <div class="slide" v-for="(slide, index) in slides" :key="index"
-             :class="{ 'active': currentSlide === index }"
-             :style="{ backgroundImage: `url(${slide.image})` }">
+        <div
+          class="slide"
+          v-for="(slide, index) in slides"
+          :key="index"
+          :class="{ active: currentSlide === index }"
+          :style="{ backgroundImage: `url(${slide.image})` }"
+        >
           <div class="slide-overlay"></div>
           <div class="slide-content">
             <div class="container">
@@ -55,9 +63,12 @@
 
       <!-- Slider Indicators -->
       <div class="slider-indicators">
-        <span v-for="(slide, index) in slides" :key="index"
-              @click="goToSlide(index)"
-              :class="{ 'active': currentSlide === index }"></span>
+        <span
+          v-for="(slide, index) in slides"
+          :key="index"
+          @click="goToSlide(index)"
+          :class="{ active: currentSlide === index }"
+        ></span>
       </div>
     </section>
 
@@ -66,18 +77,31 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-image">
-            <div class="image-placeholder" :style="{ backgroundImage: `url(${aboutSection.current_image})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+            <div
+              class="image-placeholder"
+              :style="{
+                backgroundImage: `url(${aboutSection.current_image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }"
+            >
               <div class="about-badge">
                 <div class="badge-number">{{ aboutSection.years_experience }}+</div>
-                <div class="badge-text">Años de<br>Experiencia</div>
+                <div class="badge-text">Años de<br />Experiencia</div>
               </div>
             </div>
           </div>
           <div class="about-content">
             <span class="section-label">¿Quiénes Somos?</span>
             <h2>{{ aboutSection.title }}</h2>
-            <p style="white-space: pre-wrap;">{{ aboutSection.description }}</p>
-            <p class="about-highlight" v-if="aboutSection.highlighted_text" style="white-space: pre-wrap;">{{ aboutSection.highlighted_text }}</p>
+            <p style="white-space: pre-wrap">{{ aboutSection.description }}</p>
+            <p
+              class="about-highlight"
+              v-if="aboutSection.highlighted_text"
+              style="white-space: pre-wrap"
+            >
+              {{ aboutSection.highlighted_text }}
+            </p>
             <div class="about-features">
               <div class="about-feature">
                 <div class="feature-number">{{ aboutSection.happy_clients }}+</div>
@@ -113,13 +137,20 @@
           </div>
           <div v-else class="services-grid">
             <div v-for="product in products" :key="product.id" class="service-card glass-card">
-              <div class="service-image" :style="{ backgroundImage: product.image ? `url(${product.image})` : 'url(\'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80\')' }">
+              <div
+                class="service-image"
+                :style="{
+                  backgroundImage: product.image
+                    ? `url(${product.image})`
+                    : 'url(\'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80\')',
+                }"
+              >
                 <div class="service-icon-wrapper">
                   <div class="service-icon-emoji">{{ product.icon || '📦' }}</div>
                 </div>
               </div>
               <h3>{{ product.name }}</h3>
-              <p style="white-space: pre-wrap;">{{ product.description }}</p>
+              <p style="white-space: pre-wrap">{{ product.description }}</p>
             </div>
           </div>
           <div class="section-cta">
@@ -128,7 +159,7 @@
         </div>
 
         <!-- Servicios -->
-        <div class="services-section" style="margin-top: 80px;">
+        <div class="services-section" style="margin-top: 80px">
           <h3 class="services-subtitle products-title">Nuestros Servicios</h3>
           <div v-if="isLoadingServices" class="loading-state">
             <p>Cargando servicios...</p>
@@ -138,13 +169,20 @@
           </div>
           <div v-else class="services-grid">
             <div v-for="service in services" :key="service.id" class="service-card glass-card">
-              <div class="service-image" :style="{ backgroundImage: service.image ? `url(${service.image})` : 'url(\'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80\')' }">
+              <div
+                class="service-image"
+                :style="{
+                  backgroundImage: service.image
+                    ? `url(${service.image})`
+                    : 'url(\'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80\')',
+                }"
+              >
                 <div class="service-icon-wrapper">
                   <div class="service-icon-emoji">{{ service.icon || '⚙️' }}</div>
                 </div>
               </div>
               <h3>{{ service.title }}</h3>
-              <p style="white-space: pre-wrap;">{{ service.description }}</p>
+              <p style="white-space: pre-wrap">{{ service.description }}</p>
             </div>
           </div>
           <div class="section-cta">
@@ -164,9 +202,13 @@
         </div>
 
         <div class="portfolio-slider">
-          <div class="portfolio-slide" v-for="(slide, index) in portfolioSlides" :key="index"
-               :class="{ 'active': currentPortfolioSlide === index }"
-               :style="{ backgroundImage: `url(${slide.image})` }">
+          <div
+            class="portfolio-slide"
+            v-for="(slide, index) in portfolioSlides"
+            :key="index"
+            :class="{ active: currentPortfolioSlide === index }"
+            :style="{ backgroundImage: `url(${slide.image})` }"
+          >
             <div class="slide-overlay"></div>
             <div class="slide-content">
               <span class="slide-label">{{ slide.label }}</span>
@@ -181,9 +223,12 @@
           </div>
 
           <div class="portfolio-dots">
-            <span v-for="(slide, index) in portfolioSlides" :key="index"
-                  @click="goToPortfolioSlide(index)"
-                  :class="{ 'active': currentPortfolioSlide === index }"></span>
+            <span
+              v-for="(slide, index) in portfolioSlides"
+              :key="index"
+              @click="goToPortfolioSlide(index)"
+              :class="{ active: currentPortfolioSlide === index }"
+            ></span>
           </div>
         </div>
       </div>
@@ -195,7 +240,14 @@
         <div class="stats-grid">
           <div class="stat-item" v-for="stat in stats" :key="stat.label">
             <div class="stat-icon-wrapper">
-              <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" v-html="stat.icon"></svg>
+              <svg
+                class="stat-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                v-html="stat.icon"
+              ></svg>
             </div>
             <div class="stat-number">{{ stat.number }}</div>
             <div class="stat-label">{{ stat.label }}</div>
@@ -210,10 +262,22 @@
         <div class="testimonials-header">
           <div class="google-badge">
             <svg class="google-icon" viewBox="0 0 48 48">
-              <path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/>
-              <path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/>
-              <path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/>
-              <path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"/>
+              <path
+                fill="#4285F4"
+                d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"
+              />
+              <path
+                fill="#34A853"
+                d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"
+              />
+              <path
+                fill="#EA4335"
+                d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z"
+              />
             </svg>
             <div class="google-info">
               <h4>Peñacom</h4>
@@ -230,10 +294,14 @@
         </div>
 
         <div class="testimonials-slider">
-          <div class="testimonial-slide" v-for="(testimonial, index) in testimonials" :key="index"
-               :class="{ 'active': currentTestimonial === index }">
+          <div
+            class="testimonial-slide"
+            v-for="(testimonial, index) in testimonials"
+            :key="index"
+            :class="{ active: currentTestimonial === index }"
+          >
             <div class="testimonial-header">
-              <img :src="testimonial.avatar" :alt="testimonial.name" class="testimonial-avatar">
+              <img :src="testimonial.avatar" :alt="testimonial.name" class="testimonial-avatar" />
               <div class="testimonial-info">
                 <h4 class="testimonial-name">{{ testimonial.name }}</h4>
                 <div class="testimonial-stars">★★★★★</div>
@@ -248,9 +316,12 @@
           </div>
 
           <div class="testimonial-dots">
-            <span v-for="(testimonial, index) in testimonials" :key="index"
-                  @click="goToTestimonial(index)"
-                  :class="{ 'active': currentTestimonial === index }"></span>
+            <span
+              v-for="(testimonial, index) in testimonials"
+              :key="index"
+              @click="goToTestimonial(index)"
+              :class="{ active: currentTestimonial === index }"
+            ></span>
           </div>
         </div>
       </div>
@@ -262,25 +333,41 @@
         <div class="cta-grid">
           <div class="cta-content">
             <div class="cta-badge">💡 Cotización Gratuita en 24h</div>
-            <h2 class="hero-title">Transforma Tu Negocio Con Tecnología LED de Última Generación</h2>
-            <p class="cta-subtitle">Únete a más de 100+ empresas que ya potenciaron su marca con nuestras soluciones</p>
+            <h2 class="hero-title">
+              Transforma Tu Negocio Con Tecnología LED de Última Generación
+            </h2>
+            <p class="cta-subtitle">
+              Únete a más de 100+ empresas que ya potenciaron su marca con nuestras soluciones
+            </p>
 
             <div class="cta-benefits">
               <div class="benefit-item">
                 <svg class="benefit-icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                  <path
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
                 </svg>
                 <span>Instalación profesional incluida</span>
               </div>
               <div class="benefit-item">
                 <svg class="benefit-icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                  <path
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
                 </svg>
                 <span>Garantía extendida de 2 años</span>
               </div>
               <div class="benefit-item">
                 <svg class="benefit-icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                  <path
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
                 </svg>
                 <span>Soporte técnico 24/7</span>
               </div>
@@ -315,7 +402,7 @@
                   v-model="formData.name"
                   placeholder="Juan Pérez"
                   required
-                >
+                />
               </div>
 
               <div class="form-row">
@@ -327,7 +414,7 @@
                     v-model="formData.email"
                     placeholder="juan@empresa.com"
                     required
-                  >
+                  />
                 </div>
 
                 <div class="form-group">
@@ -338,7 +425,7 @@
                     v-model="formData.phone"
                     placeholder="+52 998 123 4567"
                     required
-                  >
+                  />
                 </div>
               </div>
 
@@ -349,7 +436,7 @@
                   id="company"
                   v-model="formData.company"
                   placeholder="Nombre de tu empresa (opcional)"
-                >
+                />
               </div>
 
               <div class="form-group">
@@ -384,13 +471,21 @@
                   v-model="formData.honeypot"
                   tabindex="-1"
                   autocomplete="off"
-                >
+                />
               </div>
 
               <button type="submit" class="btn-submit" :disabled="isSubmitting">
                 <span v-if="!isSubmitting">Enviar</span>
                 <span v-else>Enviando...</span>
-                <svg class="plane-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  class="plane-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <line x1="22" y1="2" x2="11" y2="13"></line>
                   <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
@@ -415,22 +510,30 @@
             <div class="social-links">
               <a href="#" aria-label="Facebook" class="social-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                  />
                 </svg>
               </a>
               <a href="#" aria-label="Twitter" class="social-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  <path
+                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                  />
                 </svg>
               </a>
               <a href="#" aria-label="LinkedIn" class="social-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
                 </svg>
               </a>
               <a href="#" aria-label="Instagram" class="social-link">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                  <path
+                    d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"
+                  />
                 </svg>
               </a>
             </div>
@@ -460,21 +563,45 @@
             <h4>Contacto</h4>
             <ul class="contact-list">
               <li>
-                <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <svg
+                  class="contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
                 <span>info@penacom.com</span>
               </li>
               <li>
-                <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                <svg
+                  class="contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
                 </svg>
                 <span>+1 (555) 123-4567</span>
               </li>
               <li>
-                <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <svg
+                  class="contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span>Ciudad, País 12345</span>
               </li>
@@ -483,7 +610,16 @@
         </div>
 
         <div class="footer-bottom">
-          <p>&copy; 2025 PenaCom. Todos los derechos reservados. | Powered by <a href="https://wa.me/529985401540" target="_blank" rel="noopener noreferrer" class="arla-link">Arla</a></p>
+          <p>
+            &copy; 2025 PenaCom. Todos los derechos reservados. | Powered by
+            <a
+              href="https://wa.me/529985401540"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="arla-link"
+              >Arla</a
+            >
+          </p>
           <div class="footer-links">
             <a href="#">Política de Privacidad</a>
             <a href="#">Términos de Servicio</a>
@@ -495,10 +631,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 // @ts-ignore - API service is JavaScript
-import api from '@/services/api'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
+import api from '@/services/api'
 
 // Interfaces
 interface HeroSlide {
@@ -561,7 +697,9 @@ const loadHeroSections = async () => {
       title: section.title,
       subtitle: section.subtitle,
       cta: section.button_text || 'Ver más',
-      image: section.background_image || 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
+      image:
+        section.background_image ||
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80',
     }))
   } catch (error) {
     console.error('Error loading hero sections:', error)
@@ -571,8 +709,8 @@ const loadHeroSections = async () => {
         title: 'Soluciones <span class="text-highlight">Digitales</span> Innovadoras',
         subtitle: 'Transformamos tu visión en realidad con tecnología de vanguardia',
         cta: 'Comenzar Ahora',
-        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
-      }
+        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80',
+      },
     ]
   } finally {
     isLoadingHero.value = false
@@ -587,7 +725,7 @@ const formData = ref({
   company: '',
   service: '',
   message: '',
-  honeypot: '' // Campo anti-bot
+  honeypot: '', // Campo anti-bot
 })
 
 const isSubmitting = ref(false)
@@ -632,7 +770,7 @@ const handleSubmit = async () => {
       company: '',
       service: '',
       message: '',
-      honeypot: ''
+      honeypot: '',
     }
     formStartTime.value = Date.now() // Resetear tiempo
     isSubmitting.value = false
@@ -650,11 +788,11 @@ const isLoadingProducts = ref(true)
 // About Section
 const aboutSection = ref({
   current_image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
-  title: 'Líderes en Tecnología LED desde 2013',
-  description: 'Empresa establecida en Cancún, Quintana Roo, especializada en la venta y mantenimiento de pantallas LED de última generación.',
-  highlighted_text: 'Al adquirir nuestros productos, obtiene la más alta tecnología en pantallas LED de nuestros socios internacionales y fabricantes de componentes, ensambladas con la calidad y precisión de técnicos mexicanos.',
-  years_experience: 12,
-  happy_clients: 100
+  title: 'Cargando...',
+  description: '',
+  highlighted_text: '',
+  years_experience: 0,
+  happy_clients: 0,
 })
 
 // Cargar About Section del API
@@ -691,7 +829,7 @@ const loadServices = async () => {
       icon: service.icon || '💻',
       title: service.title,
       description: service.description,
-      color: service.color || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      color: service.color || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     }))
   } catch (error) {
     console.error('Error loading services:', error)
@@ -701,9 +839,10 @@ const loadServices = async () => {
         id: 1,
         icon: '💻',
         title: 'Desarrollo Web',
-        description: 'Sitios web modernos, responsivos y optimizados para SEO que convierten visitantes en clientes.',
-        color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-      }
+        description:
+          'Sitios web modernos, responsivos y optimizados para SEO que convierten visitantes en clientes.',
+        color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      },
     ]
   } finally {
     isLoadingServices.value = false
@@ -723,7 +862,7 @@ const loadPortfolio = async () => {
       label: item.category || 'Portfolio',
       title: item.title,
       description: item.description,
-      image: item.image || 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80'
+      image: item.image || 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80',
     }))
   } catch (error) {
     console.error('Error loading portfolio:', error)
@@ -732,9 +871,10 @@ const loadPortfolio = async () => {
       {
         label: '¿Para qué sirve?',
         title: 'Señalización Digital Versátil',
-        description: 'Contenido informativo, direccional y publicitario. Comunicación interna, alertas de emergencia, entretenimiento en tienda y menús digitales.',
-        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80'
-      }
+        description:
+          'Contenido informativo, direccional y publicitario. Comunicación interna, alertas de emergencia, entretenimiento en tienda y menús digitales.',
+        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80',
+      },
     ]
   } finally {
     isLoadingPortfolio.value = false
@@ -746,9 +886,10 @@ const nextPortfolioSlide = () => {
 }
 
 const prevPortfolioSlide = () => {
-  currentPortfolioSlide.value = currentPortfolioSlide.value === 0
-    ? portfolioSlides.value.length - 1
-    : currentPortfolioSlide.value - 1
+  currentPortfolioSlide.value =
+    currentPortfolioSlide.value === 0
+      ? portfolioSlides.value.length - 1
+      : currentPortfolioSlide.value - 1
 }
 
 const goToPortfolioSlide = (index: number) => {
@@ -762,7 +903,7 @@ const projects = ref([
   { id: 3, title: 'Dashboard Analytics', category: 'UI/UX Design' },
   { id: 4, title: 'Corporate Website', category: 'Desarrollo Web' },
   { id: 5, title: 'Fitness App', category: 'App Móvil' },
-  { id: 6, title: 'CRM System', category: 'Sistema Web' }
+  { id: 6, title: 'CRM System', category: 'Sistema Web' },
 ])
 
 // Stats
@@ -770,23 +911,23 @@ const stats = ref([
   {
     icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
     number: '100+',
-    label: 'Clientes Satisfechos'
+    label: 'Clientes Satisfechos',
   },
   {
     icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>',
     number: '12+',
-    label: 'Años de Experiencia'
+    label: 'Años de Experiencia',
   },
   {
     icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>',
     number: '300+',
-    label: 'Proyectos Completados'
+    label: 'Proyectos Completados',
   },
   {
     icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>',
     number: '5.0',
-    label: 'Calificación Google'
-  }
+    label: 'Calificación Google',
+  },
 ])
 
 // Testimonials
@@ -806,7 +947,7 @@ const loadTestimonials = async () => {
         avatar: t.client_photo || `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}`,
         company: t.client_company,
         position: t.client_position,
-        rating: t.rating
+        rating: t.rating,
       }))
   } catch (error) {
     console.error('Error loading testimonials:', error)
@@ -815,13 +956,13 @@ const loadTestimonials = async () => {
       {
         name: 'María González',
         text: 'Excelente servicio y productos de alta calidad. La instalación de nuestras pantallas LED en el hotel fue impecable y el equipo muy profesional. Totalmente recomendados.',
-        avatar: 'https://i.pravatar.cc/150?img=1'
+        avatar: 'https://i.pravatar.cc/150?img=1',
       },
       {
         name: 'Carlos Ramírez',
         text: 'Llevamos años trabajando con Peñacom y siempre superan nuestras expectativas. Sus pantallas LED han transformado nuestro restaurante. Muy satisfechos con el servicio.',
-        avatar: 'https://i.pravatar.cc/150?img=12'
-      }
+        avatar: 'https://i.pravatar.cc/150?img=12',
+      },
     ]
   } finally {
     isLoadingTestimonials.value = false
@@ -833,9 +974,8 @@ const nextTestimonial = () => {
 }
 
 const prevTestimonial = () => {
-  currentTestimonial.value = currentTestimonial.value === 0
-    ? testimonials.value.length - 1
-    : currentTestimonial.value - 1
+  currentTestimonial.value =
+    currentTestimonial.value === 0 ? testimonials.value.length - 1 : currentTestimonial.value - 1
 }
 
 const goToTestimonial = (index: number) => {
@@ -922,14 +1062,14 @@ onUnmounted(() => {
 <style scoped>
 /* Variables de Color - Paleta Azul */
 :root {
-  --primary-blue: #0066CC;
-  --light-blue: #4A90E2;
-  --dark-blue: #003D82;
-  --secondary-bg: #E6F0FA;
-  --white: #FFFFFF;
-  --light-gray: #F5F7FA;
-  --gray: #8B95A5;
-  --dark-gray: #2C3E50;
+  --primary-blue: #0066cc;
+  --light-blue: #4a90e2;
+  --dark-blue: #003d82;
+  --secondary-bg: #e6f0fa;
+  --white: #ffffff;
+  --light-gray: #f5f7fa;
+  --gray: #8b95a5;
+  --dark-gray: #2c3e50;
 }
 
 * {
@@ -941,7 +1081,8 @@ onUnmounted(() => {
 .landing-page {
   width: 100%;
   overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
   color: var(--dark-gray);
 }
 
@@ -1035,7 +1176,7 @@ onUnmounted(() => {
 }
 
 .nav-menu li a {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   text-decoration: none;
   font-weight: 500;
   font-size: 15px;
@@ -1043,20 +1184,20 @@ onUnmounted(() => {
 }
 
 .navbar .nav-menu li a {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .navbar.scrolled .nav-menu li a {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .nav-menu li a:hover {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   opacity: 0.8;
 }
 
 .nav-menu.active li a {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .nav-actions {
@@ -1067,7 +1208,7 @@ onUnmounted(() => {
 
 .btn-nav {
   background: rgba(255, 255, 255, 0.95);
-  color: #2B2E83;
+  color: #2b2e83;
   padding: 10px 25px;
   border: 2px solid transparent;
   border-radius: 6px;
@@ -1078,23 +1219,23 @@ onUnmounted(() => {
 }
 
 .navbar.scrolled .btn-nav {
-  background: #4A90E2;
-  color: #FFFFFF;
-  border: 2px solid #4A90E2;
+  background: #4a90e2;
+  color: #ffffff;
+  border: 2px solid #4a90e2;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-nav:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
-  background: #FFFFFF;
-  color: #2B2E83;
+  background: #ffffff;
+  color: #2b2e83;
 }
 
 .navbar.scrolled .btn-nav:hover {
-  background: #FFFFFF;
-  color: #2B2E83;
-  border-color: #FFFFFF;
+  background: #ffffff;
+  color: #2b2e83;
+  border-color: #ffffff;
 }
 
 .hamburger {
@@ -1119,7 +1260,7 @@ onUnmounted(() => {
 .hamburger span {
   width: 24px;
   height: 2.5px;
-  background: #FFFFFF !important;
+  background: #ffffff !important;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   border-radius: 3px;
   position: absolute;
@@ -1173,7 +1314,12 @@ onUnmounted(() => {
   height: 100%;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 50%, var(--light-blue) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--dark-blue) 0%,
+    var(--primary-blue) 50%,
+    var(--light-blue) 100%
+  );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1203,7 +1349,7 @@ onUnmounted(() => {
 .slide-title {
   font-size: 3.5rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #ffffff;
   line-height: 1.2;
   margin-bottom: 20px;
   letter-spacing: -0.5px;
@@ -1213,7 +1359,7 @@ onUnmounted(() => {
 }
 
 .text-highlight {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 800;
 }
 
@@ -1249,15 +1395,15 @@ onUnmounted(() => {
 
 .btn-primary {
   background: rgba(255, 255, 255, 0.95);
-  color: #2B2E83;
+  color: #2b2e83;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(74, 144, 226, 0.5);
-  background: #4A90E2;
-  color: #FFFFFF;
+  background: #4a90e2;
+  color: #ffffff;
 }
 
 .btn-outline {
@@ -1269,7 +1415,7 @@ onUnmounted(() => {
 
 .btn-outline:hover {
   background: var(--white);
-  color: #2B2E83;
+  color: #2b2e83;
   border-color: var(--white);
 }
 
@@ -1366,7 +1512,7 @@ onUnmounted(() => {
 /* ===== SERVICES ===== */
 .services {
   padding: 100px 20px;
-  background: linear-gradient(135deg, #E6F0FA 0%, #F5F9FC 50%, #FFFFFF 100%);
+  background: linear-gradient(135deg, #e6f0fa 0%, #f5f9fc 50%, #ffffff 100%);
   position: relative;
 }
 
@@ -1471,13 +1617,13 @@ onUnmounted(() => {
 .service-icon {
   width: 30px;
   height: 30px;
-  color: #0066CC;
+  color: #0066cc;
   stroke-width: 2.5;
 }
 
 .service-icon-emoji {
   font-size: 2rem;
-  color: #0066CC;
+  color: #0066cc;
 }
 
 .section-cta {
@@ -1486,18 +1632,18 @@ onUnmounted(() => {
 }
 
 .section-cta .btn-primary {
-  background: #0066CC;
-  color: #FFFFFF;
+  background: #0066cc;
+  color: #ffffff;
   box-shadow: 0 4px 16px rgba(0, 102, 204, 0.3);
-  border: 2px solid #0066CC;
+  border: 2px solid #0066cc;
   padding: 14px 36px;
   font-size: 16px;
   font-weight: 600;
 }
 
 .section-cta .btn-primary:hover {
-  background: #4A90E2;
-  border-color: #4A90E2;
+  background: #4a90e2;
+  border-color: #4a90e2;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 102, 204, 0.4);
 }
@@ -1547,14 +1693,14 @@ onUnmounted(() => {
 .badge-number {
   font-size: 3rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #ffffff;
   line-height: 1;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .badge-text {
   font-size: 0.9rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-top: 10px;
   font-weight: 600;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -1583,18 +1729,18 @@ onUnmounted(() => {
 }
 
 .btn-about {
-  background: #0066CC !important;
-  color: #FFFFFF !important;
+  background: #0066cc !important;
+  color: #ffffff !important;
   box-shadow: 0 4px 16px rgba(0, 102, 204, 0.3) !important;
-  border: 2px solid #0066CC !important;
+  border: 2px solid #0066cc !important;
 }
 
 .btn-about:hover {
-  background: #4A90E2 !important;
-  border-color: #4A90E2 !important;
+  background: #4a90e2 !important;
+  border-color: #4a90e2 !important;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 102, 204, 0.4) !important;
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 .about-features {
@@ -1609,7 +1755,7 @@ onUnmounted(() => {
   padding: 20px;
   background: var(--white);
   border-radius: 8px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #e2e8f0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -1696,7 +1842,7 @@ onUnmounted(() => {
 
 .slide-label {
   font-size: 1rem;
-  color: #4A90E2;
+  color: #4a90e2;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
@@ -1710,7 +1856,7 @@ onUnmounted(() => {
 
 .slide-title {
   font-size: 2.2rem;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 20px;
   font-weight: 800;
   line-height: 1.3;
@@ -1746,7 +1892,7 @@ onUnmounted(() => {
   border: none;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  color: #0066CC;
+  color: #0066cc;
   border-radius: 50%;
   font-size: 1.5rem;
   cursor: pointer;
@@ -1759,7 +1905,7 @@ onUnmounted(() => {
 
 .portfolio-controls .nav-arrow:hover {
   background: rgba(255, 255, 255, 1);
-  color: #0066CC;
+  color: #0066cc;
   transform: scale(1.1);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
@@ -1785,7 +1931,7 @@ onUnmounted(() => {
 }
 
 .portfolio-dots span.active {
-  background: #FFFFFF;
+  background: #ffffff;
   width: 40px;
   border-radius: 6px;
 }
@@ -1797,7 +1943,7 @@ onUnmounted(() => {
 /* ===== STATS ===== */
 .stats {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #E6F0FA 0%, #F5F9FC 100%);
+  background: linear-gradient(135deg, #e6f0fa 0%, #f5f9fc 100%);
 }
 
 .stats-grid {
@@ -1826,7 +1972,7 @@ onUnmounted(() => {
 .stat-icon {
   width: 40px;
   height: 40px;
-  stroke: #0066CC;
+  stroke: #0066cc;
   stroke-width: 2.5;
 }
 
@@ -1839,12 +1985,12 @@ onUnmounted(() => {
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 10px;
-  color: #2C3E50;
+  color: #2c3e50;
 }
 
 .stat-label {
   font-size: 1.1rem;
-  color: #5A6C7D;
+  color: #5a6c7d;
   font-weight: 500;
 }
 
@@ -1871,7 +2017,7 @@ onUnmounted(() => {
   padding: 20px 30px;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border: 1px solid #E8EAED;
+  border: 1px solid #e8eaed;
 }
 
 .google-icon {
@@ -1882,7 +2028,7 @@ onUnmounted(() => {
 
 .google-info h4 {
   font-size: 1.3rem;
-  color: #2C3E50;
+  color: #2c3e50;
   margin-bottom: 5px;
   font-weight: 700;
 }
@@ -1894,12 +2040,12 @@ onUnmounted(() => {
 }
 
 .google-rating .stars {
-  color: #FBBC04;
+  color: #fbbc04;
   font-size: 1.1rem;
 }
 
 .google-rating .rating-text {
-  color: #5F6368;
+  color: #5f6368;
   font-size: 0.95rem;
 }
 
@@ -1943,7 +2089,7 @@ onUnmounted(() => {
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #E6F0FA;
+  border: 3px solid #e6f0fa;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -1953,20 +2099,20 @@ onUnmounted(() => {
 
 .testimonial-name {
   font-size: 1.3rem;
-  color: #2C3E50;
+  color: #2c3e50;
   margin-bottom: 5px;
   font-weight: 700;
 }
 
 .testimonial-stars {
-  color: #FBBC04;
+  color: #fbbc04;
   font-size: 1.2rem;
   letter-spacing: 2px;
 }
 
 .testimonial-text {
   font-size: 1.2rem;
-  color: #5A6C7D;
+  color: #5a6c7d;
   line-height: 1.8;
   font-style: italic;
 }
@@ -1989,7 +2135,7 @@ onUnmounted(() => {
   height: 48px;
   border: none;
   background: rgba(0, 102, 204, 0.1);
-  color: #0066CC;
+  color: #0066cc;
   border-radius: 50%;
   font-size: 1.5rem;
   cursor: pointer;
@@ -1997,7 +2143,7 @@ onUnmounted(() => {
 }
 
 .testimonial-arrow:hover {
-  background: #0066CC;
+  background: #0066cc;
   color: white;
   transform: scale(1.1);
 }
@@ -2021,25 +2167,25 @@ onUnmounted(() => {
 }
 
 .testimonial-dots span.active {
-  background: #0066CC;
+  background: #0066cc;
   width: 30px;
   border-radius: 5px;
 }
 
 .testimonial-dots span:hover {
-  background: #4A90E2;
+  background: #4a90e2;
 }
 
 /* ===== CONTACT ===== */
 .contact {
   padding: 100px 20px;
-  background: linear-gradient(135deg, #E6F0FA 0%, #F5F9FC 100%);
+  background: linear-gradient(135deg, #e6f0fa 0%, #f5f9fc 100%);
 }
 
 /* ===== CTA ===== */
 .cta {
   padding: 120px 20px;
-  background: linear-gradient(135deg, #F8FAFC 0%, #E6F0FA 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #e6f0fa 100%);
   position: relative;
   overflow: hidden;
 }
@@ -2065,7 +2211,7 @@ onUnmounted(() => {
 }
 
 .cta-content {
-  color: #2C3E50;
+  color: #2c3e50;
 }
 
 .cta-badge {
@@ -2073,14 +2219,14 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #FFF7E6 0%, #FFF 100%);
-  color: #D97706;
+  background: linear-gradient(135deg, #fff7e6 0%, #fff 100%);
+  color: #d97706;
   padding: 12px 24px;
   border-radius: 50px;
   font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: 30px;
-  border: 2px solid #FCD34D;
+  border: 2px solid #fcd34d;
   box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
 }
 
@@ -2089,7 +2235,7 @@ onUnmounted(() => {
   line-height: 1.25;
   margin-bottom: 20px;
   font-weight: 800;
-  color: #1E293B;
+  color: #1e293b;
 }
 
 .cta-subtitle {
@@ -2117,7 +2263,7 @@ onUnmounted(() => {
 .benefit-icon {
   width: 28px;
   height: 28px;
-  color: #10B981;
+  color: #10b981;
   flex-shrink: 0;
   stroke-width: 2.5;
 }
@@ -2143,14 +2289,14 @@ onUnmounted(() => {
   display: block;
   font-size: 2.5rem;
   font-weight: 800;
-  color: #0066CC;
+  color: #0066cc;
   margin-bottom: 8px;
 }
 
 .trust-label {
   display: block;
   font-size: 0.9rem;
-  color: #64748B;
+  color: #64748b;
   font-weight: 600;
 }
 
@@ -2160,18 +2306,18 @@ onUnmounted(() => {
   padding: 50px;
   border-radius: 24px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
 }
 
 .contact-form h3 {
   font-size: 2rem;
-  color: #1E293B;
+  color: #1e293b;
   margin-bottom: 10px;
   font-weight: 800;
 }
 
 .form-subtitle {
-  color: #0066CC;
+  color: #0066cc;
   font-size: 1rem;
   margin-bottom: 35px;
   font-weight: 600;
@@ -2208,19 +2354,19 @@ onUnmounted(() => {
 .form-group textarea {
   width: 100%;
   padding: 16px 18px;
-  border: 2px solid #E5E7EB;
+  border: 2px solid #e5e7eb;
   border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
   font-family: inherit;
-  background: #FAFBFC;
-  color: #1E293B;
+  background: #fafbfc;
+  color: #1e293b;
 }
 
 .form-group input:hover,
 .form-group select:hover,
 .form-group textarea:hover {
-  border-color: #CBD5E1;
+  border-color: #cbd5e1;
   background: var(--white);
 }
 
@@ -2228,7 +2374,7 @@ onUnmounted(() => {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #0066CC;
+  border-color: #0066cc;
   background: var(--white);
   box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.08);
 }
@@ -2252,8 +2398,8 @@ onUnmounted(() => {
 .btn-submit {
   width: 100%;
   padding: 14px 28px;
-  background: #0066CC;
-  color: #FFFFFF;
+  background: #0066cc;
+  color: #ffffff;
   border: none;
   border-radius: 12px;
   font-size: 1rem;
@@ -2278,7 +2424,7 @@ onUnmounted(() => {
 }
 
 .btn-submit:hover {
-  background: #0052A3;
+  background: #0052a3;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 102, 204, 0.25);
   padding-right: 45px;
@@ -2297,7 +2443,7 @@ onUnmounted(() => {
 .form-privacy {
   text-align: center;
   font-size: 0.875rem;
-  color: #64748B;
+  color: #64748b;
   margin-top: 20px;
   font-weight: 500;
 }
@@ -2366,7 +2512,7 @@ onUnmounted(() => {
     display: block;
     padding: 16px 20px;
     font-size: 1.1rem;
-    color: #FFFFFF !important;
+    color: #ffffff !important;
     border-radius: 8px;
     transition: all 0.3s ease;
   }
@@ -2374,26 +2520,26 @@ onUnmounted(() => {
   .nav-menu li a:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateX(8px);
-    color: #FFFFFF !important;
+    color: #ffffff !important;
   }
 
   /* Colores de texto según tema */
   .theme-light .nav-menu li a {
-    color: #0066CC !important;
+    color: #0066cc !important;
   }
 
   .theme-light .nav-menu li a:hover {
     background: rgba(0, 102, 204, 0.1);
-    color: #0052A3 !important;
+    color: #0052a3 !important;
   }
 
   .theme-christmas .nav-menu li a {
-    color: #DC2626 !important;
+    color: #dc2626 !important;
   }
 
   .theme-christmas .nav-menu li a:hover {
     background: rgba(220, 38, 38, 0.1);
-    color: #B91C1C !important;
+    color: #b91c1c !important;
   }
 
   .btn-nav {
@@ -2505,7 +2651,7 @@ onUnmounted(() => {
     height: 44px;
     font-size: 1.8rem;
     background: transparent;
-    color: #FFFFFF;
+    color: #ffffff;
     box-shadow: none;
     border: none;
     font-weight: 300;
@@ -2559,7 +2705,7 @@ onUnmounted(() => {
     height: 44px;
     font-size: 1.8rem;
     background: transparent;
-    color: #0066CC;
+    color: #0066cc;
     box-shadow: none;
     border: none;
     font-weight: 300;
@@ -2663,7 +2809,7 @@ onUnmounted(() => {
 
 /* ===== FOOTER ===== */
 .footer {
-  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   color: var(--white);
   padding: 80px 20px 30px;
   position: relative;
@@ -2708,7 +2854,7 @@ onUnmounted(() => {
 }
 
 .footer-section h4 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 25px;
@@ -2723,7 +2869,7 @@ onUnmounted(() => {
   left: 0;
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, #0066CC, #4A90E2);
+  background: linear-gradient(90deg, #0066cc, #4a90e2);
   border-radius: 2px;
 }
 
@@ -2744,7 +2890,7 @@ onUnmounted(() => {
 }
 
 .footer-section a:hover {
-  color: #4A90E2;
+  color: #4a90e2;
   transform: translateX(5px);
 }
 
@@ -2759,7 +2905,7 @@ onUnmounted(() => {
 .contact-icon {
   width: 20px;
   height: 20px;
-  color: #4A90E2;
+  color: #4a90e2;
   flex-shrink: 0;
 }
 
@@ -2782,8 +2928,8 @@ onUnmounted(() => {
 }
 
 .social-link:hover {
-  background: #0066CC;
-  border-color: #0066CC;
+  background: #0066cc;
+  border-color: #0066cc;
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 102, 204, 0.3);
 }
@@ -2810,14 +2956,14 @@ onUnmounted(() => {
 }
 
 .arla-link {
-  color: #4A90E2;
+  color: #4a90e2;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .arla-link:hover {
-  color: #0066CC;
+  color: #0066cc;
   text-decoration: underline;
 }
 
@@ -2834,7 +2980,7 @@ onUnmounted(() => {
 }
 
 .footer-links a:hover {
-  color: #4A90E2;
+  color: #4a90e2;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -3000,7 +3146,7 @@ onUnmounted(() => {
     height: 40px;
     font-size: 1.6rem;
     background: transparent;
-    color: #FFFFFF;
+    color: #ffffff;
     box-shadow: none;
     font-weight: 300;
   }
@@ -3059,7 +3205,7 @@ onUnmounted(() => {
     height: 40px;
     font-size: 1.6rem;
     background: transparent;
-    color: #0066CC;
+    color: #0066cc;
     box-shadow: none;
     font-weight: 300;
   }
