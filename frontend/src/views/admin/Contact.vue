@@ -7,18 +7,40 @@
       </div>
       <div class="header-actions">
         <button @click="refreshLeads" class="btn-refresh" :disabled="loading">
-          <svg v-if="!loading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          <svg
+            v-if="!loading"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"
+            />
           </svg>
           <svg v-else class="spinner" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
-            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+              fill="none"
+              opacity="0.25"
+            />
+            <path
+              d="M12 2a10 10 0 0 1 10 10"
+              stroke="currentColor"
+              stroke-width="4"
+              fill="none"
+              stroke-linecap="round"
+            />
           </svg>
           {{ loading ? 'Actualizando...' : 'Actualizar' }}
         </button>
         <button @click="exportToExcel" class="btn-export">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
           </svg>
           Exportar
         </button>
@@ -30,9 +52,9 @@
       <div class="stat-card">
         <div class="stat-icon total">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
         </div>
         <div class="stat-details">
@@ -44,8 +66,8 @@
       <div class="stat-card">
         <div class="stat-icon new">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
           </svg>
         </div>
         <div class="stat-details">
@@ -57,7 +79,9 @@
       <div class="stat-card">
         <div class="stat-icon contacted">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            />
           </svg>
         </div>
         <div class="stat-details">
@@ -69,8 +93,8 @@
       <div class="stat-card">
         <div class="stat-icon converted">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
           </svg>
         </div>
         <div class="stat-details">
@@ -84,9 +108,9 @@
     <div class="filters-bar">
       <div class="filter-group">
         <label>Buscar:</label>
-        <input 
-          v-model="filters.search" 
-          type="text" 
+        <input
+          v-model="filters.search"
+          type="text"
           placeholder="Nombre, email o mensaje..."
           class="filter-input"
         />
@@ -108,8 +132,22 @@
     <!-- Loading State -->
     <div v-if="loading" class="loading-state">
       <svg class="spinner" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
-        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+          opacity="0.25"
+        />
+        <path
+          d="M12 2a10 10 0 0 1 10 10"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+          stroke-linecap="round"
+        />
       </svg>
       <p>Cargando leads...</p>
     </div>
@@ -140,7 +178,9 @@
               <a :href="`mailto:${lead.email}`" class="lead-email">{{ lead.email }}</a>
             </td>
             <td>
-              <a v-if="lead.phone" :href="`tel:${lead.phone}`" class="lead-phone">{{ lead.phone }}</a>
+              <a v-if="lead.phone" :href="`tel:${lead.phone}`" class="lead-phone">{{
+                lead.phone
+              }}</a>
               <span v-else class="text-muted">-</span>
             </td>
             <td class="lead-message">
@@ -150,28 +190,30 @@
             <td class="lead-actions">
               <button @click="viewDetails(lead)" class="btn-action btn-view" title="Ver detalles">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
                 </svg>
               </button>
-              <button 
-                v-if="lead.status === 'new'" 
-                @click="markAsContacted(lead)" 
+              <button
+                v-if="lead.status === 'new'"
+                @click="markAsContacted(lead)"
                 class="btn-action btn-contact"
                 title="Marcar como contactado"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
                 </svg>
               </button>
-              <button 
-                v-if="lead.status === 'contacted'" 
-                @click="markAsConverted(lead)" 
+              <button
+                v-if="lead.status === 'contacted'"
+                @click="markAsConverted(lead)"
                 class="btn-action btn-convert"
                 title="Marcar como convertido"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="20 6 9 17 4 12"/>
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
               </button>
             </td>
@@ -183,9 +225,9 @@
     <!-- Empty State -->
     <div v-else class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
       <h3>No hay leads disponibles</h3>
       <p>Los contactos recibidos desde el formulario aparecerán aquí</p>
@@ -198,8 +240,8 @@
           <h2>Detalles del Lead</h2>
           <button @click="closeModal" class="btn-close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
@@ -216,11 +258,15 @@
           </div>
           <div class="detail-group">
             <label>Email:</label>
-            <p><a :href="`mailto:${selectedLead.email}`">{{ selectedLead.email }}</a></p>
+            <p>
+              <a :href="`mailto:${selectedLead.email}`">{{ selectedLead.email }}</a>
+            </p>
           </div>
           <div class="detail-group" v-if="selectedLead.phone">
             <label>Teléfono:</label>
-            <p><a :href="`tel:${selectedLead.phone}`">{{ selectedLead.phone }}</a></p>
+            <p>
+              <a :href="`tel:${selectedLead.phone}`">{{ selectedLead.phone }}</a>
+            </p>
           </div>
           <div class="detail-group">
             <label>Mensaje:</label>
@@ -233,16 +279,22 @@
         </div>
         <div class="modal-footer">
           <button @click="closeModal" class="btn-secondary">Cerrar</button>
-          <button 
-            v-if="selectedLead?.status === 'new'" 
-            @click="markAsContacted(selectedLead); closeModal()" 
+          <button
+            v-if="selectedLead?.status === 'new'"
+            @click="
+              markAsContacted(selectedLead)
+              closeModal()
+            "
             class="btn-primary"
           >
             Marcar como Contactado
           </button>
-          <button 
-            v-if="selectedLead?.status === 'contacted'" 
-            @click="markAsConverted(selectedLead); closeModal()" 
+          <button
+            v-if="selectedLead?.status === 'contacted'"
+            @click="
+              markAsConverted(selectedLead)
+              closeModal()
+            "
             class="btn-primary"
           >
             Marcar como Convertido
@@ -254,8 +306,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api.js'
+import { computed, onMounted, ref } from 'vue'
 
 const loading = ref(true)
 const leads = ref([])
@@ -263,20 +315,20 @@ const showModal = ref(false)
 const selectedLead = ref(null)
 const filters = ref({
   search: '',
-  status: ''
+  status: '',
 })
 
 const statusLabels = {
   new: 'Nuevo',
   contacted: 'Contactado',
-  converted: 'Convertido'
+  converted: 'Convertido',
 }
 
 const stats = computed(() => ({
   total: leads.value.length,
   new: leads.value.filter(l => l.status === 'new').length,
   contacted: leads.value.filter(l => l.status === 'contacted').length,
-  converted: leads.value.filter(l => l.status === 'converted').length
+  converted: leads.value.filter(l => l.status === 'converted').length,
 }))
 
 const filteredLeads = computed(() => {
@@ -284,11 +336,12 @@ const filteredLeads = computed(() => {
 
   if (filters.value.search) {
     const search = filters.value.search.toLowerCase()
-    result = result.filter(lead => 
-      lead.name.toLowerCase().includes(search) ||
-      lead.email.toLowerCase().includes(search) ||
-      lead.message.toLowerCase().includes(search) ||
-      (lead.phone && lead.phone.includes(search))
+    result = result.filter(
+      lead =>
+        lead.name.toLowerCase().includes(search) ||
+        lead.email.toLowerCase().includes(search) ||
+        lead.message.toLowerCase().includes(search) ||
+        (lead.phone && lead.phone.includes(search))
     )
   }
 
@@ -302,10 +355,10 @@ const filteredLeads = computed(() => {
 const fetchLeads = async () => {
   loading.value = true
   try {
-    const response = await api.get('/contacts')
+    const response = await api.get('/leads')
     leads.value = response.data.map(lead => ({
       ...lead,
-      status: lead.status || 'new'
+      status: lead.status || 'new',
     }))
   } catch (error) {
     console.error('Error al cargar leads:', error)
@@ -323,7 +376,7 @@ const clearFilters = () => {
   filters.value.status = ''
 }
 
-const viewDetails = (lead) => {
+const viewDetails = lead => {
   selectedLead.value = lead
   showModal.value = true
 }
@@ -333,43 +386,43 @@ const closeModal = () => {
   selectedLead.value = null
 }
 
-const markAsContacted = async (lead) => {
+const markAsContacted = async lead => {
   try {
-    await api.put(`/contacts/${lead.id}`, { ...lead, status: 'contacted' })
+    await api.put(`/leads/${lead.id}`, { ...lead, status: 'contacted' })
     lead.status = 'contacted'
   } catch (error) {
     console.error('Error al actualizar lead:', error)
   }
 }
 
-const markAsConverted = async (lead) => {
+const markAsConverted = async lead => {
   try {
-    await api.put(`/contacts/${lead.id}`, { ...lead, status: 'converted' })
+    await api.put(`/leads/${lead.id}`, { ...lead, status: 'converted' })
     lead.status = 'converted'
   } catch (error) {
     console.error('Error al actualizar lead:', error)
   }
 }
 
-const truncateMessage = (message) => {
+const truncateMessage = message => {
   return message.length > 50 ? message.substring(0, 50) + '...' : message
 }
 
-const formatDate = (date) => {
+const formatDate = date => {
   return new Date(date).toLocaleDateString('es-MX', {
     day: '2-digit',
     month: 'short',
-    year: 'numeric'
+    year: 'numeric',
   })
 }
 
-const formatDateFull = (date) => {
+const formatDateFull = date => {
   return new Date(date).toLocaleString('es-MX', {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -380,12 +433,16 @@ const exportToExcel = () => {
     Email: lead.email,
     Teléfono: lead.phone || '',
     Mensaje: lead.message,
-    Fecha: formatDateFull(lead.created_at)
+    Fecha: formatDateFull(lead.created_at),
   }))
 
   const csv = [
     Object.keys(data[0]).join(','),
-    ...data.map(row => Object.values(row).map(v => `"${v}"`).join(','))
+    ...data.map(row =>
+      Object.values(row)
+        .map(v => `"${v}"`)
+        .join(',')
+    ),
   ].join('\n')
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
@@ -484,7 +541,9 @@ onMounted(() => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Stats Grid */
@@ -501,7 +560,7 @@ onMounted(() => {
   padding: 1.5rem;
   display: flex;
   gap: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s;
 }
 
@@ -566,7 +625,7 @@ onMounted(() => {
   gap: 1rem;
   align-items: flex-end;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .filter-group {
@@ -616,7 +675,7 @@ onMounted(() => {
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .leads-table {
@@ -758,7 +817,7 @@ onMounted(() => {
   padding: 4rem 2rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .loading-state svg,
