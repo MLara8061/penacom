@@ -1,0 +1,230 @@
+{
+  // === Editor General ===
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.linkedEditing": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.preview": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  // === Formateo por tipo de archivo ===
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+    "editor.tabSize": 4
+  },
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter",
+    "editor.tabSize": 4
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // === PHP & Laravel ===
+  "intelephense.files.maxSize": 5000000,
+  "intelephense.telemetry.enabled": false,
+  "intelephense.format.braces": "k&r",
+  "php.suggest.basic": false,
+  "php.validate.enable": true,
+  "blade.format.enable": true,
+  "bladeFormatter.format.indentSize": 4,
+  "bladeFormatter.format.wrapAttributes": "auto",
+  "bladeFormatter.format.wrapLineLength": 120,
+
+  // === Vue & TypeScript ===
+  "vue.server.hybridMode": true,
+  "typescript.tsdk": "frontend/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // === ESLint ===
+  "eslint.enable": true,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+
+  // === Prettier ===
+  "prettier.enable": true,
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": true,
+
+  // === Error Lens ===
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.enabled": true,
+
+  // === Git ===
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+
+  // === Archivos y búsqueda ===
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/.vscode": false
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/vendor/**": true,
+    "**/storage/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/storage": true,
+    "**/public/build": true,
+    "**/dist": true,
+    "**/.git": true
+  },
+
+  // === Auto guardado ===
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // === Terminal ===
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.fontSize": 13,
+
+  // === Emmet ===
+  "emmet.includeLanguages": {
+    "blade": "html",
+    "vue-html": "html",
+    "vue": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+
+  // === Copilot ===
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": true,
+    "php": true,
+    "javascript": true,
+    "typescript": true,
+    "vue": true
+  },
+
+  // === Copilot Chat - Auto-aprobación de comandos ===
+  "chat.tools.terminal.autoApproveRules": {
+    // Comandos Git (lectura)
+    "/^git (status|log|diff|show|branch|remote|config|ls-files)\\b/": true,
+    "git add": true,
+    "git commit": true,
+    "git push": true,
+    "git pull": true,
+    "git checkout": true,
+    "git stash": true,
+
+    // Navegación y listado
+    "ls": true,
+    "pwd": true,
+    "cd": true,
+    "cat": true,
+    "head": true,
+    "tail": true,
+    "find": true,
+    "grep": true,
+    "less": true,
+    "more": true,
+    "tree": true,
+
+    // Node/npm/Vue
+    "npm install": true,
+    "npm run": true,
+    "npm build": true,
+    "npm test": true,
+    "npm ci": true,
+    "node": true,
+    "npx": true,
+
+    // PHP/Composer/Laravel
+    "php artisan": true,
+    "composer install": true,
+    "composer update": true,
+    "composer require": true,
+    "composer dump-autoload": true,
+
+    // SSH y transferencia de archivos
+    "ssh hostinger": true,
+    "scp": true,
+    "sftp": true,
+    "rsync": true,
+
+    // Curl y wget (solo lectura)
+    "/^curl\\s+(-[a-zA-Z]+\\s+)*https?:\\/\\//": true,
+    "/^wget\\s+(-[a-zA-Z]+\\s+)*https?:\\/\\//": true,
+
+    // Compresión y archivos
+    "tar": true,
+    "zip": true,
+    "unzip": true,
+    "gzip": true,
+    "gunzip": true,
+
+    // Búsqueda y texto
+    "echo": true,
+    "which": true,
+    "whereis": true,
+    "wc": true,
+    "sort": true,
+    "uniq": true,
+    "awk": true,
+    "sed": true,
+
+    // Crear directorios (seguro)
+    "mkdir": true,
+    "touch": true,
+
+    // Comandos denegados explícitamente (por seguridad)
+    "rm -rf": false,
+    "/^rm\\s+.*(-rf|-fr|--recursive.*--force|--force.*--recursive)/": false,
+    "sudo rm": false,
+    "chmod -R 777": false,
+    "chown -R": false,
+    "> /dev/": false,
+    ":(){ :|:& };:": false, // Fork bomb
+    "dd if=": false, // Comandos dd peligrosos
+    "mkfs": false, // Formateo de discos
+    "fdisk": false,
+    "parted": false
+  },
+
+  // Ignorar reglas por defecto para tener control total (a tu propio riesgo)
+  "chat.tools.terminal.ignoreDefaultAutoApproveRules": false
+}
