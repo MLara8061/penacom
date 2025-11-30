@@ -5,20 +5,73 @@
       class="theme-button"
       :class="{ 'active': showDropdown }"
     >
-      <component :is="currentThemeIcon" />
+      <!-- Icono Sol -->
+      <svg v-if="currentTheme === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      
+      <!-- Icono Luna -->
+      <svg v-else-if="currentTheme === 'dark'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      
+      <!-- Icono Copo de Nieve -->
+      <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="2" x2="12" y2="22"></line>
+        <path d="M12 2 6 8m6-6 6 6M12 22l-6-6m6 6 6-6M2 12h20M2 12l6-6m-6 6 6 6m14-6-6-6m6 6-6 6"></path>
+      </svg>
     </button>
     
     <transition name="dropdown">
       <div v-if="showDropdown" class="theme-dropdown">
         <button 
-          v-for="theme in themes" 
-          :key="theme.value"
-          @click="selectTheme(theme.value)"
+          @click="selectTheme('light')"
           class="theme-option"
-          :class="{ 'selected': currentTheme === theme.value }"
+          :class="{ 'selected': currentTheme === 'light' }"
         >
-          <component :is="theme.icon" />
-          <span>{{ theme.label }}</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span>Claro</span>
+        </button>
+        
+        <button 
+          @click="selectTheme('dark')"
+          class="theme-option"
+          :class="{ 'selected': currentTheme === 'dark' }"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span>Oscuro</span>
+        </button>
+        
+        <button 
+          @click="selectTheme('christmas')"
+          class="theme-option"
+          :class="{ 'selected': currentTheme === 'christmas' }"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="22"></line>
+            <path d="M12 2 6 8m6-6 6 6M12 22l-6-6m6 6 6-6M2 12h20M2 12l6-6m-6 6 6 6m14-6-6-6m6 6-6 6"></path>
+          </svg>
+          <span>Navidad</span>
         </button>
       </div>
     </transition>
@@ -26,56 +79,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
-
-// Iconos SVG como componentes
-const SunIcon = {
-  template: `
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="5"></circle>
-      <line x1="12" y1="1" x2="12" y2="3"></line>
-      <line x1="12" y1="21" x2="12" y2="23"></line>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-      <line x1="1" y1="12" x2="3" y2="12"></line>
-      <line x1="21" y1="12" x2="23" y2="12"></line>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-  `
-}
-
-const MoonIcon = {
-  template: `
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-    </svg>
-  `
-}
-
-const SnowflakeIcon = {
-  template: `
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="12" y1="2" x2="12" y2="22"></line>
-      <path d="M12 2 6 8m6-6 6 6M12 22l-6-6m6 6 6-6M2 12h20M2 12l6-6m-6 6 6 6m14-6-6-6m6 6-6 6"></path>
-    </svg>
-  `
-}
+import { ref, onMounted, watch } from 'vue'
 
 const currentTheme = ref<'light' | 'dark' | 'christmas'>('light')
 const showDropdown = ref(false)
 
 type ThemeValue = 'light' | 'dark' | 'christmas'
-
-const themes: Array<{ value: ThemeValue; label: string; icon: any }> = [
-  { value: 'light', label: 'Claro', icon: SunIcon },
-  { value: 'dark', label: 'Oscuro', icon: MoonIcon },
-  { value: 'christmas', label: 'Navidad', icon: SnowflakeIcon }
-]
-
-const currentThemeIcon = computed(() => {
-  return themes.find(t => t.value === currentTheme.value)?.icon || SunIcon
-})
 
 const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value
