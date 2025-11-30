@@ -140,27 +140,27 @@ watch(() => showDropdown.value, (isOpen) => {
 
 <style>
 .theme-switcher {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 99999;
+  position: relative;
+  z-index: 1001;
   display: block !important;
   visibility: visible !important;
 }
 
 .theme-button {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  border: 3px solid rgba(0, 102, 204, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   display: flex !important;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #0066CC;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para navbar en tema navideño */
