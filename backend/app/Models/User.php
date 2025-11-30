@@ -3,14 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+/**
+ * @property string $role
+ * @property bool $is_active
+ */
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
@@ -24,6 +26,8 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'role',
+        'is_active',
     ];
 
     /**
@@ -46,14 +50,7 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
-    }
-
-    /**
-     * Determine if the user can access the Filament admin panel.
-     */
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return true; // Permitir acceso a todos los usuarios autenticados
     }
 }

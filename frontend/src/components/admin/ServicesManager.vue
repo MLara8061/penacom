@@ -35,7 +35,7 @@
         <div v-if="service.image" class="card-image" :style="{ backgroundImage: `url(${service.image})` }">
           <div class="card-overlay">
             <div class="badges">
-              <span class="badge badge-order">#{service.order}</span>
+              <span class="badge badge-order">#{{ service.order }}</span>
               <span class="badge" :class="service.is_active ? 'badge-active' : 'badge-inactive'">
                 {{ service.is_active ? 'Activo' : 'Inactivo' }}
               </span>
@@ -47,7 +47,7 @@
         <div v-else class="card-header">
           <div class="icon-badge">{{ service.icon || '⚙️' }}</div>
           <div class="badges">
-            <span class="badge badge-order">#{service.order}</span>
+            <span class="badge badge-order">#{{ service.order }}</span>
             <span class="badge" :class="service.is_active ? 'badge-active' : 'badge-inactive'">
               {{ service.is_active ? 'Activo' : 'Inactivo' }}
             </span>

@@ -1,0 +1,46 @@
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+public/build/
+public/hot
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Laravel
+storage/*.key
+storage/logs/
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+
+# Testing
+coverage/
+.phpunit.result.cache
+
+# Compiled files
+*.compiled

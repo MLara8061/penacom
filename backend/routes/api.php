@@ -10,6 +10,7 @@ use App\Http\Controllers\API\TestimonialController;
 use App\Http\Controllers\API\PortfolioItemController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\UserController;
 use App\Models\SiteSetting;
 
 /*
@@ -77,4 +78,13 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Products (Admin)
     Route::apiResource('products', ProductController::class);
+    
+    // Contacts (Admin)
+    Route::apiResource('contacts', ContactController::class);
+    
+    // Users (Solo Admin)
+    Route::middleware('role:admin')->group(function () {
+        Route::apiResource('users', UserController::class);
+        Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatus']);
+    });
 });

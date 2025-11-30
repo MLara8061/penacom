@@ -2,7 +2,7 @@
   <div class="landing-page">
     <!-- Mobile Menu Overlay -->
     <div class="mobile-overlay" :class="{ 'active': isMobileMenuOpen }" @click="closeMobileMenu"></div>
-    
+
     <!-- Navbar -->
     <nav class="navbar" :class="{ 'scrolled': isScrolled }">
       <div class="nav-container">
@@ -31,7 +31,7 @@
     <!-- Hero Slider Section -->
     <section class="hero-slider" id="inicio">
       <div class="slider-container">
-        <div class="slide" v-for="(slide, index) in slides" :key="index" 
+        <div class="slide" v-for="(slide, index) in slides" :key="index"
              :class="{ 'active': currentSlide === index }"
              :style="{ backgroundImage: `url(${slide.image})` }">
           <div class="slide-overlay"></div>
@@ -46,16 +46,16 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Slider Controls -->
       <div class="slider-controls">
         <button class="slider-arrow prev" @click="prevSlide">‹</button>
         <button class="slider-arrow next" @click="nextSlide">›</button>
       </div>
-      
+
       <!-- Slider Indicators -->
       <div class="slider-indicators">
-        <span v-for="(slide, index) in slides" :key="index" 
+        <span v-for="(slide, index) in slides" :key="index"
               @click="goToSlide(index)"
               :class="{ 'active': currentSlide === index }"></span>
       </div>
@@ -76,9 +76,8 @@
           <div class="about-content">
             <span class="section-label">¿Quiénes Somos?</span>
             <h2>{{ aboutSection.title }}</h2>
-            <p>{{ aboutSection.description }}</p>
-            <p>Ofrecemos instalación profesional de pantallas LED para exteriores e interiores, atendiendo el sector hotelero, restaurantero, salas de exhibición y tiendas departamentales que buscan destacar sus productos en vitrinas digitales.</p>
-            <p class="about-highlight">{{ aboutSection.highlighted_text }}</p>
+            <p style="white-space: pre-wrap;">{{ aboutSection.description }}</p>
+            <p class="about-highlight" v-if="aboutSection.highlighted_text" style="white-space: pre-wrap;">{{ aboutSection.highlighted_text }}</p>
             <div class="about-features">
               <div class="about-feature">
                 <div class="feature-number">{{ aboutSection.happy_clients }}+</div>
@@ -101,9 +100,8 @@
         <div class="section-header">
           <span class="section-label">Conoce más sobre nosotros</span>
           <h2 class="products-title">Nuestros Productos y Servicios</h2>
-          <p>Ofrecemos instalación de pantallas LED para diferentes sectores y servicios profesionales</p>
         </div>
-        
+
         <!-- Productos -->
         <div class="services-section">
           <h3 class="services-subtitle products-title">Nuestros Productos</h3>
@@ -121,14 +119,14 @@
                 </div>
               </div>
               <h3>{{ product.name }}</h3>
-              <p>{{ product.description }}</p>
+              <p style="white-space: pre-wrap;">{{ product.description }}</p>
             </div>
           </div>
           <div class="section-cta">
             <button class="btn btn-primary">Solicitar Cotización</button>
           </div>
         </div>
-        
+
         <!-- Servicios -->
         <div class="services-section" style="margin-top: 80px;">
           <h3 class="services-subtitle products-title">Nuestros Servicios</h3>
@@ -146,7 +144,7 @@
                 </div>
               </div>
               <h3>{{ service.title }}</h3>
-              <p>{{ service.description }}</p>
+              <p style="white-space: pre-wrap;">{{ service.description }}</p>
             </div>
           </div>
           <div class="section-cta">
@@ -164,7 +162,7 @@
           <h2>Señalización Digital LED</h2>
           <p>Descubre cómo la tecnología LED puede transformar tu negocio</p>
         </div>
-        
+
         <div class="portfolio-slider">
           <div class="portfolio-slide" v-for="(slide, index) in portfolioSlides" :key="index"
                :class="{ 'active': currentPortfolioSlide === index }"
@@ -176,12 +174,12 @@
               <p class="slide-description">{{ slide.description }}</p>
             </div>
           </div>
-          
+
           <div class="portfolio-controls">
             <button class="nav-arrow prev" @click="prevPortfolioSlide">‹</button>
             <button class="nav-arrow next" @click="nextPortfolioSlide">›</button>
           </div>
-          
+
           <div class="portfolio-dots">
             <span v-for="(slide, index) in portfolioSlides" :key="index"
                   @click="goToPortfolioSlide(index)"
@@ -230,7 +228,7 @@
             <h2>Lo Que Dicen Nuestros Clientes</h2>
           </div>
         </div>
-        
+
         <div class="testimonials-slider">
           <div class="testimonial-slide" v-for="(testimonial, index) in testimonials" :key="index"
                :class="{ 'active': currentTestimonial === index }">
@@ -243,12 +241,12 @@
             </div>
             <p class="testimonial-text">"{{ testimonial.text }}"</p>
           </div>
-          
+
           <div class="testimonial-controls">
             <button class="testimonial-arrow prev" @click="prevTestimonial">‹</button>
             <button class="testimonial-arrow next" @click="nextTestimonial">›</button>
           </div>
-          
+
           <div class="testimonial-dots">
             <span v-for="(testimonial, index) in testimonials" :key="index"
                   @click="goToTestimonial(index)"
@@ -266,7 +264,7 @@
             <div class="cta-badge">💡 Cotización Gratuita en 24h</div>
             <h2 class="hero-title">Transforma Tu Negocio Con Tecnología LED de Última Generación</h2>
             <p class="cta-subtitle">Únete a más de 100+ empresas que ya potenciaron su marca con nuestras soluciones</p>
-            
+
             <div class="cta-benefits">
               <div class="benefit-item">
                 <svg class="benefit-icon" viewBox="0 0 24 24" fill="none">
@@ -287,7 +285,7 @@
                 <span>Soporte técnico 24/7</span>
               </div>
             </div>
-            
+
             <div class="trust-indicators">
               <div class="trust-item">
                 <span class="trust-number">12+</span>
@@ -303,57 +301,57 @@
               </div>
             </div>
           </div>
-          
+
           <div class="contact-form-wrapper">
             <form class="contact-form" @submit.prevent="handleSubmit">
               <h3>Solicita Tu Cotización</h3>
               <p class="form-subtitle">Respuesta en menos de 24 horas</p>
-              
+
               <div class="form-group">
                 <label for="name">Nombre Completo *</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  v-model="formData.name" 
+                <input
+                  type="text"
+                  id="name"
+                  v-model="formData.name"
                   placeholder="Juan Pérez"
                   required
                 >
               </div>
-              
+
               <div class="form-row">
                 <div class="form-group">
                   <label for="email">Email *</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    v-model="formData.email" 
+                  <input
+                    type="email"
+                    id="email"
+                    v-model="formData.email"
                     placeholder="juan@empresa.com"
                     required
                   >
                 </div>
-                
+
                 <div class="form-group">
                   <label for="phone">Teléfono *</label>
-                  <input 
-                    type="tel" 
-                    id="phone" 
-                    v-model="formData.phone" 
+                  <input
+                    type="tel"
+                    id="phone"
+                    v-model="formData.phone"
                     placeholder="+52 998 123 4567"
                     required
                   >
                 </div>
               </div>
-              
+
               <div class="form-group">
                 <label for="company">Empresa</label>
-                <input 
-                  type="text" 
-                  id="company" 
-                  v-model="formData.company" 
+                <input
+                  type="text"
+                  id="company"
+                  v-model="formData.company"
                   placeholder="Nombre de tu empresa (opcional)"
                 >
               </div>
-              
+
               <div class="form-group">
                 <label for="service">Servicio de Interés *</label>
                 <select id="service" v-model="formData.service" required>
@@ -366,29 +364,29 @@
                   <option value="otro">Otro</option>
                 </select>
               </div>
-              
+
               <div class="form-group">
                 <label for="message">Cuéntanos Sobre Tu Proyecto *</label>
-                <textarea 
-                  id="message" 
-                  v-model="formData.message" 
+                <textarea
+                  id="message"
+                  v-model="formData.message"
                   placeholder="Describe brevemente qué necesitas..."
                   rows="4"
                   required
                 ></textarea>
               </div>
-              
+
               <!-- Honeypot anti-bot field (invisible) -->
               <div class="honeypot" aria-hidden="true">
-                <input 
-                  type="text" 
-                  id="website" 
+                <input
+                  type="text"
+                  id="website"
                   v-model="formData.honeypot"
                   tabindex="-1"
                   autocomplete="off"
                 >
               </div>
-              
+
               <button type="submit" class="btn-submit" :disabled="isSubmitting">
                 <span v-if="!isSubmitting">Enviar</span>
                 <span v-else>Enviando...</span>
@@ -397,7 +395,7 @@
                   <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
               </button>
-              
+
               <p class="form-privacy">🔒 Tu información está segura y protegida</p>
             </form>
           </div>
@@ -437,7 +435,7 @@
               </a>
             </div>
           </div>
-          
+
           <div class="footer-section">
             <h4>Servicios</h4>
             <ul>
@@ -447,7 +445,7 @@
               <li><a href="#servicios">Mantenimiento</a></li>
             </ul>
           </div>
-          
+
           <div class="footer-section">
             <h4>Empresa</h4>
             <ul>
@@ -457,7 +455,7 @@
               <li><a href="#contacto">Contacto</a></li>
             </ul>
           </div>
-          
+
           <div class="footer-section">
             <h4>Contacto</h4>
             <ul class="contact-list">
@@ -483,7 +481,7 @@
             </ul>
           </div>
         </div>
-        
+
         <div class="footer-bottom">
           <p>&copy; 2025 PenaCom. Todos los derechos reservados. | Powered by <a href="https://wa.me/529985401540" target="_blank" rel="noopener noreferrer" class="arla-link">Arla</a></p>
           <div class="footer-links">
@@ -606,23 +604,23 @@ const handleSubmit = async () => {
     console.warn('Bot detectado: honeypot field filled')
     return // Rechazar silenciosamente
   }
-  
+
   // Protección 2: Verificar tiempo mínimo de llenado (3 segundos)
   const timeSpent = Date.now() - formStartTime.value
   if (timeSpent < 3000) {
     alert('Por favor, tómate un momento para revisar tu información.')
     return
   }
-  
+
   // Protección 3: Validación básica de email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(formData.value.email)) {
     alert('Por favor, ingresa un email válido.')
     return
   }
-  
+
   isSubmitting.value = true
-  
+
   // Simulación de envío (aquí integrarías tu API)
   setTimeout(() => {
     alert('¡Gracias! Tu solicitud ha sido enviada. Te contactaremos pronto.')
@@ -748,8 +746,8 @@ const nextPortfolioSlide = () => {
 }
 
 const prevPortfolioSlide = () => {
-  currentPortfolioSlide.value = currentPortfolioSlide.value === 0 
-    ? portfolioSlides.value.length - 1 
+  currentPortfolioSlide.value = currentPortfolioSlide.value === 0
+    ? portfolioSlides.value.length - 1
     : currentPortfolioSlide.value - 1
 }
 
@@ -769,25 +767,25 @@ const projects = ref([
 
 // Stats
 const stats = ref([
-  { 
-    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>', 
-    number: '100+', 
-    label: 'Clientes Satisfechos' 
+  {
+    icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
+    number: '100+',
+    label: 'Clientes Satisfechos'
   },
-  { 
-    icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>', 
-    number: '12+', 
-    label: 'Años de Experiencia' 
+  {
+    icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>',
+    number: '12+',
+    label: 'Años de Experiencia'
   },
-  { 
-    icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>', 
-    number: '300+', 
-    label: 'Proyectos Completados' 
+  {
+    icon: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>',
+    number: '300+',
+    label: 'Proyectos Completados'
   },
-  { 
-    icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>', 
-    number: '5.0', 
-    label: 'Calificación Google' 
+  {
+    icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>',
+    number: '5.0',
+    label: 'Calificación Google'
   }
 ])
 
@@ -835,8 +833,8 @@ const nextTestimonial = () => {
 }
 
 const prevTestimonial = () => {
-  currentTestimonial.value = currentTestimonial.value === 0 
-    ? testimonials.value.length - 1 
+  currentTestimonial.value = currentTestimonial.value === 0
+    ? testimonials.value.length - 1
     : currentTestimonial.value - 1
 }
 
@@ -905,7 +903,7 @@ const scrollToContact = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   startSlider()
-  
+
   // Cargar datos del API
   loadHeroSections()
   loadAboutSection()
@@ -973,7 +971,7 @@ onUnmounted(() => {
   .mobile-overlay {
     display: block;
   }
-  
+
   .mobile-overlay.active {
     opacity: 1;
     visibility: visible;
@@ -2327,7 +2325,7 @@ onUnmounted(() => {
   .hamburger {
     display: flex;
   }
-  
+
   .nav-menu {
     position: fixed;
     top: 0;
@@ -2345,25 +2343,25 @@ onUnmounted(() => {
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
     z-index: 999;
   }
-  
+
   /* Background del menú según tema */
   .theme-light .nav-menu {
     background: rgba(255, 255, 255, 0.98);
   }
-  
+
   .theme-christmas .nav-menu {
     background: rgba(44, 24, 16, 0.98);
   }
-  
+
   .nav-menu.active {
     right: 0;
   }
-  
+
   .nav-menu li {
     width: 100%;
     margin-bottom: 8px;
   }
-  
+
   .nav-menu li a {
     display: block;
     padding: 16px 20px;
@@ -2372,47 +2370,47 @@ onUnmounted(() => {
     border-radius: 8px;
     transition: all 0.3s ease;
   }
-  
+
   .nav-menu li a:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateX(8px);
     color: #FFFFFF !important;
   }
-  
+
   /* Colores de texto según tema */
   .theme-light .nav-menu li a {
     color: #0066CC !important;
   }
-  
+
   .theme-light .nav-menu li a:hover {
     background: rgba(0, 102, 204, 0.1);
     color: #0052A3 !important;
   }
-  
+
   .theme-christmas .nav-menu li a {
     color: #DC2626 !important;
   }
-  
+
   .theme-christmas .nav-menu li a:hover {
     background: rgba(220, 38, 38, 0.1);
     color: #B91C1C !important;
   }
-  
+
   .btn-nav {
     display: none;
   }
-  
+
   .nav-actions {
     gap: 4px;
   }
-  
+
   /* Hero */
   .slider-controls {
     left: 5px;
     right: 5px;
     padding: 0;
   }
-  
+
   .slider-arrow {
     width: 44px;
     height: 44px;
@@ -2422,17 +2420,17 @@ onUnmounted(() => {
     font-size: 2rem;
     font-weight: 300;
   }
-  
+
   .slider-arrow:hover {
     background: rgba(255, 255, 255, 0.1);
   }
-  
+
   .slide-content {
     align-items: center;
     text-align: center;
     padding: 0 20px;
   }
-  
+
   .slide-title {
     font-size: 1.5rem;
     line-height: 1.1;
@@ -2442,7 +2440,7 @@ onUnmounted(() => {
     text-overflow: clip;
     max-width: 90%;
   }
-  
+
   .slide-subtitle {
     font-size: 0.9rem;
     line-height: 1.2;
@@ -2452,56 +2450,56 @@ onUnmounted(() => {
     text-overflow: clip;
     max-width: 90%;
   }
-  
+
   .slide-buttons {
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 12px;
   }
-  
+
   .btn {
     padding: 10px 20px;
     font-size: 0.9rem;
     width: auto;
     max-width: none;
   }
-  
+
   /* About */
   .about-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  
+
   .about-content {
     order: 2;
     text-align: center;
   }
-  
+
   .about-content .btn {
     margin: 0 auto;
   }
-  
+
   .about-image-wrapper {
     order: 1;
   }
-  
+
   /* Services */
   .services-grid {
     grid-template-columns: 1fr;
     gap: 25px;
   }
-  
+
   /* Portfolio */
   .portfolio-slider {
     height: 450px;
   }
-  
+
   .portfolio-controls {
     left: 5px;
     right: 5px;
   }
-  
+
   .portfolio-controls .nav-arrow {
     width: 44px;
     height: 44px;
@@ -2512,27 +2510,27 @@ onUnmounted(() => {
     border: none;
     font-weight: 300;
   }
-  
+
   .portfolio-controls .nav-arrow:hover {
     background: rgba(255, 255, 255, 0.1);
   }
-  
+
   .slide-title {
     font-size: 1.6rem;
     line-height: 1.2;
   }
-  
+
   .slide-description {
     font-size: 0.95rem;
     line-height: 1.5;
   }
-  
+
   /* Stats */
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
   }
-  
+
   /* Testimonials */
   .testimonials-header {
     flex-direction: column;
@@ -2540,22 +2538,22 @@ onUnmounted(() => {
     justify-content: center;
     gap: 25px;
   }
-  
+
   .testimonials-slider {
     height: 400px;
   }
-  
+
   .testimonial-slide {
     padding: 35px 25px;
     height: auto;
   }
-  
+
   .testimonial-controls {
     left: -50px;
     right: -50px;
     top: 45%;
   }
-  
+
   .testimonial-arrow {
     width: 44px;
     height: 44px;
@@ -2566,68 +2564,68 @@ onUnmounted(() => {
     border: none;
     font-weight: 300;
   }
-  
+
   .testimonial-arrow:hover {
     background: rgba(0, 102, 204, 0.1);
     transform: scale(1);
   }
-  
+
   /* CTA */
   .cta-grid {
     grid-template-columns: 1fr;
     gap: 50px;
   }
-  
+
   .cta-content {
     text-align: center;
   }
-  
+
   .cta-badge {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .cta-content h2 {
     font-size: 2.2rem;
   }
-  
+
   .trust-indicators {
     flex-wrap: wrap;
     gap: 15px;
   }
-  
+
   .trust-item {
     flex: 1 1 calc(50% - 8px);
     min-width: 140px;
   }
-  
+
   .contact-form-wrapper {
     padding: 35px 25px;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  
+
   /* Footer */
   .footer-content {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
   }
-  
+
   .footer-brand {
     grid-column: 1 / -1;
     max-width: 100%;
   }
-  
+
   /* Footer */
   .footer-content {
     grid-template-columns: 1fr;
     gap: 40px;
     text-align: center;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     gap: 20px;
@@ -2897,29 +2895,29 @@ onUnmounted(() => {
   .container {
     padding: 0 15px;
   }
-  
+
   /* Navbar */
   .nav-menu {
     width: 100%;
     right: -100%;
     padding: 90px 25px 40px;
   }
-  
+
   .logo-image {
     height: 28px;
   }
-  
+
   /* Hero */
   .hero-slider {
     height: 100svh;
   }
-  
+
   .slider-controls {
     left: 0;
     right: 0;
     padding: 0;
   }
-  
+
   .slider-arrow {
     width: 40px;
     height: 40px;
@@ -2929,13 +2927,13 @@ onUnmounted(() => {
     font-size: 1.8rem;
     font-weight: 300;
   }
-  
+
   .slide-content {
     align-items: center;
     text-align: center;
     padding: 0 15px;
   }
-  
+
   .slide-title {
     font-size: 1.2rem;
     line-height: 1.1;
@@ -2945,7 +2943,7 @@ onUnmounted(() => {
     text-overflow: clip;
     max-width: 95%;
   }
-  
+
   .slide-subtitle {
     font-size: 0.8rem;
     line-height: 1.2;
@@ -2955,48 +2953,48 @@ onUnmounted(() => {
     text-overflow: clip;
     max-width: 95%;
   }
-  
+
   .slide-buttons {
     flex-direction: row;
     justify-content: center;
     gap: 10px;
   }
-  
+
   .btn {
     padding: 9px 18px;
     font-size: 0.85rem;
     width: auto;
   }
-  
+
   /* About */
   .about-badge {
     font-size: 0.9rem;
     padding: 8px 18px;
   }
-  
+
   section h2 {
     font-size: 2rem;
   }
-  
+
   /* Services */
   .service-card h3 {
     font-size: 1.3rem;
   }
-  
+
   /* Portfolio */
   .portfolio-slider {
     height: 380px;
   }
-  
+
   .portfolio-slide {
     padding: 30px 15px;
   }
-  
+
   .portfolio-controls {
     left: 0;
     right: 0;
   }
-  
+
   .portfolio-controls .nav-arrow {
     width: 40px;
     height: 40px;
@@ -3006,56 +3004,56 @@ onUnmounted(() => {
     box-shadow: none;
     font-weight: 300;
   }
-  
+
   .portfolio-label {
     font-size: 0.75rem;
     padding: 6px 14px;
   }
-  
+
   .slide-title {
     font-size: 1.3rem;
     line-height: 1.2;
   }
-  
+
   .slide-description {
     font-size: 0.9rem;
     line-height: 1.4;
   }
-  
+
   /* Stats */
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 25px;
   }
-  
+
   .stat-number {
     font-size: 2.5rem;
   }
-  
+
   /* Testimonials */
   .testimonials-slider {
     height: 450px;
   }
-  
+
   .testimonial-slide {
     padding: 30px 20px;
     height: auto;
   }
-  
+
   .testimonial-controls {
     left: -10px;
     right: -10px;
     top: 45%;
   }
-  
+
   .testimonial-name {
     font-size: 1.1rem;
   }
-  
+
   .testimonial-text {
     font-size: 1rem;
   }
-  
+
   .testimonial-arrow {
     width: 40px;
     height: 40px;
@@ -3065,7 +3063,7 @@ onUnmounted(() => {
     box-shadow: none;
     font-weight: 300;
   }
-  
+
   .google-badge {
     padding: 15px 20px;
     flex-direction: row;
@@ -3076,100 +3074,100 @@ onUnmounted(() => {
     max-width: 320px;
     margin: 0 auto;
   }
-  
+
   .google-icon {
     width: 36px;
     height: 36px;
   }
-  
+
   /* CTA */
   .cta {
     padding: 80px 15px;
   }
-  
+
   .cta-content {
     text-align: center;
   }
-  
+
   .cta-badge {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .cta-content h2 {
     font-size: 1.8rem;
   }
-  
+
   .cta-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .trust-indicators {
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .trust-item {
     width: 100%;
   }
-  
+
   .trust-number {
     font-size: 2rem;
   }
-  
+
   .contact-form-wrapper {
     padding: 25px 20px;
   }
-  
+
   .contact-form h3 {
     font-size: 1.6rem;
   }
-  
+
   /* Footer */
   .footer {
     padding: 60px 15px 30px;
   }
-  
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  
+
   .footer-brand {
     text-align: center;
   }
-  
+
   .social-links {
     justify-content: center;
   }
-  
+
   .footer-section h4 {
     text-align: center;
   }
-  
+
   .footer-section h4::after {
     left: 50%;
     transform: translateX(-50%);
   }
-  
+
   .footer-section ul {
     text-align: center;
   }
-  
+
   .contact-list li {
     justify-content: center;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .social-link {
     width: 40px;
     height: 40px;
   }
-  
+
   .social-link svg {
     width: 18px;
     height: 18px;

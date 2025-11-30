@@ -27,6 +27,7 @@ import AdminFormularioContacto from '../views/admin/FormularioContacto.vue';
 import AdminFooter from '../views/admin/Footer.vue';
 import AdminPortfolio from '../views/admin/Portfolio.vue';
 import AdminTestimonials from '../views/admin/Testimonials.vue';
+import AdminUsers from '../views/admin/Users.vue';
 
 const routes = [
   // Landing Page
@@ -73,7 +74,8 @@ const routes = [
       { path: 'portafolio', name: 'AdminPortafolio', component: AdminPortfolio },
       { path: 'resenas', name: 'AdminResenas', component: AdminTestimonials },
       { path: 'formulario-contacto', name: 'AdminFormularioContacto', component: AdminFormularioContacto },
-      { path: 'footer', name: 'AdminFooter', component: AdminFooter }
+      { path: 'footer', name: 'AdminFooter', component: AdminFooter },
+      { path: 'usuarios', name: 'AdminUsers', component: AdminUsers, meta: { requiresAdmin: true } }
     ]
   }
 ];

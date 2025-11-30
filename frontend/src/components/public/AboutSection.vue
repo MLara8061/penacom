@@ -1,31 +1,26 @@
 <template>
   <section id="nosotros" class="about">
     <div class="container">
-      <div class="about-content">
+      <div class="about-content" v-if="aboutData">
         <div class="about-text">
-          <h2 class="section-title">Innovación LED<br>desde 2013</h2>
-          <p class="about-description">
-            En Peñacom, transformamos espacios con tecnología LED de última generación. 
-            Con más de una década de experiencia en Cancún y la Riviera Maya, nos especializamos 
-            en ofrecer soluciones profesionales que impulsan la comunicación visual de nuestros clientes.
-          </p>
-          <p class="about-description">
-            Nuestra experiencia abarca desde pequeños comercios hasta grandes proyectos corporativos, 
-            siempre con el compromiso de ofrecer calidad, innovación y soporte excepcional.
+          <h2 class="section-title">{{ aboutData.title }}</h2>
+          <p class="about-description" style="white-space: pre-wrap;">{{ aboutData.description }}</p>
+          <p class="about-description highlighted" v-if="aboutData.highlighted_text" style="white-space: pre-wrap;">
+            {{ aboutData.highlighted_text }}
           </p>
         </div>
         
         <div class="about-stats">
           <div class="stat">
-            <div class="stat-number">10+</div>
+            <div class="stat-number">{{ aboutData.years_experience }}+</div>
             <div class="stat-label">Años de experiencia</div>
           </div>
           <div class="stat">
-            <div class="stat-number">100+</div>
+            <div class="stat-number">{{ aboutData.projects_completed }}+</div>
             <div class="stat-label">Proyectos completados</div>
           </div>
           <div class="stat">
-            <div class="stat-number">24/7</div>
+            <div class="stat-number">{{ aboutData.support_hours }}</div>
             <div class="stat-label">Soporte técnico</div>
           </div>
         </div>
@@ -33,6 +28,28 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import api from '../../services/api';
+
+const aboutData = ref(null);
+
+const loadAbout = async () => {
+  try {
+    const response = await api.get('/about');
+    if (response.data && response.data.length > 0) {
+      aboutData.value = response.data[0];
+    }
+  } catch (error) {
+    console.error('Error loading about data:', error);
+  }
+};
+
+onMounted(() => {
+  loadAbout();
+});
+</script>
 
 <style scoped>
 .about {
@@ -69,6 +86,14 @@
   color: #6e6e73;
   line-height: 1.6;
   margin-bottom: 24px;
+}
+
+.about-description.highlighted {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }
 
 .about-stats {

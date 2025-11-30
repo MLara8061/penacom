@@ -179,6 +179,27 @@
           </svg>
           <span>Footer</span>
         </router-link>
+
+        <!-- 6. Configuración -->
+        <div class="nav-section">
+          <div class="nav-section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v6m0 6v6m8.66-15L15.5 8.34M8.5 15.66 3.34 20.66m17.32 0L15.5 15.66M8.5 8.34 3.34 3.34"></path>
+            </svg>
+            <span>Configuración</span>
+          </div>
+
+          <router-link to="/admin/usuarios" class="nav-subitem" active-class="active" @click="closeSidebar">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>Gestión de Usuarios</span>
+          </router-link>
+        </div>
       </nav>
 
       <div class="sidebar-footer">

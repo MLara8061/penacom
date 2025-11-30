@@ -35,7 +35,7 @@
         <div v-if="product.image" class="card-image" :style="{ backgroundImage: `url(${product.image})` }">
           <div class="card-overlay">
             <div class="badges">
-              <span class="badge badge-order">#{product.order}</span>
+              <span class="badge badge-order">#{{ product.order }}</span>
               <span class="badge" :class="product.is_active ? 'badge-active' : 'badge-inactive'">
                 {{ product.is_active ? 'Activo' : 'Inactivo' }}
               </span>
@@ -47,7 +47,7 @@
         <div v-else class="card-header">
           <div class="icon-badge">{{ product.icon || '📦' }}</div>
           <div class="badges">
-            <span class="badge badge-order">#{product.order}</span>
+            <span class="badge badge-order">#{{ product.order }}</span>
             <span class="badge" :class="product.is_active ? 'badge-active' : 'badge-inactive'">
               {{ product.is_active ? 'Activo' : 'Inactivo' }}
             </span>
