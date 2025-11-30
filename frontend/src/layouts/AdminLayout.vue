@@ -158,6 +158,7 @@ const sidebarOpen = ref(false)
 const pageTitle = computed(() => {
   const titles = {
     'AdminDashboard': 'Dashboard',
+    'AdminHeroSection': 'Sección Héroe',
     'AdminAbout': 'Acerca de la Empresa',
     'AdminServices': 'Servicios',
     'AdminSchedules': 'Horarios',

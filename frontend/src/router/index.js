@@ -15,6 +15,7 @@ import Contact from '../views/public/Contact.vue';
 // Admin Views
 import AdminLogin from '../views/admin/Login.vue';
 import AdminDashboard from '../views/admin/Dashboard.vue';
+import AdminHeroSection from '../views/admin/HeroSection.vue';
 import AdminServices from '../views/admin/Services.vue';
 import AdminSchedules from '../views/admin/Schedules.vue';
 import AdminContact from '../views/admin/Contact.vue';
@@ -54,6 +55,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'AdminDashboard', component: AdminDashboard },
+      { path: 'seccion-heroe', name: 'AdminHeroSection', component: AdminHeroSection },
       { path: 'acerca-de', name: 'AdminAbout', component: AdminAbout },
       { path: 'servicios', name: 'AdminServices', component: AdminServices },
       { path: 'horarios', name: 'AdminSchedules', component: AdminSchedules },
