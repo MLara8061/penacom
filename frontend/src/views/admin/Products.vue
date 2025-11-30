@@ -151,32 +151,14 @@
           </div>
 
           <div class="form-group">
-            <label for="image" class="form-label">
-              URL de la Imagen
-              <span class="required">*</span>
-            </label>
-            <input
-              id="image"
+            <ImageUploader
               v-model="form.image"
-              type="url"
-              required
-              class="form-control"
-              placeholder="https://images.unsplash.com/photo-..."
+              label="Imagen del Producto"
+              :required="true"
+              :show-history="true"
+              :history="imageHistory"
+              @upload="onImageUpload"
             />
-            <div class="form-hint">URL completa de la imagen del producto</div>
-            
-            <!-- Vista previa de la imagen -->
-            <div v-if="form.image" class="image-preview">
-              <img :src="form.image" :alt="form.name" @error="imageError = true" />
-              <div v-if="imageError" class="image-error">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="12" y1="8" x2="12" y2="12"/>
-                  <line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-                <span>Error al cargar la imagen</span>
-              </div>
-            </div>
           </div>
 
           <div class="form-row">
@@ -270,6 +252,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api.js'
+import ImageUploader from '@/components/admin/ImageUploader.vue'
 
 const loading = ref(true)
 const saving = ref(false)
@@ -279,6 +262,7 @@ const showDeleteModal = ref(false)
 const isEditing = ref(false)
 const productToDelete = ref(null)
 const imageError = ref(false)
+const imageHistory = ref([])
 
 const form = ref({
   name: '',
@@ -364,12 +348,29 @@ const deleteProduct = async () => {
   }
 }
 
+const onImageUpload = (imageUrl) => {
+  // Agregar al historial si no existe
+  if (!imageHistory.value.includes(imageUrl)) {
+    imageHistory.value.unshift(imageUrl)
+    // Limitar el historial a 10 imágenes
+    if (imageHistory.value.length > 10) {
+      imageHistory.value = imageHistory.value.slice(0, 10)
+    }
+  }
+}
+
 const truncateText = (text, maxLength) => {
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
 }
 
 onMounted(() => {
   fetchProducts()
+  // Cargar historial de imágenes desde productos existentes
+  products.value.forEach(product => {
+    if (product.image && !imageHistory.value.includes(product.image)) {
+      imageHistory.value.push(product.image)
+    }
+  })
 })
 </script>
 
