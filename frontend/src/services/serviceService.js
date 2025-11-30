@@ -6,7 +6,7 @@ export default {
    * Get all services (Admin)
    */
   async getAll() {
-    const response = await api.get('/services');
+    const response = await api.get('/services/active');
     return response.data;
   },
 
