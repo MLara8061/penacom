@@ -106,8 +106,14 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Imagen de Fondo (URL)</label>
-              <input v-model="form.background_image" type="url" class="form-control" placeholder="https://...">
+              <ImageUploader
+                v-model="form.background_image"
+                label="Imagen de Fondo"
+                :required="false"
+                :show-history="true"
+                :history="imageHistory"
+                @upload="onImageUpload"
+              />
             </div>
 
             <div class="form-row">
@@ -166,6 +172,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '../../services/api'
+import ImageUploader from '@/components/admin/ImageUploader.vue'
 
 const heroSections = ref([])
 const loading = ref(true)
@@ -175,6 +182,7 @@ const messageType = ref('')
 const showCreateModal = ref(false)
 const showEditModal = ref(false)
 const editingHero = ref(null)
+const imageHistory = ref([])
 
 const form = ref({
   title: '',
@@ -267,8 +275,15 @@ const showMessage = (msg, type) => {
   }, 3000)
 }
 
+const onImageUpload = (url) => {
+  // Aquí podrías guardar en el historial de imágenes si tuvieras el endpoint
+  console.log('Imagen subida:', url)
+}
+
 onMounted(() => {
   loadHeroSections()
+  // Cargar historial de imágenes si existe el endpoint
+  // loadImageHistory()
 })
 </script>
 

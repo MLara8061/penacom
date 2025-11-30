@@ -21,6 +21,10 @@ import AdminSchedules from '../views/admin/Schedules.vue';
 import AdminContact from '../views/admin/Contact.vue';
 import AdminAbout from '../views/admin/About.vue';
 import AdminProducts from '../views/admin/Products.vue';
+import AdminLeadsRedes from '../views/admin/Leads/RedesSociales.vue';
+import AdminLeadsGoogle from '../views/admin/Leads/Google.vue';
+import AdminFormularioContacto from '../views/admin/FormularioContacto.vue';
+import AdminFooter from '../views/admin/Footer.vue';
 
 const routes = [
   // Landing Page
@@ -61,7 +65,11 @@ const routes = [
       { path: 'productos', name: 'AdminProductos', component: AdminProducts },
       { path: 'servicios', name: 'AdminServices', component: AdminServices },
       { path: 'horarios', name: 'AdminSchedules', component: AdminSchedules },
-      { path: 'leads/formulario', name: 'AdminLeadsFormulario', component: AdminContact }
+      { path: 'leads/formulario', name: 'AdminLeadsFormulario', component: AdminContact },
+      { path: 'leads/redes-sociales', name: 'AdminLeadsRedes', component: AdminLeadsRedes },
+      { path: 'leads/google', name: 'AdminLeadsGoogle', component: AdminLeadsGoogle },
+      { path: 'formulario-contacto', name: 'AdminFormularioContacto', component: AdminFormularioContacto },
+      { path: 'footer', name: 'AdminFooter', component: AdminFooter }
     ]
   }
 ];

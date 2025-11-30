@@ -107,71 +107,21 @@
         <!-- Productos -->
         <div class="services-section">
           <h3 class="services-subtitle products-title">Nuestros Productos</h3>
-          <div class="services-grid">
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80');">
+          <div v-if="isLoadingProducts" class="loading-state">
+            <p>Cargando productos...</p>
+          </div>
+          <div v-else-if="products.length === 0" class="empty-state">
+            <p>No hay productos disponibles</p>
+          </div>
+          <div v-else class="services-grid">
+            <div v-for="product in products" :key="product.id" class="service-card glass-card">
+              <div class="service-image" :style="{ backgroundImage: product.image ? `url(${product.image})` : 'url(\'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80\')' }">
                 <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                    <line x1="8" y1="21" x2="16" y2="21"></line>
-                    <line x1="12" y1="17" x2="12" y2="21"></line>
-                  </svg>
+                  <div class="service-icon-emoji">{{ product.icon || '📦' }}</div>
                 </div>
               </div>
-              <h3>Sector Hotelero</h3>
-              <p>Pantallas LED de alta calidad para hoteles y resorts que buscan modernizar sus espacios y ofrecer experiencias visuales impactantes.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                  </svg>
-                </div>
-              </div>
-              <h3>Sector Restaurantero</h3>
-              <p>Soluciones digitales para menús, promociones y ambientación que atraen y mantienen la atención de tus comensales.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1578022761797-b8636ac1773c?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="9" y1="9" x2="15" y2="15"></line>
-                    <line x1="15" y1="9" x2="9" y2="15"></line>
-                  </svg>
-                </div>
-              </div>
-              <h3>Salas de Exhibición</h3>
-              <p>Pantallas LED para galerías, museos y centros de exhibición que realzan la presentación de contenidos y obras.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                  </svg>
-                </div>
-              </div>
-              <h3>Tiendas Departamentales</h3>
-              <p>Vitrinas digitales y pantallas para mostrar catálogos de productos de forma dinámica y atractiva.</p>
-            </div>
-            
-            <div class="service-card glass-card">
-              <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80');">
-                <div class="service-icon-wrapper">
-                  <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
-                  </svg>
-                </div>
-              </div>
-              <h3>Proyectos Especiales</h3>
-              <p>Soluciones personalizadas para eventos, estadios, publicidad exterior y proyectos únicos a medida.</p>
+              <h3>{{ product.name }}</h3>
+              <p>{{ product.description }}</p>
             </div>
           </div>
           <div class="section-cta">
@@ -614,6 +564,17 @@ interface Service {
   color: string
 }
 
+interface Product {
+  id: number
+  name: string
+  description: string
+  category: string
+  icon: string
+  image?: string
+  is_active: boolean
+  order: number
+}
+
 interface PortfolioSlide {
   label: string
   title: string
@@ -720,6 +681,10 @@ const handleSubmit = async () => {
 const services = ref<Service[]>([])
 const isLoadingServices = ref(true)
 
+// Products
+const products = ref<Product[]>([])
+const isLoadingProducts = ref(true)
+
 // About Section
 const aboutSection = ref({
   current_image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
@@ -738,6 +703,20 @@ const loadAboutSection = async () => {
   } catch (error) {
     console.error('Error loading about section:', error)
     // Mantiene los valores por defecto
+  }
+}
+
+// Cargar productos del API
+const loadProducts = async () => {
+  try {
+    const response = await api.get('/products/active')
+    products.value = response.data
+  } catch (error) {
+    console.error('Error loading products:', error)
+    // Fallback a productos por defecto
+    products.value = []
+  } finally {
+    isLoadingProducts.value = false
   }
 }
 
@@ -957,6 +936,7 @@ onMounted(() => {
   // Cargar datos del API
   loadHeroSections()
   loadAboutSection()
+  loadProducts()
   loadServices()
   loadPortfolio()
 })
@@ -1521,6 +1501,11 @@ onUnmounted(() => {
   height: 30px;
   color: #0066CC;
   stroke-width: 2.5;
+}
+
+.service-icon-emoji {
+  font-size: 2rem;
+  color: #0066CC;
 }
 
 .section-cta {

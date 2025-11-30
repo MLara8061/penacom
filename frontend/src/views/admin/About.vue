@@ -133,20 +133,15 @@
         </div>
 
         <div class="form-group">
-          <label for="current_image" class="form-label">URL de Imagen</label>
-          <input
-            id="current_image"
+          <ImageUploader
             v-model="form.current_image"
-            type="url"
-            class="form-control"
-            placeholder="https://..."
+            label="Imagen de la Empresa"
+            :required="false"
+            :show-history="true"
+            :history="imageHistory"
+            @upload="onImageUpload"
           />
           <div class="form-hint">Preferiblemente 800x600px o superior</div>
-        </div>
-
-        <div v-if="form.current_image" class="image-preview">
-          <img :src="form.current_image" alt="Preview" @error="imageError = true" />
-          <div v-if="imageError" class="image-error">Error al cargar la imagen</div>
         </div>
       </div>
 
@@ -185,6 +180,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '../../services/api'
+import ImageUploader from '@/components/admin/ImageUploader.vue'
 
 const form = ref({
   title: '',
@@ -199,6 +195,7 @@ const loading = ref(false)
 const message = ref('')
 const messageType = ref('')
 const imageError = ref(false)
+const imageHistory = ref([])
 
 const loadData = async () => {
   try {
@@ -231,6 +228,10 @@ const saveChanges = async () => {
   } finally {
     loading.value = false
   }
+}
+
+const onImageUpload = (url) => {
+  console.log('Imagen subida:', url)
 }
 
 onMounted(() => {
