@@ -159,8 +159,22 @@ watch(() => showDropdown.value, (isOpen) => {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #FFFFFF;
+  color: #333333;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Color de icono en tema claro */
+.theme-light .theme-button {
+  color: #0066CC;
+  background: rgba(0, 102, 204, 0.1);
+  border-color: rgba(0, 102, 204, 0.2);
+}
+
+/* Color de icono en tema oscuro */
+.theme-dark .theme-button {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Estilos para navbar en tema navideño */
