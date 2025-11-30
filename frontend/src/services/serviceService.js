@@ -3,10 +3,10 @@ import api from './api';
 
 export default {
   /**
-   * Get all active services
+   * Get all services (Admin)
    */
   async getAll() {
-    const response = await api.get('/services/active');
+    const response = await api.get('/services');
     return response.data;
   },
 
