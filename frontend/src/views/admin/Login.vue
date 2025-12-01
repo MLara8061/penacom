@@ -129,6 +129,7 @@
 </template>
 
 <script setup>
+import { useAlert } from '@/composables/useAlert'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import authService from '../../services/authService'
@@ -138,6 +139,7 @@ const credentials = ref({ email: '', password: '' })
 const loading = ref(false)
 const error = ref(null)
 const showPassword = ref(false)
+const { error: showError } = useAlert()
 
 const handleLogin = async () => {
   loading.value = true
@@ -148,6 +150,7 @@ const handleLogin = async () => {
     router.push('/admin')
   } catch (err) {
     error.value = 'Credenciales incorrectas'
+    showError('Usuario o contraseña incorrectos', 'Error de autenticación')
     console.error('Error al iniciar sesión:', err)
   } finally {
     loading.value = false

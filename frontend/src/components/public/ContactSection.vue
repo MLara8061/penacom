@@ -3,46 +3,52 @@
     <div class="container">
       <div class="contact-content">
         <div class="contact-info">
-          <h2 class="section-title">Conversemos<br>sobre tu proyecto</h2>
+          <h2 class="section-title">Conversemos<br />sobre tu proyecto</h2>
           <p class="contact-description">
-            Nuestro equipo está listo para asesorarte y desarrollar la solución LED perfecta para tu negocio.
+            Nuestro equipo está listo para asesorarte y desarrollar la solución LED perfecta para tu
+            negocio.
           </p>
-          
+
           <div class="contact-details">
             <div class="detail-item">
               <div class="detail-label">Ubicación</div>
               <div class="detail-value">Cancún, Quintana Roo</div>
             </div>
-            
+
             <div class="detail-item">
               <div class="detail-label">Teléfono</div>
               <div class="detail-value">(998) 123-4567</div>
             </div>
-            
+
             <div class="detail-item">
               <div class="detail-label">Email</div>
               <div class="detail-value">contacto@penacom.mx</div>
             </div>
           </div>
         </div>
-        
+
         <form class="contact-form" @submit.prevent="handleSubmit">
           <div class="form-group">
             <input type="text" v-model="form.name" placeholder="Nombre" required />
           </div>
-          
+
           <div class="form-group">
             <input type="email" v-model="form.email" placeholder="Email" required />
           </div>
-          
+
           <div class="form-group">
             <input type="tel" v-model="form.phone" placeholder="Teléfono" required />
           </div>
-          
+
           <div class="form-group">
-            <textarea v-model="form.message" placeholder="Cuéntanos sobre tu proyecto" rows="6" required></textarea>
+            <textarea
+              v-model="form.message"
+              placeholder="Cuéntanos sobre tu proyecto"
+              rows="6"
+              required
+            ></textarea>
           </div>
-          
+
           <button type="submit" class="btn-submit" :disabled="loading">
             {{ loading ? 'Enviando...' : 'Enviar mensaje' }}
           </button>
@@ -53,31 +59,33 @@
 </template>
 
 <script setup>
+import { useAlert } from '@/composables/useAlert'
 import { reactive, ref } from 'vue'
 
+const { success } = useAlert()
 const form = reactive({
   name: '',
   email: '',
   phone: '',
-  message: ''
+  message: '',
 })
 
 const loading = ref(false)
 
 const handleSubmit = async () => {
   loading.value = true
-  
+
   // Simular envío
   await new Promise(resolve => setTimeout(resolve, 1500))
-  
-  alert('Gracias por tu mensaje. Te contactaremos pronto.')
-  
+
+  success('Gracias por tu mensaje. Te contactaremos pronto.', '¡Mensaje Enviado!')
+
   // Limpiar formulario
   form.name = ''
   form.email = ''
   form.phone = ''
   form.message = ''
-  
+
   loading.value = false
 }
 </script>
@@ -167,7 +175,7 @@ const handleSubmit = async () => {
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #0066CC;
+  border-color: #0066cc;
 }
 
 .form-group textarea {
@@ -177,7 +185,7 @@ const handleSubmit = async () => {
 .btn-submit {
   width: 100%;
   padding: 16px;
-  background: #0066CC;
+  background: #0066cc;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -207,7 +215,7 @@ const handleSubmit = async () => {
   .contact {
     padding: 80px 0;
   }
-  
+
   .contact-form {
     padding: 32px 24px;
   }

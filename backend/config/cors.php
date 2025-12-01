@@ -26,7 +26,8 @@ return [
         'http://casagery.com',
         'https://www.casagery.com',
         'http://www.casagery.com',
-        'https://api.casagery.com'
+        'https://api.casagery.com',
+        'http://api.casagery.com'
     ],
 
     'allowed_origins_patterns' => [],

@@ -62,6 +62,18 @@
           </svg>
           <h2>Panel Admin</h2>
         </div>
+        <div class="user-info">
+          <div class="user-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="user-details">
+            <p class="user-name">{{ userName }}</p>
+            <p class="user-role">{{ userRole }}</p>
+          </div>
+        </div>
       </div>
 
       <nav class="sidebar-nav">
@@ -448,6 +460,16 @@ onMounted(async () => {
 // Verificar si el usuario es admin
 const isAdmin = computed(() => currentUser.value?.role === 'admin')
 
+const userName = computed(() => {
+  if (!currentUser.value) return 'Usuario'
+  return currentUser.value.name || currentUser.value.username || 'Usuario'
+})
+
+const userRole = computed(() => {
+  if (!currentUser.value) return ''
+  return currentUser.value.role === 'admin' ? 'Administrador' : 'Editor'
+})
+
 const pageTitle = computed(() => {
   const titles = {
     AdminDashboard: 'Dashboard',
@@ -614,6 +636,7 @@ const logout = async () => {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .sidebar-logo .logo-icon {
@@ -630,6 +653,56 @@ const logout = async () => {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: rgba(96, 165, 250, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-avatar svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.user-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-role {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .sidebar-nav {

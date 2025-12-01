@@ -281,20 +281,14 @@
           <button @click="closeModal" class="btn-secondary">Cerrar</button>
           <button
             v-if="selectedLead?.status === 'new'"
-            @click="
-              markAsContacted(selectedLead)
-              closeModal()
-            "
+            @click="handleMarkAsContactedAndClose"
             class="btn-primary"
           >
             Marcar como Contactado
           </button>
           <button
             v-if="selectedLead?.status === 'contacted'"
-            @click="
-              markAsConverted(selectedLead)
-              closeModal()
-            "
+            @click="handleMarkAsConvertedAndClose"
             class="btn-primary"
           >
             Marcar como Convertido
@@ -395,6 +389,11 @@ const markAsContacted = async lead => {
   }
 }
 
+const handleMarkAsContactedAndClose = () => {
+  markAsContacted(selectedLead.value)
+  closeModal()
+}
+
 const markAsConverted = async lead => {
   try {
     await api.put(`/leads/${lead.id}`, { ...lead, status: 'converted' })
@@ -402,6 +401,11 @@ const markAsConverted = async lead => {
   } catch (error) {
     console.error('Error al actualizar lead:', error)
   }
+}
+
+const handleMarkAsConvertedAndClose = () => {
+  markAsConverted(selectedLead.value)
+  closeModal()
 }
 
 const truncateMessage = message => {

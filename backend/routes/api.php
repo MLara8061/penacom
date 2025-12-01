@@ -12,6 +12,7 @@ use App\Http\Controllers\API\LeadController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\SiteSettingController;
 use App\Models\SiteSetting;
 
 /*
@@ -40,6 +41,8 @@ Route::get('/settings', function () {
         return [$setting->key => $setting->value];
     });
 });
+
+Route::get('/settings/footer', [SiteSettingController::class, 'footer']);
 
 Route::get('/settings/{group}', function ($group) {
     return SiteSetting::where('group', $group)->get()->mapWithKeys(function ($setting) {
@@ -104,6 +107,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Contacts (Admin)
     Route::apiResource('contacts', ContactController::class);
+
+    // Site settings
+    Route::put('/settings/footer', [SiteSettingController::class, 'updateFooter']);
 
     // Users (Solo Admin)
     Route::middleware('role:admin')->group(function () {

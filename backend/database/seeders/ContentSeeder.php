@@ -9,10 +9,8 @@ use App\Models\PortfolioItem;
 use App\Models\Testimonial;
 use App\Models\SiteSetting;
 
-class ContentSeeder extends Seeder
-{
-    public function run(): void
-    {
+class ContentSeeder extends Seeder {
+    public function run(): void {
         // Hero Sections - 3 banners del slider
         HeroSection::create([
             'title' => 'Soluciones <span class="text-highlight">Digitales</span> Innovadoras',
@@ -127,23 +125,44 @@ class ContentSeeder extends Seeder
             ['key' => 'site_name', 'value' => 'Peña Comunicación Visual', 'type' => 'text', 'group' => 'general'],
             ['key' => 'site_tagline', 'value' => 'Soluciones Integrales en Comunicación Visual', 'type' => 'text', 'group' => 'general'],
             ['key' => 'site_description', 'value' => 'Expertos en señalización, rótulos, viniles y más', 'type' => 'textarea', 'group' => 'general'],
-            
+
             // Contact
             ['key' => 'phone', 'value' => '+52 999 123 4567', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'email', 'value' => 'contacto@penacomvisual.com', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'whatsapp', 'value' => '5219991234567', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'address', 'value' => 'Calle 60 #123, Centro, Mérida, Yucatán', 'type' => 'textarea', 'group' => 'contact'],
             ['key' => 'hours', 'value' => 'Lunes a Viernes: 9:00 AM - 6:00 PM\nSábado: 9:00 AM - 2:00 PM', 'type' => 'textarea', 'group' => 'contact'],
-            
+
             // Social Media
             ['key' => 'facebook_url', 'value' => 'https://facebook.com/penacomvisual', 'type' => 'text', 'group' => 'social'],
             ['key' => 'instagram_url', 'value' => 'https://instagram.com/penacomvisual', 'type' => 'text', 'group' => 'social'],
             ['key' => 'twitter_url', 'value' => '', 'type' => 'text', 'group' => 'social'],
             ['key' => 'linkedin_url', 'value' => '', 'type' => 'text', 'group' => 'social'],
-            
+
             // SEO
             ['key' => 'meta_keywords', 'value' => 'señalización, rótulos, viniles, comunicación visual, Mérida', 'type' => 'textarea', 'group' => 'seo'],
             ['key' => 'google_analytics', 'value' => '', 'type' => 'text', 'group' => 'seo'],
+
+            // Footer
+            [
+                'key' => 'footer_settings',
+                'value' => json_encode([
+                    'slogan' => 'Transformando ideas en realidad digital desde 2013',
+                    'email' => 'info@penacom.com',
+                    'phone' => '+1 (555) 123-4567',
+                    'location' => 'Ciudad, País 12345',
+                    'whatsapp_number' => '529985401540',
+                    'whatsapp_message' => 'Hola, me gustaría obtener más información sobre sus servicios.',
+                    'social_links' => [
+                        ['label' => 'Facebook', 'url' => 'https://facebook.com/penacom'],
+                        ['label' => 'Twitter', 'url' => 'https://twitter.com/penacom'],
+                        ['label' => 'LinkedIn', 'url' => 'https://linkedin.com/company/penacom'],
+                        ['label' => 'Instagram', 'url' => 'https://instagram.com/penacom'],
+                    ],
+                ], JSON_UNESCAPED_UNICODE),
+                'type' => 'json',
+                'group' => 'footer',
+            ],
         ];
 
         foreach ($settings as $setting) {

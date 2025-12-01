@@ -8,7 +8,9 @@
       <button v-if="currentImage" @click.prevent="removeImage" type="button" class="btn-remove">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="3 6 5 6 21 6"></polyline>
-          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          <path
+            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+          ></path>
         </svg>
         Eliminar
       </button>
@@ -21,11 +23,32 @@
     </div>
 
     <!-- Drag & Drop Zone -->
-    <div v-else class="dropzone" :class="{ 'dragover': isDragging }" @dragenter.prevent="onDragEnter" @dragover.prevent="onDragOver" @dragleave.prevent="onDragLeave" @drop.prevent="onDrop">
-      <input ref="fileInput" type="file" accept="image/*" @change="onFileSelect" class="file-input" :id="inputId" />
-      
+    <div
+      v-else
+      class="dropzone"
+      :class="{ dragover: isDragging }"
+      @dragenter.prevent="onDragEnter"
+      @dragover.prevent="onDragOver"
+      @dragleave.prevent="onDragLeave"
+      @drop.prevent="onDrop"
+    >
+      <input
+        ref="fileInput"
+        type="file"
+        accept="image/*"
+        @change="onFileSelect"
+        class="file-input"
+        :id="inputId"
+      />
+
       <label :for="inputId" class="drop-label">
-        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          class="upload-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="17 8 12 3 7 8"></polyline>
           <line x1="12" y1="3" x2="12" y2="15"></line>
@@ -56,7 +79,13 @@
 
       <transition name="slide">
         <div v-if="historyExpanded" class="history-grid">
-          <div v-for="(img, index) in imageHistory" :key="index" class="history-item" @click="selectFromHistory(img)" :class="{ 'selected': img === currentImage }">
+          <div
+            v-for="(img, index) in imageHistory"
+            :key="index"
+            class="history-item"
+            @click="selectFromHistory(img)"
+            :class="{ selected: img === currentImage }"
+          >
             <img :src="img" :alt="`Histórico ${index + 1}`" />
             <div class="history-overlay">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -71,26 +100,29 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { useAlert } from '@/composables/useAlert'
+import { computed, ref, watch } from 'vue'
+
+const { warning } = useAlert()
 
 const props = defineProps({
   modelValue: String,
   label: {
     type: String,
-    default: 'Imagen'
+    default: 'Imagen',
   },
   required: {
     type: Boolean,
-    default: false
+    default: false,
   },
   showHistory: {
     type: Boolean,
-    default: true
+    default: true,
   },
   history: {
     type: Array,
-    default: () => []
-  }
+    default: () => [],
+  },
 })
 
 const emit = defineEmits(['update:modelValue', 'upload', 'remove'])
@@ -110,47 +142,47 @@ watch(currentImage, () => {
   imageError.value = false
 })
 
-const onDragEnter = (e) => {
+const onDragEnter = e => {
   dragCounter.value++
   isDragging.value = true
 }
 
-const onDragOver = (e) => {
+const onDragOver = e => {
   isDragging.value = true
 }
 
-const onDragLeave = (e) => {
+const onDragLeave = e => {
   dragCounter.value--
   if (dragCounter.value === 0) {
     isDragging.value = false
   }
 }
 
-const onDrop = (e) => {
+const onDrop = e => {
   isDragging.value = false
   dragCounter.value = 0
-  
+
   const files = e.dataTransfer.files
   if (files.length > 0) {
     handleFile(files[0])
   }
 }
 
-const onFileSelect = (e) => {
+const onFileSelect = e => {
   const files = e.target.files
   if (files.length > 0) {
     handleFile(files[0])
   }
 }
 
-const handleFile = async (file) => {
+const handleFile = async file => {
   if (!file.type.startsWith('image/')) {
-    alert('Por favor selecciona un archivo de imagen')
+    warning('Por favor selecciona un archivo de imagen', 'Tipo de archivo inválido')
     return
   }
 
   if (file.size > 5 * 1024 * 1024) {
-    alert('La imagen no debe superar 5MB')
+    warning('La imagen no debe superar 5MB', 'Archivo muy grande')
     return
   }
 
@@ -159,7 +191,7 @@ const handleFile = async (file) => {
   try {
     // Convertir a base64 o subir a servidor
     const reader = new FileReader()
-    reader.onload = (e) => {
+    reader.onload = e => {
       const imageUrl = e.target.result
       emit('update:modelValue', imageUrl)
       emit('upload', imageUrl)
@@ -186,7 +218,7 @@ const toggleHistory = () => {
   historyExpanded.value = !historyExpanded.value
 }
 
-const selectFromHistory = (imageUrl) => {
+const selectFromHistory = imageUrl => {
   emit('update:modelValue', imageUrl)
 }
 </script>
@@ -275,12 +307,12 @@ const selectFromHistory = (imageUrl) => {
 }
 
 .dropzone:hover {
-  border-color: #0066CC;
+  border-color: #0066cc;
   background: #eff6ff;
 }
 
 .dropzone.dragover {
-  border-color: #0066CC;
+  border-color: #0066cc;
   background: #dbeafe;
   transform: scale(1.02);
 }
@@ -304,7 +336,7 @@ const selectFromHistory = (imageUrl) => {
 .upload-icon {
   width: 48px;
   height: 48px;
-  color: #0066CC;
+  color: #0066cc;
   margin-bottom: 0.5rem;
 }
 
@@ -345,8 +377,12 @@ const selectFromHistory = (imageUrl) => {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .image-history {
@@ -373,8 +409,8 @@ const selectFromHistory = (imageUrl) => {
 }
 
 .history-toggle:hover {
-  border-color: #0066CC;
-  color: #0066CC;
+  border-color: #0066cc;
+  color: #0066cc;
 }
 
 .history-toggle svg {
@@ -400,12 +436,12 @@ const selectFromHistory = (imageUrl) => {
 }
 
 .history-item:hover {
-  border-color: #0066CC;
+  border-color: #0066cc;
   transform: scale(1.05);
 }
 
 .history-item.selected {
-  border-color: #0066CC;
+  border-color: #0066cc;
   box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
 }
 

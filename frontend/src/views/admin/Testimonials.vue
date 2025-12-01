@@ -7,8 +7,8 @@
       </div>
       <button @click="openModal()" class="btn-new">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
         Nueva Reseña
       </button>
@@ -17,25 +17,45 @@
     <!-- Loading State -->
     <div v-if="loading" class="loading-state">
       <svg class="spinner" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
-        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+          opacity="0.25"
+        />
+        <path
+          d="M12 2a10 10 0 0 1 10 10"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+          stroke-linecap="round"
+        />
       </svg>
       <p>Cargando reseñas...</p>
     </div>
 
     <!-- Testimonials Grid -->
     <div v-else-if="testimonials.length > 0" class="testimonials-grid">
-      <div 
-        v-for="testimonial in testimonials" 
-        :key="testimonial.id" 
-        class="testimonial-card"
-      >
+      <div v-for="testimonial in testimonials" :key="testimonial.id" class="testimonial-card">
         <div class="card-header">
           <div class="client-info">
-            <div class="avatar" :style="{ backgroundImage: `url(${testimonial.client_photo || 'https://i.pravatar.cc/150?img=' + testimonial.id})` }"></div>
+            <div
+              class="avatar"
+              :style="{
+                backgroundImage: `url(${
+                  testimonial.client_photo || 'https://i.pravatar.cc/150?img=' + testimonial.id
+                })`,
+              }"
+            ></div>
             <div class="client-details">
               <h3 class="client-name">{{ testimonial.client_name }}</h3>
-              <p v-if="testimonial.client_position || testimonial.client_company" class="client-meta">
+              <p
+                v-if="testimonial.client_position || testimonial.client_company"
+                class="client-meta"
+              >
                 <span v-if="testimonial.client_position">{{ testimonial.client_position }}</span>
                 <span v-if="testimonial.client_position && testimonial.client_company"> • </span>
                 <span v-if="testimonial.client_company">{{ testimonial.client_company }}</span>
@@ -52,14 +72,16 @@
 
         <div class="card-body">
           <div class="rating">
-            <svg 
-              v-for="star in 5" 
+            <svg
+              v-for="star in 5"
               :key="star"
               :class="['star', { filled: star <= testimonial.rating }]"
-              viewBox="0 0 24 24" 
+              viewBox="0 0 24 24"
               fill="currentColor"
             >
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
             </svg>
           </div>
           <p class="testimonial-text">{{ truncateText(testimonial.testimonial, 150) }}</p>
@@ -68,14 +90,16 @@
         <div class="card-footer">
           <button @click="openModal(testimonial)" class="btn-icon btn-edit" title="Editar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
             </svg>
           </button>
           <button @click="confirmDelete(testimonial)" class="btn-icon btn-delete" title="Eliminar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="3 6 5 6 21 6"/>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              />
             </svg>
           </button>
         </div>
@@ -85,7 +109,7 @@
     <!-- Empty State -->
     <div v-else class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </svg>
       <h3>No hay reseñas registradas</h3>
       <p>Crea tu primera reseña para comenzar</p>
@@ -99,8 +123,8 @@
           <h2>{{ isEditing ? 'Editar Reseña' : 'Nueva Reseña' }}</h2>
           <button @click="closeModal" class="btn-close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
@@ -127,12 +151,7 @@
                 Calificación
                 <span class="required">*</span>
               </label>
-              <select
-                id="rating"
-                v-model.number="form.rating"
-                required
-                class="form-control"
-              >
+              <select id="rating" v-model.number="form.rating" required class="form-control">
                 <option :value="5">⭐⭐⭐⭐⭐ (5)</option>
                 <option :value="4">⭐⭐⭐⭐ (4)</option>
                 <option :value="3">⭐⭐⭐ (3)</option>
@@ -197,40 +216,44 @@
           <div class="form-row">
             <div class="form-group checkbox-group">
               <label class="checkbox-label">
-                <input
-                  v-model="form.is_featured"
-                  type="checkbox"
-                  class="form-checkbox"
-                />
+                <input v-model="form.is_featured" type="checkbox" class="form-checkbox" />
                 <span>Reseña destacada</span>
               </label>
             </div>
 
             <div class="form-group checkbox-group">
               <label class="checkbox-label">
-                <input
-                  v-model="form.is_active"
-                  type="checkbox"
-                  class="form-checkbox"
-                />
+                <input v-model="form.is_active" type="checkbox" class="form-checkbox" />
                 <span>Visible en la página</span>
               </label>
             </div>
           </div>
 
           <div class="form-actions">
-            <button type="button" @click="closeModal" class="btn-secondary">
-              Cancelar
-            </button>
+            <button type="button" @click="closeModal" class="btn-secondary">Cancelar</button>
             <button type="submit" class="btn-primary" :disabled="saving">
               <svg v-if="saving" class="spinner" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
-                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="none"
+                  opacity="0.25"
+                />
+                <path
+                  d="M12 2a10 10 0 0 1 10 10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="none"
+                  stroke-linecap="round"
+                />
               </svg>
               <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                <polyline points="17 21 17 13 7 13 7 21"/>
-                <polyline points="7 3 7 8 15 8"/>
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
               </svg>
               {{ saving ? 'Guardando...' : 'Guardar Reseña' }}
             </button>
@@ -246,13 +269,15 @@
           <h2>Confirmar Eliminación</h2>
         </div>
         <div class="modal-body">
-          <p>¿Estás seguro de que deseas eliminar la reseña de <strong>{{ itemToDelete?.client_name }}</strong>?</p>
+          <p>
+            ¿Estás seguro de que deseas eliminar la reseña de
+            <strong>{{ itemToDelete?.client_name }}</strong
+            >?
+          </p>
           <p class="text-warning">Esta acción no se puede deshacer.</p>
         </div>
         <div class="form-actions">
-          <button @click="showDeleteModal = false" class="btn-secondary">
-            Cancelar
-          </button>
+          <button @click="showDeleteModal = false" class="btn-secondary">Cancelar</button>
           <button @click="deleteTestimonial" class="btn-danger" :disabled="saving">
             {{ saving ? 'Eliminando...' : 'Eliminar' }}
           </button>
@@ -263,10 +288,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import api from '@/services/api.js'
 import ImageUploader from '@/components/admin/ImageUploader.vue'
+import { useAlert } from '@/composables/useAlert'
+import api from '@/services/api.js'
+import { onMounted, ref } from 'vue'
 
+const { success, error: showError } = useAlert()
 const loading = ref(true)
 const saving = ref(false)
 const testimonials = ref([])
@@ -284,7 +311,7 @@ const form = ref({
   testimonial: '',
   rating: 5,
   is_featured: false,
-  is_active: true
+  is_active: true,
 })
 
 const fetchTestimonials = async () => {
@@ -313,7 +340,7 @@ const openModal = (item = null) => {
       testimonial: '',
       rating: 5,
       is_featured: false,
-      is_active: true
+      is_active: true,
     }
   }
   showModal.value = true
@@ -333,16 +360,20 @@ const saveTestimonial = async () => {
       await api.post('/testimonials', form.value)
     }
     await fetchTestimonials()
+    success(
+      isEditing.value ? 'Reseña actualizada exitosamente' : 'Reseña creada exitosamente',
+      'Éxito'
+    )
     closeModal()
-  } catch (error) {
-    console.error('Error al guardar reseña:', error)
-    alert('Error al guardar la reseña. Por favor intenta de nuevo.')
+  } catch (err) {
+    console.error('Error al guardar reseña:', err)
+    showError('Error al guardar la reseña. Por favor intenta de nuevo.', 'Error')
   } finally {
     saving.value = false
   }
 }
 
-const confirmDelete = (item) => {
+const confirmDelete = item => {
   itemToDelete.value = item
   showDeleteModal.value = true
 }
@@ -352,11 +383,12 @@ const deleteTestimonial = async () => {
   try {
     await api.delete(`/testimonials/${itemToDelete.value.id}`)
     await fetchTestimonials()
+    success('Reseña eliminada exitosamente', 'Éxito')
     showDeleteModal.value = false
     itemToDelete.value = null
-  } catch (error) {
-    console.error('Error al eliminar reseña:', error)
-    alert('Error al eliminar la reseña. Por favor intenta de nuevo.')
+  } catch (err) {
+    console.error('Error al eliminar reseña:', err)
+    showError('Error al eliminar la reseña. Por favor intenta de nuevo.', 'Error')
   } finally {
     saving.value = false
   }
@@ -366,7 +398,7 @@ const truncateText = (text, maxLength) => {
   return text && text.length > maxLength ? text.substring(0, maxLength) + '...' : text
 }
 
-const onImageUpload = (url) => {
+const onImageUpload = url => {
   console.log('Imagen subida:', url)
 }
 
@@ -441,7 +473,7 @@ onMounted(() => {
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.2s;
   display: flex;
   flex-direction: column;
@@ -449,7 +481,7 @@ onMounted(() => {
 
 .testimonial-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .card-header {
@@ -604,7 +636,7 @@ onMounted(() => {
   padding: 4rem 2rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .loading-state svg,
@@ -642,7 +674,9 @@ onMounted(() => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Modal */

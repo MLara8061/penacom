@@ -1,5 +1,22 @@
 <template>
   <div class="admin-dashboard">
+    <!-- Mensaje de Bienvenida -->
+    <div class="welcome-header">
+      <div class="welcome-content">
+        <h1 class="welcome-title">¡Hola, {{ userName }}! 👋</h1>
+        <p class="welcome-subtitle">Aquí está el resumen de tu negocio hoy</p>
+      </div>
+      <div class="welcome-date">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>{{ currentDate }}</span>
+      </div>
+    </div>
+
     <!-- Estadísticas Principales -->
     <div class="stats-grid">
       <div class="stat-card">
@@ -46,7 +63,9 @@
       <div class="stat-card">
         <div class="stat-icon reviews">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            ></polygon>
           </svg>
         </div>
         <div class="stat-content">
@@ -74,7 +93,9 @@
         <div class="tip-card">
           <div class="tip-icon">⚡</div>
           <h3>Responde rápido</h3>
-          <p>Los leads que respondes en menos de 5 minutos tienen 21x más probabilidad de conversión.</p>
+          <p>
+            Los leads que respondes en menos de 5 minutos tienen 21x más probabilidad de conversión.
+          </p>
         </div>
         <div class="tip-card">
           <div class="tip-icon">⭐</div>
@@ -108,7 +129,9 @@
         </router-link>
         <router-link to="/admin/resenas" class="action-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            ></polygon>
           </svg>
           <span>Ver Reseñas</span>
         </router-link>
@@ -118,6 +141,28 @@
 </template>
 
 <script setup>
+import authService from '@/services/authService'
+import { computed, onMounted, ref } from 'vue'
+
+const currentUser = ref(null)
+
+onMounted(async () => {
+  try {
+    currentUser.value = await authService.me()
+  } catch (error) {
+    console.error('Error al obtener usuario:', error)
+  }
+})
+
+const userName = computed(() => {
+  if (!currentUser.value) return 'Usuario'
+  return currentUser.value.name || currentUser.value.username || 'Usuario'
+})
+
+const currentDate = computed(() => {
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date().toLocaleDateString('es-ES', options)
+})
 </script>
 
 <style scoped>
@@ -126,8 +171,97 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Welcome Header */
+.welcome-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-content {
+  flex: 1;
+}
+
+.welcome-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.welcome-subtitle {
+  font-size: 1.1rem;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.welcome-date {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.welcome-date svg {
+  width: 20px;
+  height: 20px;
+}
+
+.welcome-date span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+  .welcome-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+
+  .welcome-date {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .stats-grid {
@@ -288,8 +422,8 @@
 }
 
 .action-card:hover {
-  border-color: #0066CC;
-  color: #0066CC;
+  border-color: #0066cc;
+  color: #0066cc;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
 }

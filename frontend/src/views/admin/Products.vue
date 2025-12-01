@@ -7,8 +7,8 @@
       </div>
       <button @click="openModal()" class="btn-new">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
         Nuevo Producto
       </button>
@@ -17,22 +17,40 @@
     <!-- Loading State -->
     <div v-if="loading" class="loading-state">
       <svg class="spinner" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
-        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+          opacity="0.25"
+        />
+        <path
+          d="M12 2a10 10 0 0 1 10 10"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+          stroke-linecap="round"
+        />
       </svg>
       <p>Cargando productos...</p>
     </div>
 
     <!-- Products Grid -->
     <div v-else-if="products.length > 0" class="products-grid">
-      <div 
-        v-for="product in products" 
-        :key="product.id" 
+      <div
+        v-for="product in products"
+        :key="product.id"
         class="product-card"
         :class="{ inactive: !product.is_active }"
       >
         <!-- Imagen del producto -->
-        <div v-if="product.image" class="card-image" :style="{ backgroundImage: `url(${product.image})` }">
+        <div
+          v-if="product.image"
+          class="card-image"
+          :style="{ backgroundImage: `url(${product.image})` }"
+        >
           <div class="card-overlay">
             <div class="badges">
               <span class="badge badge-order">#{{ product.order }}</span>
@@ -53,7 +71,7 @@
             </span>
           </div>
         </div>
-        
+
         <div class="card-body">
           <h3 class="product-name">{{ product.name }}</h3>
           <p class="product-category">{{ product.category }}</p>
@@ -63,14 +81,16 @@
         <div class="card-footer">
           <button @click="openModal(product)" class="btn-icon btn-edit" title="Editar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
             </svg>
           </button>
           <button @click="confirmDelete(product)" class="btn-icon btn-delete" title="Eliminar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="3 6 5 6 21 6"/>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              />
             </svg>
           </button>
         </div>
@@ -80,8 +100,8 @@
     <!-- Empty State -->
     <div v-else class="empty-state">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
       </svg>
       <h3>No hay productos</h3>
       <p>Crea tu primer producto para comenzar</p>
@@ -95,8 +115,8 @@
           <h2>{{ isEditing ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
           <button @click="closeModal" class="btn-close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
@@ -163,9 +183,7 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label for="icon" class="form-label">
-                Icono (emoji)
-              </label>
+              <label for="icon" class="form-label"> Icono (emoji) </label>
               <input
                 id="icon"
                 v-model="form.icon"
@@ -196,28 +214,36 @@
 
           <div class="form-group">
             <label class="checkbox-label">
-              <input
-                v-model="form.is_active"
-                type="checkbox"
-                class="form-checkbox"
-              />
+              <input v-model="form.is_active" type="checkbox" class="form-checkbox" />
               <span>Producto activo (visible en la página)</span>
             </label>
           </div>
 
           <div class="form-actions">
-            <button type="button" @click="closeModal" class="btn-secondary">
-              Cancelar
-            </button>
+            <button type="button" @click="closeModal" class="btn-secondary">Cancelar</button>
             <button type="submit" class="btn-primary" :disabled="saving">
               <svg v-if="saving" class="spinner" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
-                <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="none"
+                  opacity="0.25"
+                />
+                <path
+                  d="M12 2a10 10 0 0 1 10 10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  fill="none"
+                  stroke-linecap="round"
+                />
               </svg>
               <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                <polyline points="17 21 17 13 7 13 7 21"/>
-                <polyline points="7 3 7 8 15 8"/>
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
               </svg>
               {{ saving ? 'Guardando...' : 'Guardar Producto' }}
             </button>
@@ -233,13 +259,15 @@
           <h2>Confirmar Eliminación</h2>
         </div>
         <div class="modal-body">
-          <p>¿Estás seguro de que deseas eliminar el producto <strong>{{ productToDelete?.name }}</strong>?</p>
+          <p>
+            ¿Estás seguro de que deseas eliminar el producto
+            <strong>{{ productToDelete?.name }}</strong
+            >?
+          </p>
           <p class="text-warning">Esta acción no se puede deshacer.</p>
         </div>
         <div class="form-actions">
-          <button @click="showDeleteModal = false" class="btn-secondary">
-            Cancelar
-          </button>
+          <button @click="showDeleteModal = false" class="btn-secondary">Cancelar</button>
           <button @click="deleteProduct" class="btn-danger" :disabled="saving">
             {{ saving ? 'Eliminando...' : 'Eliminar' }}
           </button>
@@ -250,10 +278,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import api from '@/services/api.js'
 import ImageUploader from '@/components/admin/ImageUploader.vue'
+import { useAlert } from '@/composables/useAlert'
+import api from '@/services/api.js'
+import { onMounted, ref } from 'vue'
 
+const { success, error: showError } = useAlert()
 const loading = ref(true)
 const saving = ref(false)
 const products = ref([])
@@ -271,7 +301,7 @@ const form = ref({
   icon: '',
   image: '',
   is_active: true,
-  order: 1
+  order: 1,
 })
 
 const fetchProducts = async () => {
@@ -299,7 +329,7 @@ const openModal = (product = null) => {
       icon: '',
       image: '',
       is_active: true,
-      order: products.value.length + 1
+      order: products.value.length + 1,
     }
   }
   showModal.value = true
@@ -319,16 +349,20 @@ const saveProduct = async () => {
       await api.post('/products', form.value)
     }
     await fetchProducts()
+    success(
+      isEditing.value ? 'Producto actualizado exitosamente' : 'Producto creado exitosamente',
+      'Éxito'
+    )
     closeModal()
-  } catch (error) {
-    console.error('Error al guardar producto:', error)
-    alert('Error al guardar el producto. Por favor intenta de nuevo.')
+  } catch (err) {
+    console.error('Error al guardar producto:', err)
+    showError('Error al guardar el producto. Por favor intenta de nuevo.', 'Error')
   } finally {
     saving.value = false
   }
 }
 
-const confirmDelete = (product) => {
+const confirmDelete = product => {
   productToDelete.value = product
   showDeleteModal.value = true
 }
@@ -338,17 +372,18 @@ const deleteProduct = async () => {
   try {
     await api.delete(`/products/${productToDelete.value.id}`)
     await fetchProducts()
+    success('Producto eliminado exitosamente', 'Éxito')
     showDeleteModal.value = false
     productToDelete.value = null
-  } catch (error) {
-    console.error('Error al eliminar producto:', error)
-    alert('Error al eliminar el producto. Por favor intenta de nuevo.')
+  } catch (err) {
+    console.error('Error al eliminar producto:', err)
+    showError('Error al eliminar el producto. Por favor intenta de nuevo.', 'Error')
   } finally {
     saving.value = false
   }
 }
 
-const onImageUpload = (imageUrl) => {
+const onImageUpload = imageUrl => {
   // Agregar al historial si no existe
   if (!imageHistory.value.includes(imageUrl)) {
     imageHistory.value.unshift(imageUrl)
@@ -440,7 +475,7 @@ onMounted(() => {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.2s;
   display: flex;
   flex-direction: column;
@@ -448,7 +483,7 @@ onMounted(() => {
 
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .product-card.inactive {
@@ -490,7 +525,7 @@ onMounted(() => {
   top: 0;
   right: 0;
   padding: 1rem;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
   border-radius: 12px 12px 0 0;
   width: 100%;
   display: flex;
@@ -610,7 +645,7 @@ onMounted(() => {
   padding: 4rem 2rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .loading-state svg,
@@ -648,7 +683,9 @@ onMounted(() => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Modal */
