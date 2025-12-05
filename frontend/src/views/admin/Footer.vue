@@ -1,6 +1,17 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="admin-form-config">
+    <!-- Alert Notification -->
+    <div class="alert-container">
+      <AlertNotification
+        v-model="alertState.show"
+        :type="alertState.type"
+        :title="alertState.title"
+        :message="alertState.message"
+        :duration="alertState.duration"
+      />
+    </div>
+
     <div class="page-header">
       <div class="header-content">
         <h1 class="page-title">Configuración del Footer</h1>
@@ -514,12 +525,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-// @ts-expect-error - useAlert está definido en JavaScript
+import AlertNotification from '@/components/AlertNotification.vue'
 import { useAlert } from '@/composables/useAlert'
 import { footerSettingsDefaults, useFooterSettings } from '@/composables/useFooterSettings'
+import { onMounted, ref } from 'vue'
 
-const { success, error } = useAlert()
+const { alertState, success, error } = useAlert()
 const { footerSettings, fetchFooterSettings, saveFooterSettings: saveToApi } = useFooterSettings()
 
 const loading = ref(true)
@@ -614,6 +625,19 @@ const saveFooterSettings = async () => {
 </script>
 
 <style scoped>
+/* Alert Container */
+.alert-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.alert-container > * {
+  pointer-events: all;
+}
+
 /* Estilos base idénticos a FormularioContacto.vue */
 .admin-form-config {
   min-height: 100vh;

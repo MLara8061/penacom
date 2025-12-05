@@ -196,7 +196,7 @@
     <section class="portfolio" id="portafolio">
       <div class="container-full">
         <div class="section-header">
-          <span class="section-label">Conoce más</span>
+          <span class="section-label">Portafolio de proyectos</span>
           <h2>Señalización Digital LED</h2>
           <p>Descubre cómo la tecnología LED puede transformar tu negocio</p>
         </div>
@@ -530,7 +530,10 @@
                   />
                 </svg>
                 <svg
-                  v-else-if="link.label?.toLowerCase().includes('twitter') || link.label?.toLowerCase().includes('x')"
+                  v-else-if="
+                    link.label?.toLowerCase().includes('twitter') ||
+                    link.label?.toLowerCase().includes('x')
+                  "
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
