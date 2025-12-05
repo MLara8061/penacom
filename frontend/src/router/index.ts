@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import AdminLayout from '../layouts/AdminLayout.vue'
 import authService from '../services/authService'
 import LandingPage from '../views/LandingPage.vue'
 
@@ -18,28 +19,93 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    // Admin Login (sin layout)
     {
       path: '/admin/login',
       name: 'admin-login',
       component: () => import('../views/admin/Login.vue'),
       meta: { requiresGuest: true },
     },
+    // Panel Admin (con layout y protección)
     {
-      path: '/admin/footer',
-      name: 'admin-footer',
-      component: () => import('../views/admin/Footer.vue'),
+      path: '/admin',
+      component: AdminLayout,
       meta: { requiresAuth: true },
-    },
-    {
-      path: '/admin/formulario-contacto',
-      name: 'admin-formulario-contacto',
-      component: () => import('../views/admin/FormularioContacto.vue'),
-      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'AdminDashboard',
+          component: () => import('../views/admin/Dashboard.vue'),
+        },
+        // Leads
+        {
+          path: 'leads/formulario',
+          name: 'AdminLeadsFormulario',
+          component: () => import('../views/admin/Contact.vue'),
+        },
+        {
+          path: 'leads/redes-sociales',
+          name: 'AdminLeadsRedes',
+          component: () => import('../views/admin/Contact.vue'),
+        },
+        {
+          path: 'leads/google',
+          name: 'AdminLeadsGoogle',
+          component: () => import('../views/admin/Contact.vue'),
+        },
+        // Contenido del Sitio
+        {
+          path: 'seccion-heroe',
+          name: 'AdminHeroSection',
+          component: () => import('../views/admin/HeroSection.vue'),
+        },
+        {
+          path: 'informacion-empresa',
+          name: 'AdminInformacionEmpresa',
+          component: () => import('../views/admin/About.vue'),
+        },
+        {
+          path: 'productos',
+          name: 'AdminProductos',
+          component: () => import('../views/admin/Products.vue'),
+        },
+        {
+          path: 'servicios',
+          name: 'AdminServices',
+          component: () => import('../views/admin/Services.vue'),
+        },
+        {
+          path: 'portafolio',
+          name: 'AdminPortafolio',
+          component: () => import('../views/admin/Portfolio.vue'),
+        },
+        {
+          path: 'resenas',
+          name: 'AdminResenas',
+          component: () => import('../views/admin/Testimonials.vue'),
+        },
+        // Formulario de Contacto
+        {
+          path: 'formulario-contacto',
+          name: 'AdminFormularioContacto',
+          component: () => import('../views/admin/FormularioContacto.vue'),
+        },
+        // Footer
+        {
+          path: 'footer',
+          name: 'AdminFooter',
+          component: () => import('../views/admin/Footer.vue'),
+        },
+        // Configuración (solo admin)
+        {
+          path: 'usuarios',
+          name: 'AdminUsuarios',
+          component: () => import('../views/admin/Users.vue'),
+          meta: { requiresAdmin: true },
+        },
+      ],
     },
   ],
 })
