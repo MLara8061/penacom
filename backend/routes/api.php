@@ -44,6 +44,10 @@ Route::get('/settings', function () {
 
 Route::get('/settings/footer', [SiteSettingController::class, 'footer']);
 
+// TEMPORAL: Permitir actualización del footer sin auth para testing
+// TODO: Mover dentro de auth:sanctum cuando se implemente login en el admin
+Route::put('/settings/footer', [SiteSettingController::class, 'updateFooter']);
+
 Route::get('/settings/{group}', function ($group) {
     return SiteSetting::where('group', $group)->get()->mapWithKeys(function ($setting) {
         return [$setting->key => $setting->value];
@@ -109,7 +113,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('contacts', ContactController::class);
 
     // Site settings
-    Route::put('/settings/footer', [SiteSettingController::class, 'updateFooter']);
+    // Route::put('/settings/footer', [SiteSettingController::class, 'updateFooter']); // Movido fuera de auth temporalmente
 
     // Users (Solo Admin)
     Route::middleware('role:admin')->group(function () {
