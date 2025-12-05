@@ -1097,9 +1097,22 @@ onMounted(() => {
   startSlider()
 
   // Forzar la carga del footer desde el servidor (force = true) para obtener cambios recientes
-  fetchFooterSettings(true).catch(() => {
-    console.warn('No se pudo sincronizar la configuración del footer')
-  })
+  console.log('🚀 [LANDING PAGE] Iniciando carga de footer...')
+  fetchFooterSettings(true)
+    .then(data => {
+      console.log('✅ [LANDING PAGE] Footer cargado exitosamente:', data)
+      console.log('🎯 [LANDING PAGE] Valores computados:')
+      console.log('  - Logo:', footerLogo.value)
+      console.log('  - Slogan:', footerSlogan.value)
+      console.log('  - Email:', footerEmail.value)
+      console.log('  - Phone:', footerPhone.value)
+      console.log('  - Location:', footerLocation.value)
+      console.log('  - Social Links:', footerSocialLinks.value)
+    })
+    .catch(err => {
+      console.error('❌ [LANDING PAGE] Error al cargar footer:', err)
+      console.warn('No se pudo sincronizar la configuración del footer')
+    })
 
   // Cargar datos del API
   loadHeroSections()

@@ -59,6 +59,28 @@
     </div>
 
     <template v-else>
+      <!-- Debug Panel -->
+      <div class="debug-panel">
+        <div class="debug-header" @click="debugExpanded = !debugExpanded">
+          <h3>🔍 Panel de Debugging</h3>
+          <span class="debug-toggle">{{ debugExpanded ? '▼' : '▶' }}</span>
+        </div>
+        <div v-if="debugExpanded" class="debug-content">
+          <div class="debug-section">
+            <h4>📊 Estado Actual</h4>
+            <pre>{{ JSON.stringify(footerData, null, 2) }}</pre>
+          </div>
+          <div class="debug-section">
+            <h4>🔄 Última Actualización</h4>
+            <p>{{ lastUpdateTime || 'Sin actualizaciones' }}</p>
+          </div>
+          <div class="debug-section">
+            <h4>💾 Estado del Composable</h4>
+            <pre>{{ JSON.stringify(footerSettings, null, 2) }}</pre>
+          </div>
+        </div>
+      </div>
+
       <!-- Información General -->
       <div class="config-section">
         <div class="section-header">
@@ -497,6 +519,8 @@ const { footerSettings, fetchFooterSettings, saveFooterSettings: saveToApi } = u
 
 const loading = ref(true)
 const saving = ref(false)
+const debugExpanded = ref(true)
+const lastUpdateTime = ref<string>('')
 
 const footerData = ref({
   logo: '/logo.png',
@@ -510,7 +534,9 @@ const footerData = ref({
 onMounted(async () => {
   loading.value = true
   try {
-    await fetchFooterSettings()
+    console.log('🔄 [ADMIN FOOTER] Cargando configuración del footer...')
+    await fetchFooterSettings(true) // Force refresh
+    console.log('📦 [ADMIN FOOTER] Datos recibidos del servidor:', footerSettings.value)
     footerData.value = {
       logo: footerSettings.value.logo || footerSettingsDefaults.logo || '/logo.png',
       slogan: footerSettings.value.slogan || footerSettingsDefaults.slogan,
@@ -522,9 +548,10 @@ onMounted(async () => {
       phone: footerSettings.value.phone || footerSettingsDefaults.phone,
       location: footerSettings.value.location || footerSettingsDefaults.location,
     }
+    console.log('✅ [ADMIN FOOTER] Configuración local inicializada:', footerData.value)
   } catch (err) {
+    console.error('❌ [ADMIN FOOTER] Error al cargar:', err)
     error('Error al cargar la configuración del footer')
-    console.error(err)
   } finally {
     loading.value = false
   }
@@ -546,11 +573,18 @@ const handleImageError = (e: Event) => {
 const saveFooterSettings = async () => {
   saving.value = true
   try {
-    await saveToApi(footerData.value)
+    console.log('💾 [ADMIN FOOTER] Guardando configuración:', footerData.value)
+    const result = await saveToApi(footerData.value)
+    console.log('✅ [ADMIN FOOTER] Respuesta del servidor:', result)
+    console.log('🔄 [ADMIN FOOTER] Estado del composable después de guardar:', footerSettings.value)
+    lastUpdateTime.value = new Date().toLocaleString('es-MX', {
+      dateStyle: 'short',
+      timeStyle: 'medium',
+    })
     success('✅ Configuración del footer guardada correctamente')
   } catch (err) {
+    console.error('❌ [ADMIN FOOTER] Error al guardar:', err)
     error('❌ Error al guardar la configuración')
-    console.error(err)
   } finally {
     saving.value = false
   }
@@ -648,6 +682,73 @@ const saveFooterSettings = async () => {
   width: 48px;
   height: 48px;
   margin-bottom: 1rem;
+}
+
+/* Debug Panel */
+.debug-panel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  color: white;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.debug-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.debug-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.debug-toggle {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.debug-content {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.debug-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.debug-section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.debug-section pre {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.debug-section p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .config-section {

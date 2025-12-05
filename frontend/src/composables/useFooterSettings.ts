@@ -41,23 +41,32 @@ const setFooterSettings = (payload: FooterSettingsPayload = {}) => {
 }
 
 const fetchFooterSettings = async (force = false) => {
+  console.log(
+    `🔍 [COMPOSABLE] fetchFooterSettings llamado con force=${force}, loaded=${footerSettingsLoaded.value}`
+  )
+
   if (footerSettingsLoaded.value && !force) {
+    console.log('📌 [COMPOSABLE] Usando caché existente:', footerSettings.value)
     return footerSettings.value
   }
 
   if (pendingRequest) {
+    console.log('⏳ [COMPOSABLE] Request pendiente, esperando...')
     return pendingRequest
   }
 
   pendingRequest = (async () => {
     loadingFooterSettings.value = true
     try {
+      console.log('🌐 [COMPOSABLE] Llamando al API /settings/footer...')
       const data = await footerService.get()
+      console.log('📥 [COMPOSABLE] Datos recibidos del API:', data)
       setFooterSettings(data)
       footerSettingsLoaded.value = true
+      console.log('✅ [COMPOSABLE] Estado actualizado:', footerSettings.value)
       return footerSettings.value
     } catch (error) {
-      console.error('No se pudo cargar la configuración del footer', error)
+      console.error('❌ [COMPOSABLE] Error al cargar:', error)
       throw error
     } finally {
       loadingFooterSettings.value = false
@@ -70,12 +79,15 @@ const fetchFooterSettings = async (force = false) => {
 
 const saveFooterSettings = async (payload: FooterSettingsPayload) => {
   try {
+    console.log('💾 [COMPOSABLE] Enviando datos al API:', payload)
     const response = await footerService.update(payload)
+    console.log('📥 [COMPOSABLE] Respuesta del API:', response)
     setFooterSettings(response.data)
     footerSettingsLoaded.value = true
+    console.log('✅ [COMPOSABLE] Estado actualizado después de guardar:', footerSettings.value)
     return response.data
   } catch (error) {
-    console.error('Error al guardar la configuración del footer', error)
+    console.error('❌ [COMPOSABLE] Error al guardar:', error)
     throw error
   }
 }
