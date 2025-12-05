@@ -2,6 +2,7 @@
 import api from '@/services/api'
 
 export interface FooterSettingsPayload {
+  logo?: string
   slogan?: string
   email?: string
   phone?: string

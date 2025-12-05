@@ -2,6 +2,7 @@ import footerService, { type FooterSettingsPayload } from '@/services/footerServ
 import { ref } from 'vue'
 
 export const footerSettingsDefaults = Object.freeze({
+  logo: '/logo.png',
   slogan: 'Transformando ideas en realidad digital desde 2013',
   email: 'info@penacom.com',
   phone: '+1 (555) 123-4567',
@@ -67,6 +68,18 @@ const fetchFooterSettings = async (force = false) => {
   return pendingRequest
 }
 
+const saveFooterSettings = async (payload: FooterSettingsPayload) => {
+  try {
+    const response = await footerService.update(payload)
+    setFooterSettings(response.data)
+    footerSettingsLoaded.value = true
+    return response.data
+  } catch (error) {
+    console.error('Error al guardar la configuración del footer', error)
+    throw error
+  }
+}
+
 export function useFooterSettings() {
   return {
     footerSettings,
@@ -74,5 +87,6 @@ export function useFooterSettings() {
     loadingFooterSettings,
     fetchFooterSettings,
     setFooterSettings,
+    saveFooterSettings,
   }
 }

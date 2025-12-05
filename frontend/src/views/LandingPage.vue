@@ -504,7 +504,7 @@
         <div class="footer-content">
           <div class="footer-brand">
             <div class="footer-logo">
-              <img src="/logo.png" alt="PenaCom Logo" class="footer-logo-image" />
+              <img :src="footerLogo" alt="PenaCom Logo" class="footer-logo-image" />
             </div>
             <p class="footer-tagline">{{ footerSlogan }}</p>
             <div class="social-links">
@@ -625,6 +625,9 @@ import api from '@/services/api'
 const { success, error, warning } = useAlert()
 const { footerSettings, fetchFooterSettings } = useFooterSettings()
 
+const footerLogo = computed(
+  () => footerSettings.value.logo || footerSettingsDefaults.logo || '/logo.png'
+)
 const footerSlogan = computed(() => footerSettings.value.slogan || footerSettingsDefaults.slogan)
 const footerEmail = computed(() => footerSettings.value.email || footerSettingsDefaults.email)
 const footerPhone = computed(() => footerSettings.value.phone || footerSettingsDefaults.phone)

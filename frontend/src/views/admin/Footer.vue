@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="admin-form-config">
+  <div class="admin-footer-config">
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">Configuración del Footer</h1>
+        <h1 class="page-title">⚙️ Configuración del Footer</h1>
         <p class="page-description">
-          Personaliza el mensaje final, redes sociales y datos de contacto visibles en todo el sitio
+          Edita los campos dinámicos del pie de página. Los cambios se reflejan en tiempo real
         </p>
       </div>
       <button class="btn-save" :disabled="saving" @click="saveFooterSettings">
@@ -58,183 +58,63 @@
       <p>Cargando configuración...</p>
     </div>
 
-    <div v-else class="config-section">
-      <div class="section-header">
-        <div class="section-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 21v-7" />
-            <path d="M4 10V3" />
-            <path d="M12 21v-9" />
-            <path d="M12 8V3" />
-            <path d="M20 21v-5" />
-            <path d="M20 12V3" />
-            <path d="M1 14h6" />
-            <path d="M9 8h6" />
-            <path d="M17 16h6" />
-          </svg>
-        </div>
-        <div>
-          <h2 class="section-title">Contenido del Footer</h2>
-          <p class="section-description">Edita la información que se muestra en el pie de página</p>
-        </div>
-      </div>
-
-      <div class="fields-grid">
-        <!-- Slogan y Ubicación -->
-        <div class="field-card">
-          <div class="field-header">
-            <div class="field-info">
-              <div
-                class="field-icon"
-                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-              >
-                📝
-              </div>
-              <div>
-                <h3 class="field-name">Información General</h3>
-                <p class="field-type">Slogan y Ubicación</p>
-              </div>
-            </div>
-          </div>
-          <div class="field-config">
-            <div class="config-row">
-              <label class="config-label">Mensaje principal (Slogan)</label>
-              <textarea
-                v-model="footerData.slogan"
-                class="config-input"
-                rows="3"
-                placeholder="Ej. Transformando ideas en realidad digital..."
-              ></textarea>
-            </div>
-            <div class="config-row">
-              <label class="config-label">Ubicación / Dirección</label>
-              <textarea
-                v-model="footerData.location"
-                class="config-input"
-                rows="3"
-                placeholder="Describe tu ubicación"
-              ></textarea>
-            </div>
+    <div v-else class="content-wrapper">
+      <!-- Panel de Edición -->
+      <div class="edit-panel">
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="icon">🖼️</span>
+            Logo
+          </h2>
+          <div class="form-group">
+            <label class="form-label">URL del Logo</label>
+            <input
+              type="text"
+              v-model="footerData.logo"
+              class="form-input"
+              placeholder="/logo.png"
+            />
+            <small class="form-hint">Ruta o URL de la imagen del logo</small>
           </div>
         </div>
 
-        <!-- Contacto Directo -->
-        <div class="field-card">
-          <div class="field-header">
-            <div class="field-info">
-              <div
-                class="field-icon"
-                style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-              >
-                📞
-              </div>
-              <div>
-                <h3 class="field-name">Contacto Directo</h3>
-                <p class="field-type">Email y Teléfono</p>
-              </div>
-            </div>
-          </div>
-          <div class="field-config">
-            <div class="config-row">
-              <label class="config-label">Correo electrónico</label>
-              <input
-                type="email"
-                v-model="footerData.email"
-                class="config-input"
-                placeholder="contacto@ejemplo.com"
-              />
-            </div>
-            <div class="config-row">
-              <label class="config-label">Teléfono</label>
-              <input
-                type="text"
-                v-model="footerData.phone"
-                class="config-input"
-                placeholder="+52 (998) 500 0000"
-              />
-            </div>
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="icon">💬</span>
+            Slogan
+          </h2>
+          <div class="form-group">
+            <label class="form-label">Mensaje del Footer</label>
+            <textarea
+              v-model="footerData.slogan"
+              class="form-textarea"
+              rows="3"
+              placeholder="Transformando ideas en realidad digital..."
+            ></textarea>
           </div>
         </div>
 
-        <!-- WhatsApp -->
-        <div class="field-card">
-          <div class="field-header">
-            <div class="field-info">
-              <div
-                class="field-icon"
-                style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-              >
-                💬
-              </div>
-              <div>
-                <h3 class="field-name">WhatsApp</h3>
-                <p class="field-type">Botón flotante</p>
-              </div>
-            </div>
-          </div>
-          <div class="field-config">
-            <div class="config-row">
-              <label class="config-label">Número (con lada)</label>
-              <input
-                type="text"
-                v-model="footerData.whatsapp_number"
-                class="config-input"
-                placeholder="529985401540"
-              />
-            </div>
-            <div class="config-row">
-              <label class="config-label">Mensaje inicial</label>
-              <input
-                type="text"
-                v-model="footerData.whatsapp_message"
-                class="config-input"
-                placeholder="Hola, quiero más información..."
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- Redes Sociales -->
-        <div class="field-card" style="grid-column: 1 / -1">
-          <div class="field-header">
-            <div class="field-info">
-              <div
-                class="field-icon"
-                style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-              >
-                🌐
-              </div>
-              <div>
-                <h3 class="field-name">Redes Sociales</h3>
-                <p class="field-type">Enlaces a perfiles</p>
-              </div>
-            </div>
-            <button class="btn-add-service" @click="addSocialLink">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
-              Agregar Red
-            </button>
-          </div>
-          <div class="field-config">
-            <div class="services-list">
-              <div v-for="(link, index) in socialLinks" :key="index" class="service-item">
-                <div class="service-number">{{ index + 1 }}</div>
-                <div class="config-row" style="flex: 1; margin-bottom: 0">
-                  <input
-                    v-model="link.label"
-                    class="service-input"
-                    placeholder="Nombre (Ej. Facebook)"
-                    style="margin-bottom: 0.5rem"
-                  />
-                  <input v-model="link.url" class="service-input" placeholder="URL (https://...)" />
-                </div>
-                <button
-                  class="btn-remove-service"
-                  @click="removeSocialLink(index)"
-                  :disabled="socialLinks.length === 1"
-                >
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="icon">📱</span>
+            Redes Sociales
+          </h2>
+          <div class="social-list">
+            <div v-for="(link, index) in footerData.social_links" :key="index" class="social-item">
+              <div class="social-fields">
+                <input
+                  type="text"
+                  v-model="link.label"
+                  class="form-input"
+                  placeholder="Nombre (ej. Facebook)"
+                />
+                <input
+                  type="text"
+                  v-model="link.url"
+                  class="form-input"
+                  placeholder="URL completa"
+                />
+                <button class="btn-remove" @click="removeSocialLink(index)">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -242,109 +122,180 @@
                 </button>
               </div>
             </div>
+            <button class="btn-add" @click="addSocialLink">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Agregar Red Social
+            </button>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="icon">📧</span>
+            Correo Electrónico
+          </h2>
+          <div class="form-group">
+            <label class="form-label">Email de Contacto</label>
+            <input
+              type="email"
+              v-model="footerData.email"
+              class="form-input"
+              placeholder="contacto@ejemplo.com"
+            />
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="icon">📞</span>
+            Teléfono
+          </h2>
+          <div class="form-group">
+            <label class="form-label">Número de Teléfono</label>
+            <input
+              type="text"
+              v-model="footerData.phone"
+              class="form-input"
+              placeholder="+52 (998) 500 0000"
+            />
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h2 class="section-title">
+            <span class="icon">📍</span>
+            Ubicación
+          </h2>
+          <div class="form-group">
+            <label class="form-label">Dirección / Ubicación</label>
+            <textarea
+              v-model="footerData.location"
+              class="form-textarea"
+              rows="3"
+              placeholder="Cancún, Quintana Roo, México"
+            ></textarea>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Preview Section -->
-    <div class="config-section">
-      <div class="section-header">
-        <div
-          class="section-icon"
-          style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
+      <!-- Vista Previa -->
+      <div class="preview-panel">
+        <div class="preview-header">
+          <h3>Vista Previa en Tiempo Real</h3>
+          <span class="preview-badge">Live Preview</span>
         </div>
-        <div>
-          <h2 class="section-title">Vista Previa</h2>
-          <p class="section-description">Así se verá el footer en el sitio público</p>
-        </div>
-      </div>
+        <div class="preview-container">
+          <footer class="footer-preview">
+            <div class="footer-content">
+              <div class="footer-brand">
+                <div class="footer-logo">
+                  <img
+                    :src="footerData.logo || '/logo.png'"
+                    alt="Logo"
+                    class="footer-logo-image"
+                    @error="handleImageError"
+                  />
+                </div>
+                <p class="footer-tagline">{{ footerData.slogan || 'Tu slogan aquí...' }}</p>
+                <div class="social-links">
+                  <a
+                    v-for="(link, index) in footerData.social_links"
+                    :key="index"
+                    :href="link.url || '#'"
+                    class="social-link"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <span>{{ link.label || 'Red Social' }}</span>
+                  </a>
+                </div>
+              </div>
 
-      <div class="preview-container">
-        <div class="preview-form" style="max-width: 800px">
-          <div class="preview-brand" style="text-align: center; margin-bottom: 2rem">
-            <h3 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem">
-              Peñacom
-            </h3>
-            <p style="color: #64748b">{{ footerData.slogan || 'Tu slogan aquí' }}</p>
-          </div>
+              <div class="footer-section">
+                <h4>Servicios</h4>
+                <ul>
+                  <li><a href="#servicios">Pantallas LED</a></li>
+                  <li><a href="#servicios">Señalización Digital</a></li>
+                  <li><a href="#servicios">Instalación</a></li>
+                  <li><a href="#servicios">Mantenimiento</a></li>
+                </ul>
+              </div>
 
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-              gap: 2rem;
-              margin-bottom: 2rem;
-            "
-          >
-            <div>
-              <h4 class="preview-label">Contacto</h4>
-              <p style="font-size: 0.9rem; color: #1e293b; margin-bottom: 0.25rem">
-                {{ footerData.email || 'email@ejemplo.com' }}
-              </p>
-              <p style="font-size: 0.9rem; color: #1e293b">
-                {{ footerData.phone || '+00 000 0000' }}
-              </p>
-            </div>
-            <div>
-              <h4 class="preview-label">Ubicación</h4>
-              <p style="font-size: 0.9rem; color: #1e293b">
-                {{ footerData.location || 'Dirección de la empresa' }}
-              </p>
-            </div>
-            <div>
-              <h4 class="preview-label">Redes Sociales</h4>
-              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
-                <span
-                  v-for="(link, i) in previewSocialLinks"
-                  :key="i"
-                  style="
-                    font-size: 0.8rem;
-                    padding: 0.25rem 0.5rem;
-                    background: #f1f5f9;
-                    border-radius: 4px;
-                    color: #475569;
-                  "
-                >
-                  {{ link.label || 'Red Social' }}
-                </span>
+              <div class="footer-section">
+                <h4>Empresa</h4>
+                <ul>
+                  <li><a href="#nosotros">Sobre Nosotros</a></li>
+                  <li><a href="#portafolio">Portafolio</a></li>
+                  <li><a href="#testimonios">Testimonios</a></li>
+                  <li><a href="#contacto">Contacto</a></li>
+                </ul>
+              </div>
+
+              <div class="footer-section">
+                <h4>Contacto</h4>
+                <ul class="contact-list">
+                  <li>
+                    <svg
+                      class="contact-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <a :href="`mailto:${footerData.email}`" class="contact-link">
+                      {{ footerData.email || 'email@ejemplo.com' }}
+                    </a>
+                  </li>
+                  <li>
+                    <svg
+                      class="contact-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    <a :href="`tel:${footerData.phone}`" class="contact-link">
+                      {{ footerData.phone || '+52 (998) 000 0000' }}
+                    </a>
+                  </li>
+                  <li>
+                    <svg
+                      class="contact-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{{ footerData.location || 'Tu ubicación aquí' }}</span>
+                  </li>
+                </ul>
               </div>
             </div>
-          </div>
 
-          <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 1.5rem">
-            <a
-              :href="whatsappLink"
-              target="_blank"
-              style="
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                color: #10b981;
-                font-weight: 600;
-                text-decoration: none;
-              "
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                style="width: 20px; height: 20px"
-              >
-                <path d="M16.72 12.06A4.72 4.72 0 0 1 12 16.78a4.73 4.73 0 0 1-4.73-4.72" />
-                <path
-                  d="M5.44 5.44A9 9 0 0 1 20.49 9.72 9 9 0 0 1 9.72 20.49L3 22l1.51-6.72A9 9 0 0 1 5.44 5.44z"
-                />
-              </svg>
-              Probar botón de WhatsApp
-            </a>
-          </div>
+            <div class="footer-bottom">
+              <p>&copy; 2025 Peñacom. Todos los derechos reservados.</p>
+              <div class="footer-links">
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Términos de Servicio</a>
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
     </div>
@@ -352,153 +303,109 @@
 </template>
 
 <script setup lang="ts">
-import footerService, { type FooterSettingsPayload } from '@/services/footerService'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 // @ts-expect-error - useAlert está definido en JavaScript
 import { useAlert } from '@/composables/useAlert'
 import { footerSettingsDefaults, useFooterSettings } from '@/composables/useFooterSettings'
 
-const { success, error: showError } = useAlert()
-const { setFooterSettings } = useFooterSettings()
+const { success, error } = useAlert()
+const { footerSettings, fetchFooterSettings, saveFooterSettings: saveToApi } = useFooterSettings()
 
 const loading = ref(true)
 const saving = ref(false)
 
-const footerData = reactive<FooterSettingsPayload>({
+const footerData = ref({
+  logo: '/logo.png',
   slogan: '',
+  social_links: [] as Array<{ label: string; url: string }>,
   email: '',
   phone: '',
   location: '',
-  whatsapp_number: '',
-  whatsapp_message: '',
 })
 
-const socialLinks = ref<Array<{ label: string; url: string }>>([{ label: 'Facebook', url: '' }])
-
-const previewSocialLinks = computed(() => {
-  const cleaned = socialLinks.value.filter(link => link.label || link.url)
-  return cleaned.length ? cleaned : footerSettingsDefaults.social_links
-})
-
-const whatsappLink = computed(() => {
-  if (!footerData.whatsapp_number) {
-    return '#'
-  }
-  const sanitizedNumber = footerData.whatsapp_number.replace(/\D/g, '')
-  const message = encodeURIComponent(
-    footerData.whatsapp_message || footerSettingsDefaults.whatsapp_message
-  )
-  return `https://wa.me/${sanitizedNumber}?text=${message}`
-})
-
-const hydrateForm = (data: FooterSettingsPayload = {}) => {
-  footerData.slogan = data.slogan ?? ''
-  footerData.email = data.email ?? ''
-  footerData.phone = data.phone ?? ''
-  footerData.location = data.location ?? ''
-  footerData.whatsapp_number = data.whatsapp_number ?? ''
-  footerData.whatsapp_message = data.whatsapp_message ?? ''
-
-  const links =
-    Array.isArray(data.social_links) && data.social_links.length
-      ? data.social_links
-      : footerSettingsDefaults.social_links
-
-  socialLinks.value = links.map(link => ({
-    label: link?.label ?? '',
-    url: link?.url ?? '',
-  }))
-}
-
-const fetchFooterSettings = async () => {
+onMounted(async () => {
   loading.value = true
   try {
-    const data = await footerService.get()
-    hydrateForm(data)
-    setFooterSettings(data)
-  } catch (error) {
-    console.error(error)
-    showError('No se pudo cargar la configuración del footer', 'Error')
+    await fetchFooterSettings()
+    footerData.value = {
+      logo: footerSettings.value.logo || footerSettingsDefaults.logo || '/logo.png',
+      slogan: footerSettings.value.slogan || footerSettingsDefaults.slogan,
+      social_links:
+        footerSettings.value.social_links?.length > 0
+          ? [...footerSettings.value.social_links]
+          : [...footerSettingsDefaults.social_links],
+      email: footerSettings.value.email || footerSettingsDefaults.email,
+      phone: footerSettings.value.phone || footerSettingsDefaults.phone,
+      location: footerSettings.value.location || footerSettingsDefaults.location,
+    }
+  } catch (err) {
+    error('Error al cargar la configuración del footer')
+    console.error(err)
   } finally {
     loading.value = false
   }
-}
+})
 
 const addSocialLink = () => {
-  socialLinks.value.push({ label: '', url: '' })
+  footerData.value.social_links.push({ label: '', url: '' })
 }
 
 const removeSocialLink = (index: number) => {
-  if (socialLinks.value.length === 1) return
-  socialLinks.value.splice(index, 1)
+  footerData.value.social_links.splice(index, 1)
+}
+
+const handleImageError = (e: Event) => {
+  const target = e.target as HTMLImageElement
+  target.src = '/logo.png'
 }
 
 const saveFooterSettings = async () => {
   saving.value = true
   try {
-    const payload: FooterSettingsPayload = {
-      ...footerData,
-      social_links: socialLinks.value,
-    }
-    const response = await footerService.update(payload)
-    const updated = response?.data ?? payload
-    setFooterSettings(updated)
-    success('Footer actualizado correctamente', 'Cambios guardados')
-  } catch (error) {
-    console.error(error)
-    showError('No se pudo guardar la configuración', 'Error')
+    await saveToApi(footerData.value)
+    success('✅ Configuración del footer guardada correctamente')
+  } catch (err) {
+    error('❌ Error al guardar la configuración')
+    console.error(err)
   } finally {
     saving.value = false
   }
 }
-
-onMounted(fetchFooterSettings)
 </script>
 
 <style scoped>
-.admin-form-config {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.admin-footer-config {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 2rem;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.header-content {
-  flex: 1;
-}
-
-.page-title {
+.header-content h1 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #1e293b;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
 }
 
 .page-description {
-  font-size: 1rem;
   color: #64748b;
-  margin: 0;
+  margin-top: 0.5rem;
 }
 
 .btn-save {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
@@ -506,12 +413,12 @@ onMounted(fetchFooterSettings)
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .btn-save:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 .btn-save:disabled {
@@ -542,288 +449,399 @@ onMounted(fetchFooterSettings)
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border-radius: 20px;
-  padding: 3rem;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-  border: 1px solid #e2e8f0;
-  color: #475569;
+  padding: 4rem;
+  color: #64748b;
 }
 
-.config-section {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 2px solid #f1f5f9;
-}
-
-.section-icon {
+.loading-state svg {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  margin-bottom: 1rem;
 }
 
-.section-icon svg {
-  width: 24px;
-  height: 24px;
-  color: white;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 0.25rem 0;
-}
-
-.section-description {
-  font-size: 0.875rem;
-  color: #64748b;
-  margin: 0;
-}
-
-.fields-grid {
+.content-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.edit-panel {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.field-card {
-  background: #f8fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
+.section-card {
+  background: white;
+  border-radius: 16px;
   padding: 1.5rem;
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
-.field-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.field-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.field-info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.field-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.25rem;
-}
-
-.field-name {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
-}
-
-.field-type {
-  font-size: 0.75rem;
-  color: #64748b;
-  margin: 0.25rem 0 0 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.field-config {
-  padding-top: 1rem;
-  border-top: 1px solid #e2e8f0;
-}
-
-.config-row {
-  margin-bottom: 1rem;
-}
-
-.config-row:last-child {
-  margin-bottom: 0;
-}
-
-.config-label {
+.section-title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: #475569;
-  margin-bottom: 0.5rem;
 }
 
-.config-input {
-  width: 100%;
+.form-input,
+.form-textarea {
   padding: 0.75rem;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   transition: all 0.2s ease;
   font-family: inherit;
 }
 
-.config-input:focus {
+.form-input:focus,
+.form-textarea:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-textarea.config-input {
-  resize: vertical;
-  min-height: 80px;
+.form-hint {
+  font-size: 0.8rem;
+  color: #94a3b8;
 }
 
-.btn-add-service {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.875rem;
-}
-
-.btn-add-service:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
-}
-
-.btn-add-service svg {
-  width: 16px;
-  height: 16px;
-}
-
-.services-list {
+.social-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.service-item {
+.social-item {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  transition: all 0.2s ease;
+  gap: 0.5rem;
 }
 
-.service-number {
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 8px;
+.social-fields {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.875rem;
-  flex-shrink: 0;
-}
-
-.service-input {
+  gap: 0.5rem;
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
 }
 
-.service-input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
-}
-
-.btn-remove-service {
-  width: 32px;
-  height: 32px;
-  background: #fee;
-  border: 1px solid #fecaca;
+.btn-remove {
+  padding: 0.5rem;
+  background: #fee2e2;
+  border: none;
   border-radius: 8px;
   color: #dc2626;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
-.btn-remove-service:hover:not(:disabled) {
+.btn-remove:hover {
   background: #fecaca;
-  border-color: #dc2626;
 }
 
-.btn-remove-service:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.btn-remove svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f0f9ff;
+  border: 2px dashed #0ea5e9;
+  border-radius: 8px;
+  color: #0ea5e9;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-add:hover {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  color: #0284c7;
+}
+
+.btn-add svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Vista Previa */
+.preview-panel {
+  position: sticky;
+  top: 2rem;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.preview-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.preview-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .preview-container {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  padding: 3rem;
-  display: flex;
-  justify-content: center;
-}
-
-.preview-form {
   background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  width: 100%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
 }
 
-.preview-label {
-  display: block;
-  font-size: 0.75rem;
+/* Estilos del Footer Preview (idénticos al footer público) */
+.footer-preview {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+  padding: 3rem 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+.footer-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 102, 204, 0.5), transparent);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-brand {
+  max-width: 280px;
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+}
+
+.footer-logo-image {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-tagline {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.footer-section h4 {
+  color: #ffffff;
+  font-size: 0.95rem;
   font-weight: 700;
-  text-transform: uppercase;
-  color: #94a3b8;
-  margin-bottom: 0.25rem;
-  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-section h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #0066cc, #4a90e2);
+  border-radius: 2px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-section a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  font-size: 0.85rem;
+}
+
+.footer-section a:hover {
+  color: #4a90e2;
+  transform: translateX(3px);
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+}
+
+.contact-icon {
+  width: 18px;
+  height: 18px;
+  color: #4a90e2;
+  flex-shrink: 0;
+}
+
+.contact-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-link:hover {
+  color: #4a90e2;
+}
+
+.social-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  min-width: 40px;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: #0066cc;
+  border-color: #0066cc;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
+}
+
+.footer-bottom {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+
+.footer-bottom p {
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.footer-links a:hover {
+  color: #4a90e2;
+}
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-panel {
+    position: relative;
+    top: 0;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
+  .admin-footer-config {
+    padding: 1rem;
+  }
+
   .page-header {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .btn-save {
@@ -831,26 +849,17 @@ textarea.config-input {
     justify-content: center;
   }
 
-  .fields-grid {
+  .footer-content {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .preview-container {
-    padding: 1.5rem;
+  .footer-brand {
+    max-width: 100%;
   }
 
-  .service-item {
+  .social-fields {
     flex-direction: column;
-    align-items: stretch;
-  }
-
-  .service-number {
-    width: 100%;
-    height: 24px;
-  }
-
-  .btn-remove-service {
-    width: 100%;
   }
 }
 </style>

@@ -63,6 +63,7 @@ class SiteSettingController extends Controller {
 
     private function defaultFooterSettings(): array {
         return [
+            'logo' => '/logo.png',
             'slogan' => 'Transformando ideas en realidad digital desde 2013',
             'email' => 'info@penacom.com',
             'phone' => '+1 (555) 123-4567',
