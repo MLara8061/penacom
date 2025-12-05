@@ -26,6 +26,14 @@ let pendingRequest: Promise<typeof footerSettings.value> | null = null
 
 const setFooterSettings = (payload: FooterSettingsPayload = {}) => {
   const defaults = cloneDefaults()
+
+  // Validar que payload sea un objeto y no un array
+  if (Array.isArray(payload) || payload === null || typeof payload !== 'object') {
+    console.warn('⚠️ [COMPOSABLE] Payload inválido recibido del API, usando defaults:', payload)
+    footerSettings.value = defaults
+    return
+  }
+
   const merged = {
     ...defaults,
     ...payload,

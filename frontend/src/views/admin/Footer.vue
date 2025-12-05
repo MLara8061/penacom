@@ -537,6 +537,13 @@ onMounted(async () => {
     console.log('🔄 [ADMIN FOOTER] Cargando configuración del footer...')
     await fetchFooterSettings(true) // Force refresh
     console.log('📦 [ADMIN FOOTER] Datos recibidos del servidor:', footerSettings.value)
+
+    // Verificar que footerSettings sea un objeto válido
+    if (!footerSettings.value || typeof footerSettings.value !== 'object') {
+      console.warn('⚠️ [ADMIN FOOTER] Datos inválidos del servidor, usando defaults')
+      throw new Error('Datos inválidos del servidor')
+    }
+
     footerData.value = {
       logo: footerSettings.value.logo || footerSettingsDefaults.logo || '/logo.png',
       slogan: footerSettings.value.slogan || footerSettingsDefaults.slogan,
@@ -551,7 +558,17 @@ onMounted(async () => {
     console.log('✅ [ADMIN FOOTER] Configuración local inicializada:', footerData.value)
   } catch (err) {
     console.error('❌ [ADMIN FOOTER] Error al cargar:', err)
-    error('Error al cargar la configuración del footer')
+    // Usar valores por defecto en caso de error
+    footerData.value = {
+      logo: footerSettingsDefaults.logo || '/logo.png',
+      slogan: footerSettingsDefaults.slogan,
+      social_links: [...footerSettingsDefaults.social_links],
+      email: footerSettingsDefaults.email,
+      phone: footerSettingsDefaults.phone,
+      location: footerSettingsDefaults.location,
+    }
+    console.log('⚠️ [ADMIN FOOTER] Usando configuración por defecto:', footerData.value)
+    error('⚠️ No se pudo cargar la configuración guardada. Usando valores por defecto.')
   } finally {
     loading.value = false
   }
