@@ -251,9 +251,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-// @ts-expect-error - useAlert is JavaScript
 import { useAlert } from '@/composables/useAlert'
+import { computed, ref } from 'vue'
 
 const { success, error: showError } = useAlert()
 const saving = ref(false)

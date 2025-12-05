@@ -28,6 +28,19 @@ const router = createRouter({
       component: () => import('../views/admin/Login.vue'),
       meta: { requiresGuest: true },
     },
+    // Recuperación de contraseña
+    {
+      path: '/admin/forgot-password',
+      name: 'admin-forgot-password',
+      component: () => import('../views/admin/ForgotPassword.vue'),
+      meta: { requiresGuest: true },
+    },
+    {
+      path: '/admin/reset-password',
+      name: 'admin-reset-password',
+      component: () => import('../views/admin/ResetPassword.vue'),
+      meta: { requiresGuest: true },
+    },
     // Panel Admin (con layout y protección)
     {
       path: '/admin',
@@ -48,12 +61,30 @@ const router = createRouter({
         {
           path: 'leads/redes-sociales',
           name: 'AdminLeadsRedes',
-          component: () => import('../views/admin/Contact.vue'),
+          component: () => import('../views/admin/ComingSoon.vue'),
+          props: {
+            title: 'Leads de Redes Sociales',
+            subtitle: 'Gestiona y analiza los leads provenientes de tus redes sociales',
+            features: [
+              'Seguimiento de leads de Facebook, Instagram y Twitter',
+              'Estadísticas detalladas de conversión',
+              'Integración automática con tus perfiles',
+            ],
+          },
         },
         {
           path: 'leads/google',
           name: 'AdminLeadsGoogle',
-          component: () => import('../views/admin/Contact.vue'),
+          component: () => import('../views/admin/ComingSoon.vue'),
+          props: {
+            title: 'Leads de Google',
+            subtitle: 'Administra los leads generados desde Google Ads y búsqueda orgánica',
+            features: [
+              'Integración con Google Analytics y Ads',
+              'Tracking de campañas publicitarias',
+              'ROI y métricas de rendimiento',
+            ],
+          },
         },
         // Contenido del Sitio
         {

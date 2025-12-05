@@ -705,10 +705,9 @@
 
 <script setup lang="ts">
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-// @ts-expect-error - useAlert está definido en JavaScript
 import { useAlert } from '@/composables/useAlert'
 import { footerSettingsDefaults, useFooterSettings } from '@/composables/useFooterSettings'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 // @ts-expect-error - api está definido en JavaScript
 import api from '@/services/api'
 

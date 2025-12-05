@@ -123,6 +123,12 @@
             Cargando...
           </span>
         </button>
+
+        <div class="auth-footer">
+          <router-link to="/admin/forgot-password" class="forgot-password-link">
+            ¿Olvidaste tu contraseña?
+          </router-link>
+        </div>
       </form>
     </div>
   </div>
@@ -358,6 +364,27 @@ input::placeholder {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.forgot-password-link {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.forgot-password-link:hover {
+  color: #764ba2;
+  text-decoration: underline;
 }
 
 @media (max-width: 480px) {

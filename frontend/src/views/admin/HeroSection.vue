@@ -1,5 +1,16 @@
 <template>
   <div class="admin-hero">
+    <!-- Alert Notification -->
+    <div class="alert-container">
+      <AlertNotification
+        v-model="alertState.show"
+        :type="alertState.type"
+        :title="alertState.title"
+        :message="alertState.message"
+        :duration="alertState.duration"
+      />
+    </div>
+
     <div class="page-header">
       <h1 class="page-title">Sección Héroe</h1>
       <p class="page-description">Gestiona las secciones destacadas de tu página principal</p>
@@ -31,18 +42,27 @@
 
     <div v-else class="hero-grid">
       <div v-for="hero in heroSections" :key="hero.id" class="hero-card">
-        <div class="hero-preview" :style="{ backgroundImage: hero.background_image ? `url(${hero.background_image})` : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }">
+        <div
+          class="hero-preview"
+          :style="{
+            backgroundImage: hero.background_image
+              ? `url(${hero.background_image})`
+              : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          }"
+        >
           <div class="hero-overlay">
             <span v-if="!hero.is_active" class="badge badge-inactive">Inactiva</span>
             <span class="badge badge-order">Orden: {{ hero.order }}</span>
           </div>
         </div>
-        
+
         <div class="hero-content">
           <h3 class="hero-title">{{ hero.title }}</h3>
           <p v-if="hero.subtitle" class="hero-subtitle">{{ hero.subtitle }}</p>
-          <p v-if="hero.description" class="hero-description">{{ truncate(hero.description, 100) }}</p>
-          
+          <p v-if="hero.description" class="hero-description">
+            {{ truncate(hero.description, 100) }}
+          </p>
+
           <div class="hero-actions">
             <button @click="editHero(hero)" class="btn btn-sm btn-secondary">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -54,7 +74,9 @@
             <button @click="deleteHero(hero)" class="btn btn-sm btn-danger">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="3 6 5 6 21 6"></polyline>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                ></path>
               </svg>
               Eliminar
             </button>
@@ -62,6 +84,38 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal de Confirmación -->
+    <transition name="modal">
+      <div v-if="showConfirmModal" class="modal-backdrop" @click="cancelDelete">
+        <div class="modal-content confirm-modal" @click.stop>
+          <div class="confirm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+          </div>
+          <h3 class="confirm-title">¿Eliminar sección?</h3>
+          <p class="confirm-message">
+            ¿Estás seguro de eliminar la sección <strong>"{{ deleteTarget?.title }}"</strong>? Esta
+            acción no se puede deshacer.
+          </p>
+          <div class="confirm-actions">
+            <button @click="cancelDelete" class="btn btn-secondary">Cancelar</button>
+            <button @click="confirmDelete" class="btn btn-danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6" />
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
 
     <!-- Modal Create/Edit -->
     <transition name="modal">
@@ -80,28 +134,54 @@
           <form @submit.prevent="saveHero" class="modal-body">
             <div class="form-group">
               <label class="form-label">Título <span class="required">*</span></label>
-              <input v-model="form.title" type="text" required class="form-control" placeholder="Título principal">
+              <input
+                v-model="form.title"
+                type="text"
+                required
+                class="form-control"
+                placeholder="Título principal"
+              />
             </div>
 
             <div class="form-group">
               <label class="form-label">Subtítulo</label>
-              <input v-model="form.subtitle" type="text" class="form-control" placeholder="Subtítulo opcional">
+              <input
+                v-model="form.subtitle"
+                type="text"
+                class="form-control"
+                placeholder="Subtítulo opcional"
+              />
             </div>
 
             <div class="form-group">
               <label class="form-label">Descripción</label>
-              <textarea v-model="form.description" rows="3" class="form-control" placeholder="Descripción detallada..."></textarea>
+              <textarea
+                v-model="form.description"
+                rows="3"
+                class="form-control"
+                placeholder="Descripción detallada..."
+              ></textarea>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Texto del Botón</label>
-                <input v-model="form.button_text" type="text" class="form-control" placeholder="Ej: Saber Más">
+                <input
+                  v-model="form.button_text"
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej: Saber Más"
+                />
               </div>
 
               <div class="form-group">
                 <label class="form-label">Enlace del Botón</label>
-                <input v-model="form.button_link" type="text" class="form-control" placeholder="Ej: #servicios">
+                <input
+                  v-model="form.button_link"
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej: #servicios"
+                />
               </div>
             </div>
 
@@ -119,13 +199,19 @@
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Orden <span class="required">*</span></label>
-                <input v-model.number="form.order" type="number" required min="0" class="form-control">
+                <input
+                  v-model.number="form.order"
+                  type="number"
+                  required
+                  min="0"
+                  class="form-control"
+                />
               </div>
 
               <div class="form-group">
                 <label class="form-label">Estado</label>
                 <label class="toggle">
-                  <input v-model="form.is_active" type="checkbox">
+                  <input v-model="form.is_active" type="checkbox" />
                   <span class="toggle-slider"></span>
                   <span class="toggle-label">{{ form.is_active ? 'Activa' : 'Inactiva' }}</span>
                 </label>
@@ -135,12 +221,25 @@
             <div class="modal-actions">
               <button type="button" @click="closeModal" class="btn btn-secondary">Cancelar</button>
               <button type="submit" class="btn btn-primary" :disabled="saving">
-                <svg v-if="!saving" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg
+                  v-if="!saving"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
                   <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
                   <polyline points="17 21 17 13 7 13 7 21"></polyline>
                   <polyline points="7 3 7 8 15 8"></polyline>
                 </svg>
-                <svg v-else class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg
+                  v-else
+                  class="spinner"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
                   <circle cx="12" cy="12" r="10"></circle>
                 </svg>
                 {{ saving ? 'Guardando...' : 'Guardar' }}
@@ -150,38 +249,25 @@
         </div>
       </div>
     </transition>
-
-    <!-- Alert -->
-    <transition name="fade">
-      <div v-if="message" class="alert" :class="'alert-' + messageType">
-        <svg v-if="messageType === 'success'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="15" y1="9" x2="9" y2="15"></line>
-          <line x1="9" y1="9" x2="15" y2="15"></line>
-        </svg>
-        <span>{{ message }}</span>
-      </div>
-    </transition>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import api from '../../services/api'
 import ImageUploader from '@/components/admin/ImageUploader.vue'
+import AlertNotification from '@/components/AlertNotification.vue'
+import { useAlert } from '@/composables/useAlert'
+import { onMounted, ref } from 'vue'
+import api from '../../services/api'
 
+const { alertState, success, error: showError } = useAlert()
 const heroSections = ref([])
 const loading = ref(true)
 const saving = ref(false)
-const message = ref('')
-const messageType = ref('')
 const showCreateModal = ref(false)
 const showEditModal = ref(false)
+const showConfirmModal = ref(false)
 const editingHero = ref(null)
+const deleteTarget = ref(null)
 const imageHistory = ref([])
 
 const form = ref({
@@ -192,16 +278,16 @@ const form = ref({
   button_link: '',
   background_image: '',
   is_active: true,
-  order: 0
+  order: 0,
 })
 
 const loadHeroSections = async () => {
   try {
     const response = await api.get('/hero-sections')
     heroSections.value = response.data
-  } catch (error) {
-    console.error('Error al cargar secciones:', error)
-    showMessage('Error al cargar las secciones', 'error')
+  } catch (err) {
+    console.error('Error al cargar secciones:', err)
+    showError('Error al cargar las secciones')
   } finally {
     loading.value = false
   }
@@ -212,37 +298,50 @@ const saveHero = async () => {
   try {
     if (editingHero.value) {
       await api.put(`/hero-sections/${editingHero.value.id}`, form.value)
-      showMessage('Sección actualizada exitosamente', 'success')
+      success('Sección actualizada exitosamente')
     } else {
       await api.post('/hero-sections', form.value)
-      showMessage('Sección creada exitosamente', 'success')
+      success('Sección creada exitosamente')
     }
     await loadHeroSections()
     closeModal()
-  } catch (error) {
-    console.error('Error al guardar:', error)
-    showMessage(error.response?.data?.message || 'Error al guardar la sección', 'error')
+  } catch (err) {
+    console.error('Error al guardar:', err)
+    showError(err.response?.data?.message || 'Error al guardar la sección')
   } finally {
     saving.value = false
   }
 }
 
-const editHero = (hero) => {
+const editHero = hero => {
   editingHero.value = hero
   form.value = { ...hero }
   showEditModal.value = true
 }
 
-const deleteHero = async (hero) => {
-  if (!confirm(`¿Estás seguro de eliminar la sección "${hero.title}"?`)) return
-  
+const deleteHero = hero => {
+  deleteTarget.value = hero
+  showConfirmModal.value = true
+}
+
+const cancelDelete = () => {
+  showConfirmModal.value = false
+  deleteTarget.value = null
+}
+
+const confirmDelete = async () => {
+  if (!deleteTarget.value) return
+
   try {
-    await api.delete(`/hero-sections/${hero.id}`)
-    showMessage('Sección eliminada exitosamente', 'success')
+    await api.delete(`/hero-sections/${deleteTarget.value.id}`)
+    success('Sección eliminada exitosamente')
     await loadHeroSections()
-  } catch (error) {
-    console.error('Error al eliminar:', error)
-    showMessage('Error al eliminar la sección', 'error')
+  } catch (err) {
+    console.error('Error al eliminar:', err)
+    showError('Error al eliminar la sección')
+  } finally {
+    showConfirmModal.value = false
+    deleteTarget.value = null
   }
 }
 
@@ -258,7 +357,7 @@ const closeModal = () => {
     button_link: '',
     background_image: '',
     is_active: true,
-    order: 0
+    order: 0,
   }
 }
 
@@ -267,15 +366,7 @@ const truncate = (text, length) => {
   return text.length > length ? text.substring(0, length) + '...' : text
 }
 
-const showMessage = (msg, type) => {
-  message.value = msg
-  messageType.value = type
-  setTimeout(() => {
-    message.value = ''
-  }, 3000)
-}
-
-const onImageUpload = (url) => {
+const onImageUpload = url => {
   // Aquí podrías guardar en el historial de imágenes si tuvieras el endpoint
   console.log('Imagen subida:', url)
 }
@@ -288,14 +379,33 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Alert Container */
+.alert-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.alert-container > * {
+  pointer-events: all;
+}
+
 .admin-hero {
   max-width: 100%;
   animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .page-header {
@@ -498,6 +608,61 @@ onMounted(() => {
   margin-top: 1.5rem;
 }
 
+/* Confirm Modal */
+.confirm-modal {
+  max-width: 450px;
+  text-align: center;
+  padding: 2.5rem;
+}
+
+.confirm-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.confirm-icon svg {
+  width: 48px;
+  height: 48px;
+  color: #d97706;
+  stroke-width: 2;
+}
+
+.confirm-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 1rem 0;
+}
+
+.confirm-message {
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+}
+
+.confirm-message strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confirm-actions .btn {
+  flex: 1;
+  max-width: 150px;
+}
+
 /* Forms */
 .form-group {
   margin-bottom: 1.25rem;
@@ -527,7 +692,7 @@ onMounted(() => {
 
 .form-control:focus {
   outline: none;
-  border-color: #0066CC;
+  border-color: #0066cc;
   box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
 
@@ -576,7 +741,7 @@ textarea.form-control {
 }
 
 .toggle input:checked + .toggle-slider {
-  background: #0066CC;
+  background: #0066cc;
 }
 
 .toggle input:checked + .toggle-slider::before {
@@ -621,7 +786,7 @@ textarea.form-control {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
   color: white;
   box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
 }
@@ -660,51 +825,22 @@ textarea.form-control {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Alert */
-.alert {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 500;
-  font-size: 0.875rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  max-width: 400px;
-}
-
-.alert svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.alert-success {
-  background: #d1fae5;
-  color: #065f46;
-  border: 1px solid #6ee7b7;
-}
-
-.alert-error {
-  background: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fca5a5;
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Transitions */
-.modal-enter-active, .modal-leave-active {
+.modal-enter-active,
+.modal-leave-active {
   transition: opacity 0.3s ease;
 }
 
-.modal-enter-from, .modal-leave-to {
+.modal-enter-from,
+.modal-leave-to {
   opacity: 0;
 }
 
@@ -721,7 +857,8 @@ textarea.form-control {
   transform: scale(0.95) translateY(20px);
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: all 0.3s ease;
 }
 
