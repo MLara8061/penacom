@@ -22,6 +22,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/admin/footer',
+      name: 'admin-footer',
+      component: () => import('../views/admin/Footer.vue'),
+    },
+    {
+      path: '/admin/formulario-contacto',
+      name: 'admin-formulario-contacto',
+      component: () => import('../views/admin/FormularioContacto.vue'),
+    },
   ],
 })
 
