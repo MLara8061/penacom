@@ -1096,7 +1096,8 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   startSlider()
 
-  fetchFooterSettings().catch(() => {
+  // Forzar la carga del footer desde el servidor (force = true) para obtener cambios recientes
+  fetchFooterSettings(true).catch(() => {
     console.warn('No se pudo sincronizar la configuración del footer')
   })
 
