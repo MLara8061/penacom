@@ -68,15 +68,20 @@
         <div v-if="debugExpanded" class="debug-content">
           <div class="debug-section">
             <h4>📊 Estado Actual</h4>
-            <pre>{{ JSON.stringify(footerData, null, 2) }}</pre>
+            <div class="debug-info">
+              <p><strong>Logo:</strong> {{ footerData.logo }}</p>
+              <p><strong>Slogan:</strong> {{ footerData.slogan }}</p>
+              <p><strong>Email:</strong> {{ footerData.email }}</p>
+              <p><strong>Phone:</strong> {{ footerData.phone }}</p>
+              <p><strong>Location:</strong> {{ footerData.location }}</p>
+              <p>
+                <strong>Social Links:</strong> {{ footerData.social_links?.length || 0 }} enlaces
+              </p>
+            </div>
           </div>
           <div class="debug-section">
             <h4>🔄 Última Actualización</h4>
             <p>{{ lastUpdateTime || 'Sin actualizaciones' }}</p>
-          </div>
-          <div class="debug-section">
-            <h4>💾 Estado del Composable</h4>
-            <pre>{{ JSON.stringify(footerSettings, null, 2) }}</pre>
           </div>
         </div>
       </div>
@@ -749,6 +754,18 @@ const saveFooterSettings = async () => {
   font-size: 1rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
+}
+
+.debug-info p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.debug-info strong {
+  color: #fff;
+  font-weight: 600;
 }
 
 .debug-section pre {
